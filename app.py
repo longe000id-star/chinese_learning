@@ -47,14 +47,11 @@ client = groq.Client(api_key=os.environ.get("GROQ_API_KEY") or st.secrets["GROQ_
 def load_kokoro():
     try:
         from kokoro_onnx import Kokoro
-        candidates = [
-            ("kokoro-v1.0.onnx", "voices-v1.0.bin"),
-            ("onnx/model_quantized.onnx", "voices-v1.0.bin"),
-            ("kokoro-v1.0.onnx", "voices/voices-v1.0.bin"),
-        ]
-        for model_path, voices_path in candidates:
-            if os.path.exists(model_path) and os.path.exists(voices_path):
-                return Kokoro(model_path, voices_path)
+        # 指向通过 LFS 上传的模型文件
+        model_path = "kokoro-chinese/model_static.onnx"
+        voices_path = "kokoro-chinese/voices"
+        if os.path.exists(model_path) and os.path.exists(voices_path):
+            return Kokoro(model_path, voices_path)
         return None
     except Exception:
         return None
@@ -80,7 +77,8 @@ def text_to_speech(text):
     if kokoro is not None:
         try:
             import soundfile as sf
-            voice = "zf_xiaobei" if has_chinese(text) else "af_heart"
+            # 使用保留的中文音色 zf_001 和英文音色 af_sol
+            voice = "zf_001" if has_chinese(text) else "af_sol"
             samples, sample_rate = kokoro.create(text, voice=voice, speed=1.0)
             buf = io.BytesIO()
             sf.write(buf, samples, sample_rate, format="WAV")
