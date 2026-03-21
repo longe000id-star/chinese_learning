@@ -176,23 +176,23 @@ def auto_generate_reference(level, full_page_content, path_string):
         parts = path_string.split(" > ")
         topic = parts[-1] if parts else "general"
     
-    prompt = f"""You are a Chinese learning assistant. The user is at Level {level} (beginner) and studying the topic: "{topic}".
+    prompt = f"""You are a Chinese learning assistant. The user is at Level {level} and studying the topic: "{topic}".
 
 The complete content of the current page is provided below. Use it to understand exactly what the user is learning.
 
 {full_page_content}
 
 Your task:
-- Use the web search tool to find specific, authoritative online resources (BBC, YouTube, university courses, etc.) that directly cover the same or very similar content at a beginner level.
-- Based on the search results, provide a structured recommendation in Markdown format.
+- Search information on web to find specific, authoritative online resources (BBC, YouTube, university courses, etc.) that directly cover the same or very similar content at a current level.
+- Based on the search results, provide a structured recommendation in clear structure.
 - Include a brief heading (## Recommended Resources), then list each resource with a short description and a clickable hyperlink (e.g., [BBC](URL)).
 - Keep the answer concise but informative.
 
 Example output:
-## Recommended Resources
+Recommended Resources
 
-- **BBC Bitesize**: A lesson on greetings with audio and quizzes. [View](https://www.bbc.co.uk/bitesize/topics/zwd88hv/articles/z8g7jxs)
-- **YouTube**: A beginner video on introducing yourself. [Watch](https://www.youtube.com/watch?v=xxxxx)
+- BBC Bitesize: A lesson on greetings with audio and quizzes. [View](https://www.bbc.co.uk/bitesize/topics/zwd88hv/articles/z8g7jxs)
+- YouTube: A beginner video on introducing yourself. [Watch](https://www.youtube.com/watch?v=xxxxx)
 
 Now generate for the topic: {topic}
 """
@@ -206,7 +206,7 @@ Now generate for the topic: {topic}
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.7,
                 max_tokens=800,
-                tools=[{"type": "web_search"}]   # 启用联网搜索
+             
             )
             # 返回的内容可能是文本，也可能包含工具调用，直接取 content
             return response.choices[0].message.content
