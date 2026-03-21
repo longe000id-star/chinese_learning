@@ -129,10 +129,6 @@ if "conv_history" not in st.session_state:
 if "user_msg_count" not in st.session_state:
     st.session_state.user_msg_count = 0                 # 用户消息计数器（用于触发总结）
 
-# ========== 自动参考相关状态 ==========
-if "auto_ref_pushed" not in st.session_state:
-    st.session_state.auto_ref_pushed = False   # 标记当前水平是否已自动推送
-
 # ---------- 获取当前页面内容 ----------
 def get_current_page_context():
     if not st.session_state.level or not st.session_state.path:
@@ -156,89 +152,7 @@ def get_current_page_context():
         parts.append("Vocabulary on this page:\n" + "\n".join(f"  - {v}" for v in node["vocabulary"]))
     return "\n".join(parts) if len(parts) > 1 else None
 
-# ========== 获取页面预览（前几条例句和词汇，用于推荐上下文） ==========
-def get_page_preview(node):
-    """从当前节点提取前几条例句和词汇，作为预览内容"""
-    preview = ""
-    if "examples" in node and node["examples"]:
-        preview += "Example sentences:\n" + "\n".join(f"  - {e}" for e in node["examples"][:3]) + "\n"
-    if "vocabulary" in node and node["vocabulary"]:
-        preview += "Vocabulary:\n" + "\n".join(f"  - {v}" for v in node["vocabulary"][:5]) + "\n"
-    return preview.strip()
-
-# ========== 自动生成参考消息（AI 直接生成具体链接，基于主题和页面预览） ==========
-def auto_generate_reference(level, topic_name, page_preview, path_string):
-    """
-    根据当前水平、主题名称、页面预览内容，让 AI 直接生成具体的权威链接。
-    输出格式：一行一个 "Keyword: URL"，纯文本，无 Markdown，无 emoji。
-    """
-    # 获取主题（优先使用节点 name，否则用路径最后一部分）
-    if topic_name:
-        main_topic = topic_name
-    else:
-        parts = path_string.split(" > ")
-        main_topic = parts[-1] if parts else "general"
-    
-    # 构建提示，包含页面预览内容
-    preview_text = ""
-    if page_preview:
-        preview_text = f"\nThe page contains the following content preview:\n{page_preview}\n"
-    
-    prompt = f"""You are a Chinese learning assistant. The user is at Level {level} (beginner) and studying the topic: "{main_topic}".{preview_text}
-
-Your task:
-- Provide a list of specific, authoritative online resources (BBC, YouTube, university courses, etc.) that directly cover this topic at a beginner level, based on the topic and the provided page preview.
-- For each resource, output a line in the exact format: Keyword: URL
-- Do not include any other text, no markdown, no emojis, no descriptions.
-- Only output lines in the format "Keyword: URL". Use keywords like "BBC", "YouTube", "Coursera", "ChinesePod", etc.
-- Ensure URLs are real and specific (not homepage, but direct to the relevant lesson/page if possible). Use your knowledge to produce valid URLs.
-
-Example output:
-BBC: https://www.bbc.co.uk/bitesize/topics/zwd88hv/articles/z8g7jxs
-YouTube: https://www.youtube.com/watch?v=xxxxx
-ChinesePod: https://chinesepod.com/lessons/introducing-yourself-beginner
-
-Now generate for topic: {main_topic}
-"""
-    
-    try:
-        response = client.chat.completions.create(
-            model="groq/compound",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.7,
-            max_tokens=400
-        )
-        return response.choices[0].message.content
-    except Exception as e:
-        return f"Auto-generation error: {e}"
-
-def auto_push_reference(level, current_node, path_string):
-    """
-    自动推送参考消息到聊天记录，并生成语音（可选）。
-    只在未推送时执行一次。
-    """
-    if st.session_state.auto_ref_pushed:
-        return
-
-    # 获取当前节点的名称（如果有）
-    topic_name = current_node.get("name", "") if isinstance(current_node, dict) else ""
-    # 获取页面预览（前几条例句和词汇）
-    page_preview = get_page_preview(current_node)
-
-    ref_content = auto_generate_reference(level, topic_name, page_preview, path_string)
-    if ref_content:
-        # 直接使用 AI 生成的纯文本，不加额外标题
-        final_msg = ref_content.strip()
-        st.session_state.messages.append({"role": "assistant", "content": final_msg})
-
-        # 可选：生成语音（如果不需要可注释掉）
-        audio_bytes, fmt = text_to_speech(final_msg)
-        if audio_bytes:
-            st.session_state.pending_tts = (audio_bytes, fmt)
-
-        st.session_state.auto_ref_pushed = True
-
-# ========== 缓存的 AI 回复函数 ==========
+# ========== 新增：缓存的 AI 回复函数 ==========
 @st.cache_data(ttl=3600, max_entries=100)
 def cached_chat_completion(system_prompt, page_context, summary_text, user_text):
     """缓存 AI 回复，参数必须可哈希"""
@@ -263,7 +177,7 @@ def cached_chat_completion(system_prompt, page_context, summary_text, user_text)
         else:
             return f"Sorry, I encountered an error: {err}"
 
-# ========== 生成总结的函数 ==========
+# ========== 新增：生成总结的函数 ==========
 def generate_summary(history, old_summary=""):
     """基于历史对话和旧总结生成新总结（使用 AI 自身）"""
     if not history:
@@ -639,19 +553,16 @@ with col1:
     if st.button("Level 1", use_container_width=True):
         st.session_state.level = 1
         st.session_state.path = ["LEVEL_I"]
-        st.session_state.auto_ref_pushed = False   # 重置标记，以便重新推送
         st.rerun()
 with col2:
     if st.button("Level 2", use_container_width=True):
         st.session_state.level = 2
         st.session_state.path = ["LEVEL_II"]
-        st.session_state.auto_ref_pushed = False   # 重置标记
         st.rerun()
 with col3:
     if st.button("Level 3", use_container_width=True):
         st.session_state.level = 3
         st.session_state.path = ["LEVEL_III"]
-        st.session_state.auto_ref_pushed = False   # 重置标记
         st.rerun()
 
 if st.session_state.level:
@@ -715,11 +626,6 @@ if st.session_state.level:
                             st.rerun()
 
     display_node(current_node)
-    
-    # ========== 自动推送参考消息（在页面显示后触发） ==========
-    # 如果还没有为当前水平推送过，则生成并推送
-    if not st.session_state.auto_ref_pushed:
-        auto_push_reference(st.session_state.level, current_node, bread)
 
 # ---------- 悬浮聊天窗 ----------
 with st.container():
@@ -755,7 +661,6 @@ with st.container():
             st.session_state.conversation_summary = ""
             st.session_state.conv_history = []
             st.session_state.user_msg_count = 0
-            st.session_state.auto_ref_pushed = False   # 重置自动推送标记
             # 可选：删除总结文件
             if os.path.exists("conversation_summary.txt"):
                 os.remove("conversation_summary.txt")
