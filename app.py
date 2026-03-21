@@ -385,20 +385,20 @@ st.markdown(f"""
 
     .stChatInput {{ margin-top: 8px; }}
     .stChatInput > div {{
-        background-color: transparent !important;
-        border: 1px solid #dddddd !important;
+        background-color: #2d3748 !important;
+        border: none !important;
         border-radius: 40px !important;
     }}
     .stChatInput input {{
-        font-size: 32px !important;
+        font-size: 28px !important;
         padding: 16px 24px !important;
         background-color: transparent !important;
-        color: #000000 !important;
-        min-height: 60px !important;
+        color: #ffffff !important;
+        min-height: 54px !important;
     }}
     .stChatInput input::placeholder {{
-        font-size: 32px !important;
-        color: #666666 !important;
+        font-size: 28px !important;
+        color: #a0aec0 !important;
     }}
 
     .clear-button-container .stButton > button {{
@@ -416,6 +416,23 @@ st.markdown(f"""
     }}
     .clear-button-container .stButton > button:hover {{
         color: #000000 !important;
+    }}
+
+    /* AI按钮样式 - 保持简洁的圆角按钮外观 */
+    .chat-float-container > div[data-testid="column"] > .stButton > button {{
+        background-color: transparent !important;
+        border: 2px solid rgba(0,0,0,0.3) !important;
+        border-radius: 40px !important;
+        padding: 16px 32px !important;
+        font-size: 28px !important;
+        font-weight: 500 !important;
+        color: #000000 !important;
+        box-shadow: none !important;
+        margin-bottom: 12px !important;
+    }}
+    .chat-float-container > div[data-testid="column"] > .stButton > button:hover {{
+        background-color: rgba(255,255,255,0.3) !important;
+        border-color: #000000 !important;
     }}
 
     /* 完全隐藏所有音频播放器 */
