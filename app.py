@@ -650,7 +650,7 @@ st.markdown(f"""
     .stChatInput {{
         border-radius: 20px !important;
         border: 1px solid rgba(0,0,0,0.3) !important;
-        background-color: rgba(17,18,27,0.9) !important;
+        background-color: rgba(20,21,30,0.9) !important;
         font-family: 'Manrope', sans-serif !important;
         font-size: 16px !important;
         font-weight: 400 !important;
