@@ -342,6 +342,7 @@ Summary:"""
     except Exception as e:
         st.warning(f"Failed to generate summary: {e}")
 
+
 # ---------- CSS样式 ----------
 st.markdown(f"""
 <style>
@@ -408,33 +409,34 @@ st.markdown(f"""
 
     /* 聊天输入框背景透明 */
     div[data-testid="stChatInput"] textarea,
-    div[data-testid="stChatInput"] > div {
+    div[data-testid="stChatInput"] > div {{
         background-color: transparent !important;
         background: transparent !important;
         border-color: rgba(100, 100, 100, 0.3) !important;
-    }
+    }}
 
     /* 聊天消息容器背景透明 */
-    div[data-testid="stChatMessage"] {
+    div[data-testid="stChatMessage"] {{
         background-color: rgba(240, 240, 240, 0.4) !important;
         backdrop-filter: blur(5px);
         border-radius: 12px;
         border: 1px solid rgba(200, 200, 200, 0.3);
-    }
+    }}
 
     /* 输入框区域整体背景透明 */
     .stChatInputContainer,
-    div[data-testid="stChatInputContainer"] {
+    div[data-testid="stChatInputContainer"] {{
         background-color: transparent !important;
-    }
+    }}
 
-    div[data-testid="stAppViewBlockContainer"] {
+    div[data-testid="stAppViewBlockContainer"] {{
         background: transparent !important;
-    }
+    }}
 
     /* 语言选择器容器样式 */
     .language-selector {{
-        position: fixed        top: 20px;
+        position: fixed;
+        top: 20px;
         right: 20px;
         z-index: 1000;
         background: rgba(255, 255, 255, 0.95);
