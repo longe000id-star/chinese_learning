@@ -112,7 +112,7 @@ def text_to_speech(text):
 
 # ---------- 构建系统提示 ----------
 def build_system_prompt(levels):
-    prompt = """You are a Chinese learning assistant helping students learn Chinese. 
+    prompt = """You are a language learning assistant helping students learn Languages. 
 You have access to learning materials across 3 levels covering grammar, vocabulary, and conversation.
 Keep your answers concise, clear, and helpful. Focus on what the user is currently studying."""
     return prompt
@@ -202,7 +202,7 @@ def auto_generate_reference(level, full_page_content, path_string):
 Topic summary: {notes if notes else "Basic Chinese learning topic"}
 
 Your task:
-- Search the web to find 3-4 high-quality learning resources (articles, videos, exercises)
+- Search the web to find 3-4 high-quality learning resources(must valid, send links before comfire if links is valid) (articles, videos, exercises)
 - Provide a brief heading and list each resource with a short description and clickable link
 - Keep it concise
 
