@@ -360,7 +360,7 @@ st.markdown(f"""
 
     /* ↓ 新增代码放在这里 ↓ */
     .stApp {{
-        background-color: rgba(255, 255, 255, 0.3) !important;
+        background-color: rgba(255, 255, 255, 0.1) !important;
         background-blend-mode: overlay !important;
     }}
     
