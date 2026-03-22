@@ -407,7 +407,33 @@ st.markdown(f"""
         pointer-events: none !important;
         background: transparent !important;
     }}
+
+     /* 通用隐藏 AI 弹窗、白框、遮罩 */
+    div[role="dialog"],
+    div[data-baseweb="modal"],
+    div[data-baseweb="drawer"],
+    div[class*="overlay"],
+    div[class*="backdrop"],
+    div[class*="Overlay"],
+    div[style*="position: fixed"][style*="inset: 0"],
+    div[style*="background-color: white"],
+    div[style*="background: white"] {
+        display: none !important;
+        pointer-events: none !important;
+        background: transparent !important;
+    }
+
+    /* 防止伪元素生成白色覆盖 */
+    div[role="dialog"]::before,
+    div[role="dialog"]::after,
+    div[class*="overlay"]::before,
+    div[class*="overlay"]::after {
+        display: none !important;
+        content: none !important;
+    }
     
+
+
     /* 语言选择器容器样式 */
     .language-selector {{
         position: fixed;
