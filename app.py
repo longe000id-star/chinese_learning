@@ -547,11 +547,12 @@ st.markdown(f"""
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }}
 
-    /* 卡片容器（st.container border=True）背景透明度调整 */
+    /* 卡片容器（st.container border=True）背景完全不透明（白色） */
     div[data-testid="stContainer"] {{
-        background-color: rgba(255, 255, 255, 0.9) !important;   /* 修改最后一个数字调整透明度：0=全透，1=不透 */
+        background-color: rgba(255, 255, 255, 1) !important;   /* 完全不透明 */
         border-radius: 12px !important;
         border: 1px solid rgba(200, 200, 200, 0.3) !important;
+        padding: 16px !important;
     }}
 
     /* 标题 */
@@ -864,7 +865,6 @@ if st.session_state.chat_open:
             sample_rate=16000,
         )
         if audio and audio.get("bytes"):
-            # 避免重复处理相同录音（通过 bytes 长度和时间戳简单去重）
             audio_bytes = audio["bytes"]
             if audio_bytes != st.session_state.last_recording:
                 st.session_state.last_recording = audio_bytes
