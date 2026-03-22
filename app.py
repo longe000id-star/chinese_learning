@@ -6,6 +6,7 @@ import os
 import time
 import streamlit as st
 import groq
+from streamlit_mic_recorder import mic_recorder  # 自定义录音组件
 
 # ---------- 将背景图片转换为 Base64 嵌入 CSS ----------
 def get_base64_of_image(image_path):
@@ -129,10 +130,10 @@ if "path" not in st.session_state:
     st.session_state.path = []
 if "chat_open" not in st.session_state:
     st.session_state.chat_open = False
-if "last_audio_id" not in st.session_state:
-    st.session_state.last_audio_id = None
 if "pending_tts" not in st.session_state:
     st.session_state.pending_tts = None  # (bytes, fmt)
+if "last_recording" not in st.session_state:
+    st.session_state.last_recording = None  # 用于去重
 
 # ========== 对话总结相关状态 ==========
 if "conversation_summary" not in st.session_state:
@@ -631,9 +632,9 @@ st.markdown(f"""
         margin-bottom: 10px;
     }}
 
-    /* Clear 按钮和语音按钮样式：透明背景，白色文字 */
+    /* Clear 按钮和录音按钮样式：透明背景，白色文字 */
     button[key="clear_chat"],
-    div[data-testid="stAudioInput"] button {{
+    button[key="mic_recorder"] {{
         background-color: rgba(255,255,255,0.2) !important;
         border: 1px solid rgba(255,255,255,0.3) !important;
         color: #ffffff !important;
@@ -644,22 +645,13 @@ st.markdown(f"""
         transition: all 0.2s ease;
     }}
     button[key="clear_chat"]:hover,
-    div[data-testid="stAudioInput"] button:hover {{
+    button[key="mic_recorder"]:hover {{
         background-color: rgba(255,255,255,0.4) !important;
     }}
 
     /* 完全隐藏所有音频播放器 */
     .stAudio {{
         display: none !important;
-    }}
-
-    div[data-testid="stAudioInput"] {{
-        margin: 4px 0 !important;
-        background: transparent !important;
-    }}
-    div[data-testid="stAudioInput"] > div {{
-        background: transparent !important;
-        border: none !important;
     }}
 
     /* 隐藏所有tooltip和弹窗元素（除了语言选择器） */
@@ -845,15 +837,14 @@ if st.session_state.chat_open:
         st.audio(audio_bytes, format=fmt, autoplay=True)
         st.session_state.pending_tts = None
 
-    # 输入区域：统一容器，三列布局（Clear / 语音 / 文本）
+    # 输入区域：统一容器，三列布局（Clear / 录音 / 文本）
     st.markdown('<div class="chat-input-area">', unsafe_allow_html=True)
-    col_clear, col_voice, col_text = st.columns([1, 1, 6])
+    col_clear, col_mic, col_text = st.columns([1, 1, 6])
 
     with col_clear:
         if st.button("Clear", key="clear_chat", use_container_width=True):
             st.session_state.messages = [m for m in st.session_state.messages if m["role"] == "system"]
             st.session_state.pending_tts = None
-            st.session_state.last_audio_id = None
             st.session_state.conversation_summary = ""
             st.session_state.conv_history = []
             st.session_state.user_msg_count = 0
@@ -862,24 +853,31 @@ if st.session_state.chat_open:
                 os.remove("conversation_summary.txt")
             st.rerun()
 
-    with col_voice:
-        audio_input = st.audio_input("🎤", key="voice_input", label_visibility="collapsed")
-        if audio_input is not None:
-            audio_id = f"{audio_input.name}_{audio_input.size}"
-            if audio_id != st.session_state.last_audio_id:
-                st.session_state.last_audio_id = audio_id
-                audio_bytes = audio_input.read()
-                if audio_bytes:
-                    with st.spinner("Transcribing..."):
-                        transcript = transcribe_audio(audio_bytes)
-                    if transcript and not transcript.startswith("[转录失败"):
-                        with st.spinner("Thinking..."):
-                            get_ai_reply(transcript)
-                        st.rerun()
+    with col_mic:
+        # 使用 streamlit-mic-recorder 组件
+        audio = mic_recorder(
+            start_prompt="🎤 录音",
+            stop_prompt="⏹️ 停止",
+            key="mic_recorder",
+            use_container_width=True,
+            format="wav",
+            sample_rate=16000,
+        )
+        if audio and audio.get("bytes"):
+            # 避免重复处理相同录音（通过 bytes 长度和时间戳简单去重）
+            audio_bytes = audio["bytes"]
+            if audio_bytes != st.session_state.last_recording:
+                st.session_state.last_recording = audio_bytes
+                with st.spinner("正在转录..."):
+                    transcript = transcribe_audio(audio_bytes)
+                if transcript and not transcript.startswith("[转录失败"):
+                    with st.spinner("思考中..."):
+                        get_ai_reply(transcript)
+                    st.rerun()
 
     with col_text:
         if prompt := st.chat_input("Type a message...", key="text_input"):
-            with st.spinner("Thinking..."):
+            with st.spinner("思考中..."):
                 get_ai_reply(prompt)
             st.rerun()
 
