@@ -543,7 +543,7 @@ st.markdown(f"""
         border-radius: 8px;
         margin-bottom: 20px;
         font-family: 'Manrope', sans-serif;
-        font-size: 24px;
+        font-size: 18px;
         color: #000000;
         font-weight: 700;
         border: none;
