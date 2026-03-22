@@ -389,6 +389,11 @@ st.markdown(f"""
     div[data-baseweb="drawer"] {{
         display: none !important;
     }}
+
+    div[data-baseweb="modal"] {{ 
+        display: none !important; 
+    }}
+
     div[class*="overlay"] {{
         display: none !important;
     }}
