@@ -624,23 +624,6 @@ st.markdown(f"""
 
 
 
-    /* 聊天面板 */
-    .chat-panel {{
-        position: fixed;
-        bottom: 120px;
-        right: 30px;
-        width: 450px;
-        height: 600px;
-        background-color: rgba(255,255,255,0.85);
-        border-radius: 16px;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        display: flex;
-        flex-direction: column;
-        z-index: 998;
-        border: none;
-        backdrop-filter: blur(10px);
-    }}
-
     /* 聊天消息区域 */
     .chat-messages-area {{
         flex: 1;
