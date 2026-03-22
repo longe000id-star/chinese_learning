@@ -671,7 +671,7 @@ st.markdown(f"""
 
     /* placeholder 样式跟输入框一致 */
     .stChatInput textarea::placeholder {{
-        color: #000000 !important;             /* 文字颜色，黑色或你想要的 */
+        color: #bbb !important;             /* 文字颜色，黑色或你想要的 */
         font-family: 'Manrope', sans-serif !important;
         font-size: 16px !important;
         font-weight: 400 !important;
