@@ -242,23 +242,32 @@ def auto_push_reference(level, path_string):
             st.session_state.current_recommendations = ref_msg
         st.session_state.auto_ref_pushed = True
 
-# ========== AI 回复函数 ==========
+# ========== AI 回复函数（修改版：每次调用都注入当前页面内容） ==========
 def get_ai_reply(user_input):
     st.session_state.messages.append({"role": "user", "content": user_input})
     st.session_state.user_msg_count += 1
     st.session_state.conv_history.append({"role": "user", "content": user_input})
 
+    # 每次都获取当前页面内容
     full_page = get_current_page_full_content()
+
+    # 构建上下文：复制对话历史，并动态插入当前页面内容和对话总结
     context_msgs = st.session_state.messages.copy()
-    if full_page and st.session_state.user_msg_count == 1:
+
+    # 在原始系统提示之后插入当前页面内容（如果有）
+    if full_page:
+        # 原始系统提示在 messages[0] 中，我们在其后插入页面内容
         context_msgs.insert(1, {"role": "system", "content": full_page})
 
+    # 如果有对话总结，也插入（放在页面内容之后，不影响原始系统提示）
     if st.session_state.conversation_summary:
         summary_msg = {
             "role": "system",
             "content": f"[Previous conversation summary]\n{st.session_state.conversation_summary}"
         }
-        context_msgs.insert(1, summary_msg)
+        # 根据是否有页面内容决定插入位置
+        insert_index = 2 if full_page else 1
+        context_msgs.insert(insert_index, summary_msg)
 
     try:
         response = client.chat.completions.create(
