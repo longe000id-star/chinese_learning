@@ -935,7 +935,7 @@ if st.session_state.chat_open:
                 st.session_state.last_audio_id = audio_id
                 with st.spinner("Transcribing..."):
                     transcript = transcribe_audio(audio_input.read())
-                if transcript and not transcript.startswith("[转录失败"):
+                if transcript:
                     with st.spinner("Thinking..."):
                         get_ai_reply(transcript)
                     st.rerun()
