@@ -495,7 +495,7 @@ st.markdown(f"""
         text-align: left;
         color: #000000;
         font-family: 'Manrope', sans-serif;
-        font-size: 300px); 
+        font-size: 300px; 
         font-weight: 800;
         word-break: break-word;
         max-width: 100%;
@@ -511,6 +511,7 @@ st.markdown(f"""
     }}
 
     /* Level按钮 */
+    button[kind="primary"], 
     .stButton button {{
         background-color: rgba(255,255,255,0.4) !important;
         color: #000000 !important;
