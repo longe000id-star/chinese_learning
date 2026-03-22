@@ -516,7 +516,7 @@ st.markdown(f"""
         background-color: rgba(255,255,255,0.4) !important;
         color: #000000 !important;
         font-family: 'Manrope', sans-serif !important;
-        font-size: 92px !important;
+        font-size: 100px !important;
         font-weight: 800 !important;
         padding: 30px !important;
         transition: all 0.3s ease !important;
@@ -543,7 +543,7 @@ st.markdown(f"""
         border-radius: 8px;
         margin-bottom: 20px;
         font-family: 'Manrope', sans-serif;
-        font-size: 12px;
+        font-size: 24px;
         color: #000000;
         font-weight: 700;
         border: none;
@@ -623,12 +623,7 @@ st.markdown(f"""
     }}
 
     /* 悬浮AI按钮 */
-    .chat-float-container {{
-        position: fixed;
-        bottom: 30px;
-        right: 30px;
-        z-index: 999;
-    }}
+
     button[data-testid="baseButton-secondary"][key="chat_toggle_btn"],
     .chat-float-container .stButton button {{
         width: 70px !important;
