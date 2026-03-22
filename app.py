@@ -76,7 +76,6 @@ def transcribe_audio(audio_bytes):
         )
         return transcription.text
     except Exception as e:
-        # 显示具体错误，帮助定位问题
         st.error(f"语音识别失败: {e}")
         return None
 
@@ -242,32 +241,42 @@ def auto_push_reference(level, path_string):
             st.session_state.current_recommendations = ref_msg
         st.session_state.auto_ref_pushed = True
 
-# ========== AI 回复函数（修改版：每次调用都注入当前页面内容） ==========
+# ========== AI 回复函数（修改版：每次调用都注入当前语言和页面内容） ==========
 def get_ai_reply(user_input):
     st.session_state.messages.append({"role": "user", "content": user_input})
     st.session_state.user_msg_count += 1
     st.session_state.conv_history.append({"role": "user", "content": user_input})
 
-    # 每次都获取当前页面内容
+    # 获取当前页面内容
     full_page = get_current_page_full_content()
 
-    # 构建上下文：复制对话历史，并动态插入当前页面内容和对话总结
+    # 构建上下文：复制对话历史，并动态插入当前语言、页面内容、对话总结
     context_msgs = st.session_state.messages.copy()
 
-    # 在原始系统提示之后插入当前页面内容（如果有）
-    if full_page:
-        # 原始系统提示在 messages[0] 中，我们在其后插入页面内容
-        context_msgs.insert(1, {"role": "system", "content": full_page})
+    # 1. 插入当前语言信息（紧跟在原始系统提示之后）
+    if st.session_state.language:
+        lang_msg = {"role": "system", "content": f"The user is currently learning {st.session_state.language}."}
+        context_msgs.insert(1, lang_msg)
 
-    # 如果有对话总结，也插入（放在页面内容之后，不影响原始系统提示）
+    # 2. 插入当前页面内容（如果有）
+    if full_page:
+        # 根据语言信息是否插入，决定插入位置
+        insert_idx = 2 if st.session_state.language else 1
+        context_msgs.insert(insert_idx, {"role": "system", "content": full_page})
+
+    # 3. 插入对话总结（如果有）
     if st.session_state.conversation_summary:
         summary_msg = {
             "role": "system",
             "content": f"[Previous conversation summary]\n{st.session_state.conversation_summary}"
         }
-        # 根据是否有页面内容决定插入位置
-        insert_index = 2 if full_page else 1
-        context_msgs.insert(insert_index, summary_msg)
+        # 计算插入位置：在语言和页面内容之后
+        base = 1
+        if st.session_state.language:
+            base += 1
+        if full_page:
+            base += 1
+        context_msgs.insert(base, summary_msg)
 
     try:
         response = client.chat.completions.create(
