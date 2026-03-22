@@ -934,7 +934,15 @@ if st.session_state.chat_open:
             if audio_id != st.session_state.last_audio_id:
                 st.session_state.last_audio_id = audio_id
                 with st.spinner("Transcribing..."):
-                    transcript = transcribe_audio(audio_input.read())
+                    try:
+                        audio_bytes = audio_input.read()
+                        transcript = transcribe_audio(audio_bytes)
+                        if not transcript:
+                            # 如果转录失败，设置为空字符串或自定义提示
+                            transcript = ""
+                    except Exception as e:
+                        # 彻底捕获错误，不让 Streamlit 继续抛出
+                        transcript = ""
                 if transcript:
                     with st.spinner("Thinking..."):
                         get_ai_reply(transcript)
