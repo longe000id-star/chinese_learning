@@ -492,10 +492,10 @@ st.markdown(f"""
 
     /* 主标题 */
     h1 {{
-        text-align: center;
+        text-align: left;
         color: #000000;
         font-family: 'Manrope', sans-serif;
-        font-size: 196px;
+        font-size: 500px;
         font-weight: 800;
         margin-bottom: 40px;
         letter-spacing: -2px;
