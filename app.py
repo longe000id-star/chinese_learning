@@ -364,7 +364,7 @@ st.markdown(f"""
 
     /* ↓ 新增代码放在这里 ↓ */
     .stApp {{
-        background-color: rgba(255, 255, 255, 0.7) !important;
+        background-color: rgba(255, 255, 255, 0.5) !important;
         background-blend-mode: overlay !important;
     }}
     
@@ -623,7 +623,12 @@ st.markdown(f"""
     }}
 
     /* 悬浮AI按钮 */
-
+    .chat-float-container {{
+        position: relative;
+        bottom: auto;
+        right: auto;
+        z-index: auto;
+    }}
     button[data-testid="baseButton-secondary"][key="chat_toggle_btn"],
     .chat-float-container .stButton button {{
         width: 70px !important;
