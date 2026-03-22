@@ -419,7 +419,7 @@ st.markdown(f"""
     }}
     .language-selector div[data-baseweb="select"] > div {{
         background-color: white !important;
-        color: #000000 !important;
+        color: #FFFFFF !important;
         border: 1px solid #ccc !important;
         font-size: 16px !important;
         font-weight: 500 !important;
@@ -443,7 +443,7 @@ st.markdown(f"""
     h1 {{
         text-align: center;
         color: #000000;
-        font-size: 64px;
+        font-size: 120px;
         font-weight: 700;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         margin-bottom: 30px;
@@ -662,7 +662,7 @@ with language_col2:
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ---------- 导航和卡片显示 ----------
-st.title("CHINESE LEARNING ASSISTANT")
+st.title("LANGUAGE LEARNING ASSISTANT")
 
 col1, col2, col3 = st.columns(3)
 with col1:
