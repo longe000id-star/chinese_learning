@@ -673,6 +673,7 @@ st.markdown(f"""
         font-weight: 400 !important;
         background-color: rgba(0,0,0,0.9) !important;
         opacity: 1 !important;                 /* 保持完全可见 */
+        border: none !important;             /* 去掉边框 */
     }}
 
     /* Clear按钮 */
