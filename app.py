@@ -25,7 +25,7 @@ else:
 # Page config
 st.set_page_config(
     layout="wide",
-    page_title="Chinese Learning Assistant",
+    page_title="LVING PDF Assistant",
     initial_sidebar_state="collapsed",
     menu_items=None
 )
