@@ -648,9 +648,7 @@ st.markdown(f"""
 
     /* 输入区域 */
     .stChatInput {{
-        border-radius: 25px !important;
-        border: 1px solid rgba(0,0,0,0.3) !important;
-        background-color: rgba(0,0,0,0.9) !important;
+        background-color: rgba(38,39,48,0.9) !important;
         font-family: 'Manrope', sans-serif !important;
         font-size: 16px !important;
         font-weight: 400 !important;
@@ -722,15 +720,6 @@ st.markdown(f"""
         display: none !important;
     }}
 
-    input:focus,
-    textarea:focus,
-    button:focus,
-    input:focus-visible,
-    textarea:focus-visible,
-    button:focus-visible {{
-        outline: none !important;
-        box-shadow: none !important;
-    }}
 
 </style>
 """, unsafe_allow_html=True)
