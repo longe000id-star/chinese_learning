@@ -403,15 +403,6 @@ st.markdown(f"""
         background: transparent !important;
     }}
     
-    /* 隐藏所有streamlit的内部元素 */
-    .stButton > button > div {{
-        pointer-events: none !important;
-    }}
-    button:focus {{
-        outline: none !important;
-        box-shadow: 0 6px 16px rgba(0,0,0,0.3) !important;
-    }}
-    
     /* 语言选择器容器样式 */
     .language-selector {{
         position: fixed;
@@ -466,13 +457,13 @@ st.markdown(f"""
     h1 {{
         text-align: center;
         color: #000000;
+        font-family: 'Manrope', sans-serif;
         font-size: 96px;
         font-weight: 800;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         margin-bottom: 40px;
         letter-spacing: -2px;
         line-height: 1.1;
-        font-family: 'Manrope', sans-serif;
     }}
 
     /* Level按钮 */
@@ -480,7 +471,7 @@ st.markdown(f"""
         background-color: rgba(255,255,255,0.4) !important;
         color: #000000 !important;
         font-family: 'Manrope', sans-serif !important;
-        font-size: 42px !important;
+        font-size: 48px !important;
         font-weight: 800 !important;
         border: 1px solid rgba(100,100,100,0.3) !important;
         border-radius: 12px !important;
@@ -522,7 +513,6 @@ st.markdown(f"""
         border: 1px solid rgba(100,100,100,0.3) !important;
         border-radius: 8px !important;
         padding: 10px 24px !important;
-        letter-spacing: 0px !important;
     }}
 
     /* 容器样式 */
@@ -541,8 +531,8 @@ st.markdown(f"""
         font-family: 'Manrope', sans-serif;
         font-weight: 800;
         margin-bottom: 15px;
-        font-size: 48px;
-        letter-spacing: -1px;
+        font-size: 56px;
+        letter-spacing: -1.5px;
         line-height: 1.2;
     }}
     h3 {{
@@ -551,7 +541,7 @@ st.markdown(f"""
         font-weight: 700;
         margin-top: 20px;
         margin-bottom: 10px;
-        font-size: 32px;
+        font-size: 36px;
         letter-spacing: -0.5px;
     }}
     
