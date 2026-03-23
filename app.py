@@ -580,7 +580,7 @@ st.markdown(f"""
     .language-selector label {{
         font-family: 'Manrope', sans-serif;
         font-weight: 700;
-        color: #000000;
+        color: #ffffff;
         margin: 0;
         font-size: 16px;
     }}
