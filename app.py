@@ -194,16 +194,28 @@ def auto_generate_reference(level, full_page_content, path_string):
 Topic summary: {notes if notes else "Basic Chinese learning topic"}
 
 Your task:
-- Search the web to find 3-4 high-quality learning resources from mainstream medias (articles, videos, exercises)
-- Provide a brief heading and list each resource with a short description and clickable link
+- Generate 3-4 high-quality learning resources using fixed trusted platforms
+- DO NOT search the web
+- Use the topic keyword to build real, valid search links
 - Keep it concise
 - No emojis!
+
+Use these rules to generate links:
+- YouTube: https://www.youtube.com/results?search_query=关键词+chinese
+- Quizlet: https://quizlet.com/search?query=关键词+chinese
+- StackExchange: https://chinese.stackexchange.com/search?q=关键词
 
 Example format:
 【Recommended Resources】
 
-- BBC Chinese: Lesson on greetings. [View](https://www.bbc.co.uk/example)
-- YouTube: Beginner video. [Watch](https://youtube.com/watch?v=xxxxx)
+- YouTube: Beginner explanation video  
+  [Watch](https://www.youtube.com/results?search_query=chinese+grammar+chinese)
+
+- Quizlet: Flashcards for practice  
+  [Practice](https://quizlet.com/search?query=chinese+grammar+chinese)
+
+- Chinese StackExchange: Community Q&A discussion  
+  [Explore](https://chinese.stackexchange.com/search?q=chinese+grammar)
 
 Now generate for: {topic}
 """
