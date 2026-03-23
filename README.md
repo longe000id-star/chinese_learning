@@ -74,7 +74,7 @@ Supervisor Agent (1)
 ---
 Teaching Principles
 
-Here’s what I’m thinking: for example, why AI learning languages has limitations. AI lacks teaching principles. When a teacher teaches, the first goal is to help the student understand, not just deliver knowledge. AI may know language learning theory and provide resources, but it doesn’t provide teaching itself. Teaching has its own principles. I’ve studied a lot of language teaching theory at Peking University—for instance, when learning a language, full immersion is the first step, which would require giving AI very specific teaching instructions. AI usually cannot judge a learner’s level and can’t use gestures or face-to-face interaction to aid understanding, but it can use images or videos. The problem is, if AI searches for resources on its own, it won’t match the learner’s level, and the results may not be appropriate.
+Here’s what I’m thinking: for example, why AI learning languages has limitations. AI lacks teaching principles. When a teacher teaches, the first goal is to help the student understand, not just deliver knowledge. AI may know language learning theory and provide resources, but it doesn’t provide teaching itself. Teaching has its own principles. I’ve studied a lot of language teaching theory —for instance, when learning a language, full immersion is the first step, which would require giving AI very specific teaching instructions. AI usually cannot judge a learner’s level and can’t use gestures or face-to-face interaction to aid understanding, but it can use images or videos. The problem is, if AI searches for resources on its own, it won’t match the learner’s level, and the results may not be appropriate.
 
 LLM Limitations
 
@@ -89,7 +89,7 @@ I plan to use agent-based division to handle these tasks. I’m still exploring 
 ---
 教学常识
 
-我现在的想法是这样的：比如说，为什么用人工智能学习语言会有局限？因为AI缺少教学理念。老师教学生时，首先要帮助学生理解，而不仅仅是传递知识。AI虽然有语言学习理论，但它提供的是资源，不是教学本身。教学有自己的原则。我以前在北京大学看过很多语言教学理论，比如学习一门语言时，第一步是完全沉浸在语言环境中，这就需要给AI特别的教学指令。AI通常分不清学习者的水平，也无法用肢体语言或面对面交流帮助理解，但可以用图片或视频辅助。问题是，如果让AI自己搜索资源，它不会根据学习者水平筛选，结果可能不匹配。
+我现在的想法是这样的：比如说，为什么用人工智能学习语言会有局限？因为AI缺少教学理念。老师教学生时，首先要帮助学生理解，而不仅仅是传递知识。AI虽然有语言学习理论，但它提供的是资源，不是教学本身。教学有自己的原则。我以前在看过很多语言教学理论，比如学习一门语言时，第一步是完全沉浸在语言环境中，这就需要给AI特别的教学指令。AI通常分不清学习者的水平，也无法用肢体语言或面对面交流帮助理解，但可以用图片或视频辅助。问题是，如果让AI自己搜索资源，它不会根据学习者水平筛选，结果可能不匹配。
 
 LLM的问题
 
