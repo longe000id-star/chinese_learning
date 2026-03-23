@@ -211,7 +211,7 @@ Now generate for: {topic}
     for attempt in range(max_retries):
         try:
             response = client.chat.completions.create(
-                model="groq/compound",
+                model="groq/compound-mini",
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.7,
                 max_tokens=500,
