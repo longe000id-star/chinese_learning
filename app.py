@@ -486,7 +486,7 @@ st.markdown(f"""
     }}
 
     .stApp {{
-        background-color: rgba(255, 255, 255, 0.5) !important;
+        background-color: rgba(255, 255, 255, 0.6) !important;
         background-blend-mode: overlay !important;
     }}
 
@@ -562,7 +562,53 @@ st.markdown(f"""
         background: transparent !important;
     }}
 
- 
+    /* 语言选择器容器样式 */
+    .language-selector {{
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: rgba(255, 255, 255, 0.95);
+        padding: 10px 20px;
+        border-radius: 25px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }}
+
+    .language-selector label {{
+        font-family: 'Manrope', sans-serif;
+        font-weight: 700;
+        color: #000000;
+        margin: 0;
+        font-size: 16px;
+    }}
+
+    .language-selector div[data-baseweb="select"] {{
+        background-color: #000000 !important;
+    }}
+    .language-selector div[data-baseweb="select"] > div {{
+        background-color: #000000 !important;
+        color: #000000 !important;
+        border: 1px solid #ccc !important;
+        font-family: 'Manrope', sans-serif !important;
+        font-size: 16px !important;
+        font-weight: 600 !important;
+    }}
+    .language-selector div[data-baseweb="popover"] {{
+        z-index: 1001 !important;
+        display: block !important;
+    }}
+    div[role="listbox"] {{
+        background-color: #000000 !important;
+        color: #000000  !important;
+        display: block !important;
+    }}
+    div[role="option"] {{
+        color: #000000 !important;
+        font-weight: 500 !important;
+    }}
 
     /* 主标题 */
     h1 {{
@@ -669,8 +715,8 @@ st.markdown(f"""
     }}
 
     /* 确保所有文本都是黑色并使用Manrope字体 */
-    p, div:not(.language-selector *), span:not(.language-selector *) {{
-        color: #000000 !important;
+    p, div, span {{
+        color: #FFFFFF !important;
         font-family: 'Manrope', sans-serif !important;
         font-weight: 400 !important;
         line-height: 1.6 !important;
