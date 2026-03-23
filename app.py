@@ -317,9 +317,9 @@ Your task:
 - No emojis!
 
 Use these rules to generate links:
-- YouTube: https://www.youtube.com/results?search_query=关键词+english+learning
-- Quizlet: https://quizlet.com/search?query=关键词+english+vocabulary
-- StackExchange: https://english.stackexchange.com/search?q=关键词
+- YouTube: https://www.youtube.com/results?search_query=advanced english+key_word
+- Quizlet: https://quizlet.com/search?query=advanced english+key_words+vocabulary
+- StackExchange: https://english.stackexchange.com/search?q=only1_key_word
 
 Example format:
 【Recommended Resources】
@@ -580,7 +580,7 @@ st.markdown(f"""
     .language-selector label {{
         font-family: 'Manrope', sans-serif;
         font-weight: 700;
-        color: 	#FFFFFF;
+        color: #000000;
         margin: 0;
         font-size: 16px;
     }}
@@ -590,11 +590,11 @@ st.markdown(f"""
     }}
     .language-selector div[data-baseweb="select"] > div {{
         background-color: white !important;
+        color: #ffffff !important;
         border: 1px solid #ccc !important;
         font-family: 'Manrope', sans-serif !important;
         font-size: 16px !important;
         font-weight: 600 !important;
-        color: #ffffff !important; /* 与搜索框文本颜色一致（白色） */
     }}
     .language-selector div[data-baseweb="popover"] {{
         z-index: 1001 !important;
@@ -602,12 +602,12 @@ st.markdown(f"""
     }}
     div[role="listbox"] {{
         background-color: white !important;
+        color: #ffffff  !important;
         display: block !important;
     }}
     div[role="option"] {{
         color: #ffffff !important;
         font-weight: 500 !important;
-        background-color: white !important;
     }}
 
     /* 主标题 */
@@ -630,7 +630,7 @@ st.markdown(f"""
         }}
     }}
 
-    /* Level按钮通用样式 */
+    /* Level按钮 */
     button[kind="primary"],
     .stButton button {{
         background-color: rgba(255,255,255,0.4) !important;
@@ -642,13 +642,6 @@ st.markdown(f"""
         transition: all 0.3s ease !important;
         box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
         letter-spacing: normal !important;
-    }}
-
-    /* 放大 Level 1/2/3 按钮字体到两倍（200px） */
-    button[data-key="level_1_btn"],
-    button[data-key="level_2_btn"],
-    button[data-key="level_3_btn"] {{
-        font-size: 200px !important;
     }}
 
     .stButton button > div {{
@@ -843,11 +836,6 @@ st.markdown(f"""
     div[data-testid="stVerticalBlock"] > div:first-child {{
         margin-top: 80px;
     }}
-
-    /* 所有卡片按钮（词汇和例句）字体放大两倍 */
-    button[data-key^="btn_"] {{
-        font-size: 2em !important;
-    }}
 </style>
 """, unsafe_allow_html=True)
 
@@ -925,21 +913,21 @@ st.title("TEXTBOOK ASSISTANT")
 
 col1, col2, col3 = st.columns(3)
 with col1:
-    if st.button("Level 1", use_container_width=True, key="level_1_btn"):
+    if st.button("Level 1", use_container_width=True):
         st.session_state.level = 1
         st.session_state.path = ["LEVEL_I"]
         st.session_state.auto_ref_pushed = False
         st.session_state.current_recommendations = None
         st.rerun()
 with col2:
-    if st.button("Level 2", use_container_width=True, key="level_2_btn"):
+    if st.button("Level 2", use_container_width=True):
         st.session_state.level = 2
         st.session_state.path = ["LEVEL_II"]
         st.session_state.auto_ref_pushed = False
         st.session_state.current_recommendations = None
         st.rerun()
 with col3:
-    if st.button("Level 3", use_container_width=True, key="level_3_btn"):
+    if st.button("Level 3", use_container_width=True):
         st.session_state.level = 3
         st.session_state.path = ["LEVEL_III"]
         st.session_state.auto_ref_pushed = False
