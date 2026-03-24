@@ -115,7 +115,7 @@ Supervisor Agent (1)
 
 ## Stack
 
-- **Language model:** Meta open-source lightweight model (free)
+- **Language model:** Production Models supported by Groq
 - **Web app:** Streamlit
 - **Data format:** JSON
 - **Deployment:** GitHub + Streamlit Cloud
