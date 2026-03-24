@@ -55,27 +55,31 @@ levels_data = load_level_data(st.session_state.language)
 @st.cache_data
 def load_nemt_cet_data():
     nemt_cet_data = {}
-    try:
-        with open("TEM-8.json", "r", encoding="utf-8") as f:
-            nemt_cet_data["TEM-8"] = json.load(f)
-    except FileNotFoundError:
-        st.warning("TEM-8.json not found.")
     
-    try:
-        with open("NEMT.json", "r", encoding="utf-8") as f:
-            nemt_cet_data["NEMT"] = json.load(f)
-    except FileNotFoundError:
-        st.warning("NEMT.json not found.")
+    # 定义需要加载的文件
+    files_to_load = ["TEM-8.json", "NEMT.json", "CET-46.json"]
     
-    try:
-        with open("CET-46.json", "r", encoding="utf-8") as f:
-            nemt_cet_data["CET-46"] = json.load(f)
-    except FileNotFoundError:
-        st.warning("CET-46.json not found.")
+    for filename in files_to_load:
+        try:
+            print(f"Attempting to load: {filename}")
+            with open(filename, "r", encoding="utf-8") as f:
+                nemt_cet_data[filename.replace('.json', '')] = json.load(f)
+                st.success(f"✅ Loaded {filename}")
+                print(f"✅ Successfully loaded {filename}")
+        except FileNotFoundError:
+            st.warning(f"⚠️ {filename} not found. Creating empty structure.")
+            print(f"❌ {filename} not found")
+            nemt_cet_data[filename.replace('.json', '')] = {}
+        except json.JSONDecodeError as e:
+            st.error(f"❌ Error parsing {filename}: {e}")
+            print(f"❌ JSON parse error in {filename}: {e}")
+            nemt_cet_data[filename.replace('.json', '')] = {}
     
     return nemt_cet_data
 
-nemt_cet_data = load_nemt_cet_data()
+# 显示加载状态
+with st.spinner("Loading NEMT & CET data..."):
+    nemt_cet_data = load_nemt_cet_data()
 
 # 添加一个状态来跟踪当前是否在 NEMT & CET 界面
 if "current_mode" not in st.session_state:
