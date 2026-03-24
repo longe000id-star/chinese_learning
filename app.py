@@ -1246,13 +1246,17 @@ if st.session_state.current_mode == "textbook":
 elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_nemt_cet:
     data = nemt_cet_data.get(st.session_state.selected_nemt_cet, {})
     
+    # 如果 data 只有一个键且该键就是考试名称本身，则取它的值（处理嵌套结构）
+    if len(data) == 1 and st.session_state.selected_nemt_cet in data:
+        data = data[st.session_state.selected_nemt_cet]
+    
     # 如果没有路径，显示根目录内容（所有数字编号）
     if not st.session_state.nemt_cet_path:
         # 显示当前选择的考试名称
         st.markdown(f"## {st.session_state.selected_nemt_cet}")
         
         # 获取所有数字编号（按数字排序）
-        sub_keys = sorted([k for k in data.keys() if isinstance(data[k], dict)], key=lambda x: int(x) if x.isdigit() else 0)
+        sub_keys = sorted([k for k in data.keys() if isinstance(data[k], dict) and str(k).isdigit()], key=lambda x: int(x))
         
         if sub_keys:
             st.markdown("### Categories")
@@ -1261,11 +1265,11 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
                 with cols[i % 4]:
                     # 获取该编号下的目录名称
                     inner_dict = data[key]
-                    if inner_dict:
+                    if inner_dict and isinstance(inner_dict, dict):
                         dir_name = list(inner_dict.keys())[0] if inner_dict else f"Section {key}"
                     else:
                         dir_name = f"Section {key}"
-                    # 显示按钮，按钮文字为目录名称，点击时存储编号
+                    # 显示按钮，按钮文字为目录名称
                     if st.button(dir_name, key=f"nemt_dir_{key}", use_container_width=True):
                         st.session_state.nemt_cet_path.append(key)
                         st.rerun()
@@ -1288,54 +1292,157 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
             while len(content_node) == 1 and isinstance(list(content_node.values())[0], dict):
                 content_node = list(content_node.values())[0]
         
-        # 构建面包屑路径（显示目录名称）
+        # 构建面包屑路径（显示目录名称，不显示数字编号）
         bread_parts = []
         temp_data = data
         for idx, path_key in enumerate(st.session_state.nemt_cet_path):
             temp_data = temp_data.get(path_key, {})
             if isinstance(temp_data, dict) and len(temp_data) > 0:
-                # 获取这个节点的目录名称
-                first_key = list(temp_data.keys())[0] if temp_data else ""
-                if first_key:
-                    bread_parts.append(first_key)
+                # 获取这个节点的目录名称（去掉数字编号层）
+                inner_data = temp_data
+                # 跳过数字编号层，获取实际目录名
+                while len(inner_data) == 1 and isinstance(list(inner_data.values())[0], dict):
+                    inner_data = list(inner_data.values())[0]
+                if isinstance(inner_data, dict) and "name" in inner_data:
+                    bread_parts.append(inner_data["name"])
+                elif len(inner_data) > 0:
+                    first_key = list(inner_data.keys())[0] if inner_data else ""
+                    if first_key and first_key not in bread_parts:
+                        bread_parts.append(first_key)
+        
         bread = " > ".join(bread_parts)
         st.markdown(f"<div class='breadcrumb' style='font-size: 18px;'>{bread}</div>", unsafe_allow_html=True)
         
         # Back 按钮
         if len(st.session_state.nemt_cet_path) > 0:
-            if st.button("← Back", key="nemt_back_button"):
-                st.session_state.nemt_cet_path.pop()
-                st.rerun()
+            col_back, col_spacer = st.columns([1, 5])
+            with col_back:
+                if st.button("← Back", key="nemt_back_button", use_container_width=True):
+                    st.session_state.nemt_cet_path.pop()
+                    st.rerun()
             st.markdown("<br>", unsafe_allow_html=True)
         
         # ========== 显示内容（字体放大两倍）==========
         
         # 显示目录名称（大字体）
         if "name" in content_node:
-            st.markdown(f"<h2 style='font-size: 48px; font-weight: 700;'>{content_node['name']}</h2>", unsafe_allow_html=True)
+            st.markdown(f"<h2 style='font-size: 48px; font-weight: 700; margin-bottom: 20px;'>{content_node['name']}</h2>", unsafe_allow_html=True)
         
         # 显示 notes（如果有）- 大字体
         if "notes" in content_node and content_node["notes"]:
             with st.container(border=True):
-                st.markdown(f"<div style='font-size: 20px; line-height: 1.6;'>{content_node['notes']}</div>", unsafe_allow_html=True)
+                st.markdown(f"<div style='font-size: 20px; line-height: 1.6; padding: 15px;'>{content_node['notes']}</div>", unsafe_allow_html=True)
         
-        # 显示 words（单词列表）- 直接显示所有单词，不用卡片
+        # 显示 words（单词列表）- 卡片形式，带翻译
         if "words" in content_node and content_node["words"]:
-            st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px;'>Words</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px; margin-bottom: 20px;'>Words</h3>", unsafe_allow_html=True)
             
             # 将字符串按 " / " 分割成列表
             if isinstance(content_node["words"], str):
                 words_list = content_node["words"].split(" / ")
-            else:
+            elif isinstance(content_node["words"], list):
                 words_list = content_node["words"]
+            else:
+                words_list = []
             
-            # 直接显示所有单词，每行一个，大字体
-            for word in words_list:
-                st.markdown(f"<div style='font-size: 20px; padding: 8px 0; border-bottom: 1px solid rgba(0,0,0,0.1);'>{word}</div>", unsafe_allow_html=True)
+            # 初始化翻译缓存
+            if "translation_cache_nemt" not in st.session_state:
+                st.session_state.translation_cache_nemt = {}
+            
+            # 目标语言
+            target_lang = "Chinese"
+            
+            # 使用网格布局显示卡片（每行3个）
+            cols = st.columns(3)
+            
+            for idx, word_item in enumerate(words_list):
+                if not word_item.strip():
+                    continue
+                
+                # 解析单词（可能包含词性等信息，如 "sorcerer n."）
+                word_parts = word_item.strip().split(" ", 1)
+                word = word_parts[0]
+                pos = word_parts[1] if len(word_parts) > 1 else ""
+                
+                # 获取翻译
+                cache_key = f"{word}_{target_lang}"
+                if cache_key in st.session_state.translation_cache_nemt:
+                    translation = st.session_state.translation_cache_nemt[cache_key]
+                else:
+                    with st.spinner(f"Translating {word}..."):
+                        translation = translate_word(word, target_lang)
+                        st.session_state.translation_cache_nemt[cache_key] = translation
+                
+                # 卡片唯一键
+                card_key = f"nemt_word_card_{idx}"
+                flipped = st.session_state.get("flip_states", {}).get(card_key, False)
+                
+                # 卡片显示内容
+                with cols[idx % 3]:
+                    if flipped:
+                        # 显示翻译
+                        display_word = translation
+                        display_sub = f"📖 {pos}" if pos else ""
+                    else:
+                        # 显示原词
+                        display_word = word
+                        display_sub = f"📘 {pos}" if pos else ""
+                    
+                    # 构建卡片HTML
+                    card_html = f"""
+                    <div style="
+                        background-color: rgba(255,255,255,0.95);
+                        border-radius: 16px;
+                        padding: 20px 12px;
+                        margin: 8px 0;
+                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                        transition: all 0.3s ease;
+                        cursor: pointer;
+                        text-align: center;
+                        border: 1px solid rgba(0,0,0,0.05);
+                        min-height: 120px;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                    ">
+                        <div style="font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px;">
+                            {display_word}
+                        </div>
+                        <div style="font-size: 14px; color: #666; font-style: italic;">
+                            {display_sub}
+                        </div>
+                        <div style="font-size: 12px; color: #888; margin-top: 12px;">
+                            🔄 Click to flip
+                        </div>
+                    </div>
+                    """
+                    
+                    # 使用 markdown 显示卡片，并用 button 处理点击
+                    st.markdown(card_html, unsafe_allow_html=True)
+                    
+                    # 隐藏的按钮来捕获点击
+                    if st.button("", key=f"btn_{card_key}", use_container_width=True, type="secondary"):
+                        if "flip_states" not in st.session_state:
+                            st.session_state.flip_states = {}
+                        st.session_state.flip_states[card_key] = not flipped
+                        st.rerun()
+                    
+                    # 添加自定义CSS让按钮透明覆盖卡片区域
+                    st.markdown("""
+                    <style>
+                    div[data-testid="column"] button {
+                        margin-top: -150px !important;
+                        opacity: 0 !important;
+                        height: 150px !important;
+                        background: transparent !important;
+                        border: none !important;
+                    }
+                    </style>
+                    """, unsafe_allow_html=True)
         
         # 显示 examples（如果有）- 大字体
         if "examples" in content_node and content_node["examples"]:
-            st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px;'>Example Sentences</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px; margin-bottom: 15px;'>Example Sentences</h3>", unsafe_allow_html=True)
             for ex in content_node["examples"]:
                 st.markdown(f"<div style='font-size: 20px; padding: 8px 0;'>• {ex}</div>", unsafe_allow_html=True)
         
@@ -1344,15 +1451,22 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
         sub_items = []
         for k, v in current_node.items():
             if isinstance(v, dict):
-                # 检查是否是数字编号的目录
-                if k.isdigit() or (isinstance(k, str) and k.replace(".", "").isdigit()):
+                # 检查是否是数字编号的目录（或者是包含数字的键）
+                if str(k).isdigit() or (isinstance(k, str) and k.replace(".", "").replace("-", "").isdigit()):
                     # 获取这个编号下的目录名称
                     if len(v) > 0:
-                        dir_name = list(v.keys())[0] if v else f"Section {k}"
+                        inner_v = v
+                        # 跳过可能的多层嵌套
+                        while len(inner_v) == 1 and isinstance(list(inner_v.values())[0], dict):
+                            inner_v = list(inner_v.values())[0]
+                        if isinstance(inner_v, dict) and "name" in inner_v:
+                            dir_name = inner_v["name"]
+                        else:
+                            dir_name = list(v.keys())[0] if v and isinstance(v, dict) else f"Section {k}"
                         sub_items.append((k, dir_name))
         
         if sub_items:
-            st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px;'>Sections</h3>", unsafe_allow_html=True)
+            st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px; margin-bottom: 15px;'>Sections</h3>", unsafe_allow_html=True)
             cols = st.columns(3)
             for i, (num_key, dir_name) in enumerate(sub_items):
                 with cols[i % 3]:
