@@ -1,3 +1,57 @@
+# Chinese Learning Materials – User Guide
+
+This guide explains how to use the Chinese learning materials website provided in this project.
+
+---
+
+## 1. Open the Website
+
+If you are using the web version, it’s recommended to shrink the interface for better viewing. For example, on a Mac desktop:
+
+![01](01.png)
+
+---
+
+## 2. Browse Directories
+
+After opening the website:
+
+1. Choose a specific directory you want to study.
+2. Click to enter the directory content.
+
+Example screenshot:
+
+![02](02.png)
+
+---
+
+## 3. Wait for Recommendations
+
+Please wait a moment. The model will generate learning material recommendations based on your specified links and the current page theme.  
+
+For example, if the current theme is **Make small talk**, the recommended links may include:
+
+- **Youtube**  
+  ![04](04.png)  
+  ![05](05.png)
+
+- **Quizlet**  
+  ![06](06.png)
+
+- **Chinese StackExchange**  
+  ![07](07.png)
+
+---
+
+## 4. Usage Tips
+
+The model already knows the theme and content of the current page (set via the script).  
+You can directly ask questions about this content without providing additional background information.
+
+---
+
+> Note: Place all images in the project root (or corresponding `main` branch path) and make sure the Markdown paths match the image locations.
+
 # Chinese Learning Dataset
 
 > A very small personal dataset built purely for learning programming and natural language processing (NLP). Nothing serious here.
