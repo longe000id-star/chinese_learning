@@ -1304,17 +1304,18 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
         
         if sub_keys:
             st.markdown("### Categories")
-            cols = st.columns(4)
+            # 使用网格布局显示数字按钮（每行2个，显示数字+目录名称）
+            cols = st.columns(2)
             for i, key in enumerate(sub_keys):
-                with cols[i % 4]:
+                with cols[i % 2]:
                     # 获取该编号下的目录名称
                     inner_dict = data[key]
                     if inner_dict and isinstance(inner_dict, dict):
                         dir_name = list(inner_dict.keys())[0] if inner_dict else f"Section {key}"
                     else:
                         dir_name = f"Section {key}"
-                    # 显示按钮，按钮文字为目录名称
-                    if st.button(dir_name, key=f"nemt_dir_{key}", use_container_width=True):
+                    # 显示数字 + 目录名称的按钮
+                    if st.button(f"📁 {key}. {dir_name}", key=f"nemt_num_{key}", use_container_width=True):
                         st.session_state.nemt_cet_path.append(key)
                         st.rerun()
         else:
@@ -1377,7 +1378,7 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
             with st.container(border=True):
                 st.markdown(f"<div style='font-size: 20px; line-height: 1.6; padding: 15px;'>{content_node['notes']}</div>", unsafe_allow_html=True)
         
-        # 显示 words（单词列表）- 卡片形式，带翻译
+        # 显示 words（单词列表）- 卡片形式，带翻译，点击卡片翻转
         if "words" in content_node and content_node["words"]:
             st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px; margin-bottom: 20px;'>Words</h3>", unsafe_allow_html=True)
             
@@ -1426,15 +1427,15 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
                     if flipped:
                         # 显示翻译
                         display_word = translation
-                        display_sub = f"📖 {pos}" if pos else ""
+                        display_sub = f"{pos}" if pos else ""
                     else:
                         # 显示原词
                         display_word = word
-                        display_sub = f"📘 {pos}" if pos else ""
+                        display_sub = f"{pos}" if pos else ""
                     
-                    # 构建卡片HTML
+                    # 构建可点击的卡片HTML（点击卡片本身触发翻转）
                     card_html = f"""
-                    <div style="
+                    <div id="card_{card_key}" style="
                         background-color: rgba(255,255,255,0.95);
                         border-radius: 16px;
                         padding: 20px 12px;
@@ -1444,42 +1445,36 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
                         cursor: pointer;
                         text-align: center;
                         border: 1px solid rgba(0,0,0,0.05);
-                        min-height: 120px;
+                        min-height: 100px;
                         display: flex;
                         flex-direction: column;
                         justify-content: center;
-                    ">
+                    "
+                    onclick="document.getElementById('btn_{card_key}').click()">
                         <div style="font-size: 22px; font-weight: 700; color: #1a1a2e; margin-bottom: 8px;">
                             {display_word}
                         </div>
                         <div style="font-size: 14px; color: #666; font-style: italic;">
                             {display_sub}
                         </div>
-                        <div style="font-size: 12px; color: #888; margin-top: 12px;">
-                            🔄 Click to flip
-                        </div>
                     </div>
                     """
                     
-                    # 使用 markdown 显示卡片，并用 button 处理点击
+                    # 显示卡片
                     st.markdown(card_html, unsafe_allow_html=True)
                     
-                    # 隐藏的按钮来捕获点击
+                    # 隐藏的按钮，用于处理点击事件
                     if st.button("", key=f"btn_{card_key}", use_container_width=True, type="secondary"):
                         if "flip_states" not in st.session_state:
                             st.session_state.flip_states = {}
                         st.session_state.flip_states[card_key] = not flipped
                         st.rerun()
                     
-                    # 添加自定义CSS让按钮透明覆盖卡片区域
+                    # 隐藏按钮的CSS
                     st.markdown("""
                     <style>
-                    div[data-testid="column"] button {
-                        margin-top: -150px !important;
-                        opacity: 0 !important;
-                        height: 150px !important;
-                        background: transparent !important;
-                        border: none !important;
+                    button[key^="btn_nemt_word_card"] {
+                        display: none !important;
                     }
                     </style>
                     """, unsafe_allow_html=True)
@@ -1491,13 +1486,11 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
                 st.markdown(f"<div style='font-size: 20px; padding: 8px 0;'>• {ex}</div>", unsafe_allow_html=True)
         
         # 显示子目录（下一级的数字编号）
-        # 获取所有子目录（数字编号）
         sub_items = []
         for k, v in current_node.items():
             if isinstance(v, dict):
-                # 检查是否是数字编号的目录（或者是包含数字的键）
+                # 检查是否是数字编号的目录
                 if str(k).isdigit() or (isinstance(k, str) and k.replace(".", "").replace("-", "").isdigit()):
-                    # 获取这个编号下的目录名称
                     if len(v) > 0:
                         inner_v = v
                         # 跳过可能的多层嵌套
@@ -1511,15 +1504,14 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
         
         if sub_items:
             st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px; margin-bottom: 15px;'>Sections</h3>", unsafe_allow_html=True)
-            cols = st.columns(3)
+            cols = st.columns(2)
             for i, (num_key, dir_name) in enumerate(sub_items):
-                with cols[i % 3]:
-                    if st.button(dir_name, key=f"nemt_subdir_{num_key}", use_container_width=True):
+                with cols[i % 2]:
+                    if st.button(f"{num_key}. {dir_name}", key=f"nemt_subdir_{num_key}", use_container_width=True):
                         st.session_state.nemt_cet_path.append(num_key)
                         st.rerun()
         
-        # ========== 在这里添加自动推送参考资源 ==========
-        # 显示完所有内容后，自动推送参考资源（如果还没有推送）
+        # 自动推送参考资源
         if not st.session_state.auto_ref_pushed and st.session_state.nemt_cet_path:
             # 构建当前路径字符串用于显示
             current_path_parts = []
@@ -1539,7 +1531,7 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
             current_path_string = " > ".join(current_path_parts)
             auto_push_reference(None, current_path_string, mode="nemt_cet")
         
-        # 显示推荐资源（如果有）
+        # 显示推荐资源
         if st.session_state.current_recommendations:
             st.markdown("---")
             with st.container():
