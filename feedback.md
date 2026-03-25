@@ -91,3 +91,25 @@
 **Score:** 0/3
 
 ---
+
+## Quiz Record - 2026-03-25 03:28:23
+
+**Topic:** Greet and introduce oneself or other people
+**Questions:**
+1. Fill in the blank: In a professional setting, the typical way to introduce yourself is “____, my name is ____,” followed by a brief statement about your role.
+2. What is the definition of Greet and introduce oneself or other people?
+3. Give one example sentence using Greet and introduce oneself or other people.
+
+**User Answers:**
+1. 1. 您好
+2. 问候和介绍
+3. 您好，我叫lorie
+
+**Feedback:**
+- Q1: ❌ Incorrect
+- Q2: ❌ Incorrect
+- Q3: ❌ Incorrect
+
+**Score:** 0/3
+
+---
