@@ -1285,6 +1285,7 @@ if st.session_state.current_mode == "textbook":
 
         if not st.session_state.auto_ref_pushed:
             auto_push_reference(st.session_state.level, bread)
+
 # 如果当前在 NEMT & CET 模式
 elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_nemt_cet:
     data = nemt_cet_data.get(st.session_state.selected_nemt_cet, {})
@@ -1377,7 +1378,7 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
             with st.container(border=True):
                 st.markdown(f"<div style='font-size: 20px; line-height: 1.6; padding: 15px;'>{content_node['notes']}</div>", unsafe_allow_html=True)
         
-        # 显示 words（单词列表）- 卡片形式，带翻译，点击卡片翻转
+        # 显示 words（单词列表）- 使用 st.button 卡片，点击时翻译
         if "words" in content_node and content_node["words"]:
             st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px; margin-bottom: 20px;'>Words</h3>", unsafe_allow_html=True)
             
@@ -1389,7 +1390,7 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
             else:
                 words_list = []
             
-            # 初始化翻译缓存
+            # 初始化翻译缓存（按需缓存）
             if "translation_cache_nemt" not in st.session_state:
                 st.session_state.translation_cache_nemt = {}
             
@@ -1406,15 +1407,6 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
                 # 只取单词本身，去掉词性
                 word = word_item.strip().split(" ", 1)[0]
                 
-                # 获取翻译
-                cache_key = f"{word}_{target_lang}"
-                if cache_key in st.session_state.translation_cache_nemt:
-                    translation = st.session_state.translation_cache_nemt[cache_key]
-                else:
-                    with st.spinner(f"Translating {word}..."):
-                        translation = translate_word(word, target_lang)
-                        st.session_state.translation_cache_nemt[cache_key] = translation
-                
                 # 卡片唯一键
                 card_key = f"nemt_word_card_{idx}"
                 flipped = st.session_state.get("flip_states", {}).get(card_key, False)
@@ -1422,54 +1414,25 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
                 # 卡片显示内容
                 with cols[idx % 3]:
                     if flipped:
-                        # 显示翻译
-                        display_word = translation
+                        # 显示翻译 - 点击后才获取翻译
+                        cache_key = f"{word}_{target_lang}"
+                        if cache_key in st.session_state.translation_cache_nemt:
+                            translation = st.session_state.translation_cache_nemt[cache_key]
+                        else:
+                            with st.spinner(f"Translating {word}..."):
+                                translation = translate_word(word, target_lang)
+                                st.session_state.translation_cache_nemt[cache_key] = translation
+                        display_content = translation
                     else:
                         # 显示原词
-                        display_word = word
+                        display_content = word
                     
-                    # 构建可点击的卡片HTML（只显示单词）
-                    card_html = f"""
-                    <div id="card_{card_key}" style="
-                        background-color: rgba(255,255,255,0.95);
-                        border-radius: 16px;
-                        padding: 20px 12px;
-                        margin: 8px 0;
-                        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-                        transition: all 0.3s ease;
-                        cursor: pointer;
-                        text-align: center;
-                        border: 1px solid rgba(0,0,0,0.05);
-                        min-height: 80px;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                    "
-                    onclick="document.getElementById('btn_{card_key}').click()">
-                        <div style="font-size: 22px; font-weight: 700; color: #1a1a2e;">
-                            {display_word}
-                        </div>
-                    </div>
-                    """
-                    
-                    # 显示卡片
-                    st.markdown(card_html, unsafe_allow_html=True)
-                    
-                    # 隐藏的按钮，用于处理点击事件
-                    if st.button("", key=f"btn_{card_key}", use_container_width=True, type="secondary"):
+                    # 用 st.button 显示卡片 - 和 Level 界面完全一样
+                    if st.button(display_content, key=f"btn_{card_key}", use_container_width=True):
                         if "flip_states" not in st.session_state:
                             st.session_state.flip_states = {}
                         st.session_state.flip_states[card_key] = not flipped
                         st.rerun()
-                    
-                    # 隐藏按钮的CSS
-                    st.markdown("""
-                    <style>
-                    button[key^="btn_nemt_word_card"] {
-                        display: none !important;
-                    }
-                    </style>
-                    """, unsafe_allow_html=True)
         
         # 显示 examples（如果有）- 大字体
         if "examples" in content_node and content_node["examples"]:
@@ -1528,7 +1491,7 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
             st.markdown("---")
             with st.container():
                 st.markdown(st.session_state.current_recommendations, unsafe_allow_html=True)
-
+                
 # ---------- 悬浮聊天窗（固定在右下角） ----------
 # 强制打开聊天面板（用户要求）
 st.session_state.chat_open = True
