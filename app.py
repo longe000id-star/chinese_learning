@@ -923,11 +923,11 @@ Quiz Questions and Answers:
 CRITICAL: Must give the answer for the quiz when user asks for.
 
 Return in this format:
-1: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
-2: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
-3: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
-4: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
-5: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
+1: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
+2: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
+3: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
+4: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
+5: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
 Total: X/5"""
             elif st.session_state.language == "English":
                 eval_prompt = f"""You are an English teacher. Follow these teaching principles:
@@ -946,11 +946,11 @@ Quiz Questions and Answers:
 CRITICAL: Must give the answer for the quiz when user asks for.
 
 Return in this format:
-1: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
-2: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
-3: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
-4: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
-5: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
+1: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
+2: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
+3: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
+4: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
+5: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
 Total: X/5"""
             else:
                 eval_prompt = f"""You are an English exam preparation teacher. Follow these teaching principles:
@@ -969,11 +969,11 @@ Quiz Questions and Answers:
 CRITICAL: Must give the answer for the quiz when user asks for.
 
 Return in this format:
-1: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
-2: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
-3: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
-4: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
-5: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
+1: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
+2: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
+3: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
+4: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
+5: [Correct/❌] - [if incorrect: brief explanation + Socratic question]
 Total: X/5"""
             
             try:
