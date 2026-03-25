@@ -1161,7 +1161,7 @@ st.markdown(f"""
     }}
 
     .stApp {{
-        background-color: rgba(0, 0, 0, 0.8) !important;
+        background-color: rgba(0, 0, 0, 0.7) !important;
         background-blend-mode: overlay !important;
     }}
 
