@@ -367,6 +367,36 @@ st.set_page_config(
     menu_items=None
 )
 
+# ========== 添加侧边栏强制显示样式 ==========
+st.markdown("""
+<style>
+    /* 确保侧边栏可见 */
+    [data-testid="stSidebar"] {
+        background-color: #ffffff !important;
+        z-index: 999999 !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+    
+    [data-testid="stSidebar"] * {
+        color: #000000 !important;
+    }
+    
+    /* 移除可能遮挡侧边栏的元素 */
+    div[style*="position: fixed"][style*="inset: 0"] {
+        pointer-events: none !important;
+    }
+    
+    /* 确保侧边栏内容可点击 */
+    [data-testid="stSidebar"] button,
+    [data-testid="stSidebar"] input,
+    [data-testid="stSidebar"] select {
+        pointer-events: auto !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+
 # ---------- 初始化语言状态 ----------
 if "language" not in st.session_state:
     st.session_state.language = "Chinese"
