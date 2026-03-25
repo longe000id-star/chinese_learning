@@ -55,7 +55,14 @@ The model already knows the theme and content of the current page (set via the s
 You can directly ask questions about this content without providing additional background information.
 
 ---
+## 5. Teaching Principles & Feedback
 
+The AI follows predefined teaching principles to guide its responses. Instead of giving direct answers, it helps you discover them step by step.
+
+See `teaching_principle.txt` for details.
+
+All interactions (your answers and AI responses) are saved in `feedback.md` for review.
+---
 
 # Chinese Learning Dataset
 
