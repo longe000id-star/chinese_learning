@@ -24,6 +24,27 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# ---------- 模型配置 ----------
+AVAILABLE_MODELS = {
+    "Llama 4 Scout 17B": "meta-llama/llama-4-scout-17b-16e-instruct",
+    "Llama 3.3 70B": "llama-3.3-70b-versatile",
+    "Llama 3.1 8B": "llama-3.1-8b-instant",
+    "GPT OSS 120B": "openai/gpt-oss-120b",
+    "GPT OSS 20B": "openai/gpt-oss-20b",
+    "Qwen 3 32B": "qwen/qwen3-32b",
+    "Kimi K2 Instruct": "moonshotai/kimi-k2-instruct-0905",
+    "Groq Compound": "groq/compound",
+    "Groq Compound Mini": "groq/compound-mini",
+}
+
+DEFAULT_MODEL = "Llama 3.3 70B"
+
+# 初始化模型选择状态
+if "selected_model" not in st.session_state:
+    st.session_state.selected_model = DEFAULT_MODEL
+if "model_name" not in st.session_state:
+    st.session_state.model_name = AVAILABLE_MODELS[DEFAULT_MODEL]
+
 # ---------- GitHub 配置 ----------
 GITHUB_TOKEN = st.secrets.get("GITHUB_TOKEN")
 REPO_OWNER = st.secrets.get("GITHUB_REPO_OWNER")
@@ -171,7 +192,7 @@ def save_conversation_summary(summary):
         logger.error(f"Failed to save local summary: {e}")
 
 
-# ---------- 生成 Quiz（根据语言模式使用相应模板，生成所有题型）----------
+# ---------- 生成 Quiz ----------
 def generate_quiz(topic, full_page_content):
     if st.session_state.language == "Chinese":
         template = """
@@ -259,7 +280,7 @@ Generate the quiz:"""
     
     try:
         response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=st.session_state.model_name,
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7,
             max_tokens=32768,
@@ -702,7 +723,7 @@ Now generate for: {topic}
     for attempt in range(max_retries):
         try:
             response = client.chat.completions.create(
-                model="llama-3.3-70b-versatile",
+                model=st.session_state.model_name,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.7,
                 max_tokens=32768,
@@ -784,7 +805,7 @@ Word: {clean_word}
 Translation:"""
         
         response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=st.session_state.model_name,
             messages=[{"role": "user", "content": prompt}],
             temperature=0.3,
             max_tokens=32768,
@@ -817,7 +838,7 @@ Conversation:
 Summary:"""
     try:
         response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=st.session_state.model_name,
             messages=[{"role": "user", "content": summary_prompt}],
             temperature=0.5,
             max_tokens=32768,
@@ -984,7 +1005,7 @@ Total: X/5"""
             
             try:
                 eval_response = client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
+                    model=st.session_state.model_name,
                     messages=[{"role": "user", "content": eval_prompt}],
                     temperature=0.3,
                     max_tokens=32768,
@@ -1097,7 +1118,7 @@ Total: X/5"""
 
     try:
         response = client.chat.completions.create(
-            model="llama-3.3-70b-versatile",
+            model=st.session_state.model_name,
             messages=context_msgs,
             temperature=0.7,
             max_tokens=32768,
@@ -1944,8 +1965,8 @@ if st.session_state.chat_open:
         st.audio(audio_bytes, format=fmt, autoplay=True)
         st.session_state.pending_tts = None
 
-    # 输入区域：四列布局（Clear按钮 + 语音按钮 + Quiz按钮 + 文本输入）
-    col_clear, col_voice, col_quiz, col_text = st.columns([1, 1, 1, 5])
+    # 输入区域：五列布局（Clear按钮 + 语音按钮 + Quiz按钮 + 模型选择 + 文本输入）
+    col_clear, col_voice, col_quiz, col_model, col_text = st.columns([1, 1, 1, 2, 4])
 
     with col_clear:
         if st.button("Clear", key="clear_chat", use_container_width=True):
@@ -2018,6 +2039,20 @@ if st.session_state.chat_open:
                 except Exception as e:
                     logger.error(f"TTS error: {e}")
                 st.rerun()
+
+    with col_model:
+        # 模型选择下拉框
+        selected_model_display = st.selectbox(
+            "Model",
+            options=list(AVAILABLE_MODELS.keys()),
+            index=list(AVAILABLE_MODELS.keys()).index(st.session_state.selected_model),
+            key="model_selector",
+            label_visibility="collapsed"
+        )
+        if selected_model_display != st.session_state.selected_model:
+            st.session_state.selected_model = selected_model_display
+            st.session_state.model_name = AVAILABLE_MODELS[selected_model_display]
+            st.rerun()
 
     with col_text:
         if prompt := st.chat_input("Type a message...", key="text_input"):
