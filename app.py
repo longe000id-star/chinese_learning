@@ -26,15 +26,42 @@ logger = logging.getLogger(__name__)
 
 # ---------- 模型配置 ----------
 AVAILABLE_MODELS = {
-    "Llama 4 Scout 17B": "meta-llama/llama-4-scout-17b-16e-instruct",
-    "Llama 3.3 70B": "llama-3.3-70b-versatile",
-    "Llama 3.1 8B": "llama-3.1-8b-instant",
-    "GPT OSS 120B": "openai/gpt-oss-120b",
-    "GPT OSS 20B": "openai/gpt-oss-20b",
-    "Qwen 3 32B": "qwen/qwen3-32b",
-    "Kimi K2 Instruct": "moonshotai/kimi-k2-instruct-0905",
-    "Groq Compound": "groq/compound",
-    "Groq Compound Mini": "groq/compound-mini",
+    "Llama 4 Scout 17B": {
+        "id": "meta-llama/llama-4-scout-17b-16e-instruct",
+        "max_tokens": 16384
+    },
+    "Llama 3.3 70B": {
+        "id": "llama-3.3-70b-versatile",
+        "max_tokens": 32768
+    },
+    "Llama 3.1 8B": {
+        "id": "llama-3.1-8b-instant",
+        "max_tokens": 131072
+    },
+    "GPT OSS 120B": {
+        "id": "openai/gpt-oss-120b",
+        "max_tokens": 65536
+    },
+    "GPT OSS 20B": {
+        "id": "openai/gpt-oss-20b",
+        "max_tokens": 65536
+    },
+    "Qwen 3 32B": {
+        "id": "qwen/qwen3-32b",
+        "max_tokens": 32768
+    },
+    "Kimi K2 Instruct": {
+        "id": "moonshotai/kimi-k2-instruct-0905",
+        "max_tokens": 32768
+    },
+    "Groq Compound": {
+        "id": "groq/compound",
+        "max_tokens": 32768
+    },
+    "Groq Compound Mini": {
+        "id": "groq/compound-mini",
+        "max_tokens": 32768
+    },
 }
 
 DEFAULT_MODEL = "Llama 3.3 70B"
@@ -43,7 +70,9 @@ DEFAULT_MODEL = "Llama 3.3 70B"
 if "selected_model" not in st.session_state:
     st.session_state.selected_model = DEFAULT_MODEL
 if "model_name" not in st.session_state:
-    st.session_state.model_name = AVAILABLE_MODELS[DEFAULT_MODEL]
+    st.session_state.model_name = AVAILABLE_MODELS[DEFAULT_MODEL]["id"]
+if "model_max_tokens" not in st.session_state:
+    st.session_state.model_max_tokens = AVAILABLE_MODELS[DEFAULT_MODEL]["max_tokens"]
 
 # ---------- GitHub 配置 ----------
 GITHUB_TOKEN = st.secrets.get("GITHUB_TOKEN")
@@ -283,7 +312,7 @@ Generate the quiz:"""
             model=st.session_state.model_name,
             messages=[{"role": "user", "content": prompt}],
             temperature=0.7,
-            max_tokens=32768,
+            max_tokens=st.session_state.model_max_tokens,
         )
         quiz_text = response.choices[0].message.content.strip()
         
@@ -726,7 +755,7 @@ Now generate for: {topic}
                 model=st.session_state.model_name,
                 messages=[{"role": "user", "content": prompt}],
                 temperature=0.7,
-                max_tokens=32768,
+                max_tokens=st.session_state.model_max_tokens,
             )
             ref_text = response.choices[0].message.content.strip()
             return ref_text
@@ -808,7 +837,7 @@ Translation:"""
             model=st.session_state.model_name,
             messages=[{"role": "user", "content": prompt}],
             temperature=0.3,
-            max_tokens=32768,
+            max_tokens=st.session_state.model_max_tokens,
         )
         translation = response.choices[0].message.content.strip()
         
@@ -841,7 +870,7 @@ Summary:"""
             model=st.session_state.model_name,
             messages=[{"role": "user", "content": summary_prompt}],
             temperature=0.5,
-            max_tokens=32768,
+            max_tokens=st.session_state.model_max_tokens,
         )
         new_summary = response.choices[0].message.content.strip()
 
@@ -1008,7 +1037,7 @@ Total: X/5"""
                     model=st.session_state.model_name,
                     messages=[{"role": "user", "content": eval_prompt}],
                     temperature=0.3,
-                    max_tokens=32768,
+                    max_tokens=st.session_state.model_max_tokens,
                 )
                 evaluation = eval_response.choices[0].message.content.strip()
                 
@@ -1121,7 +1150,7 @@ Total: X/5"""
             model=st.session_state.model_name,
             messages=context_msgs,
             temperature=0.7,
-            max_tokens=32768,
+            max_tokens=st.session_state.model_max_tokens,
         )
         reply = response.choices[0].message.content.strip()
         logger.info(f"AI reply: {reply[:100]}...")
@@ -2051,7 +2080,8 @@ if st.session_state.chat_open:
         )
         if selected_model_display != st.session_state.selected_model:
             st.session_state.selected_model = selected_model_display
-            st.session_state.model_name = AVAILABLE_MODELS[selected_model_display]
+            st.session_state.model_name = AVAILABLE_MODELS[selected_model_display]["id"]
+            st.session_state.model_max_tokens = AVAILABLE_MODELS[selected_model_display]["max_tokens"]
             st.rerun()
 
     with col_text:
