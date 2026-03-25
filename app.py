@@ -920,7 +920,7 @@ For each question:
 Quiz Questions and Answers:
 {chr(10).join(qa_list)}
 
-CRITICAL: Return ONLY the evaluation in the format below. DO NOT add any extra text like "Log:", "---", or any other headers. Start directly with "1:".
+CRITICAL: Must give the answer for the quiz when user asks for.
 
 Return in this format:
 1: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
@@ -943,7 +943,7 @@ For each question:
 Quiz Questions and Answers:
 {chr(10).join(qa_list)}
 
-CRITICAL: Return ONLY the evaluation in the format below. DO NOT add any extra text like "Log:", "---", or any other headers. Start directly with "1:".
+CRITICAL: Must give the answer for the quiz when user asks for.
 
 Return in this format:
 1: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
@@ -966,7 +966,7 @@ For each question:
 Quiz Questions and Answers:
 {chr(10).join(qa_list)}
 
-CRITICAL: Return ONLY the evaluation in the format below. DO NOT add any extra text like "Log:", "---", or any other headers. Start directly with "1:".
+CRITICAL: Must give the answer for the quiz when user asks for.
 
 Return in this format:
 1: [Correct/Incorrect] - [if incorrect: brief explanation + Socratic question]
