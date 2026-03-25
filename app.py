@@ -528,6 +528,8 @@ if "search_keyword" not in st.session_state:
     st.session_state.search_keyword = ""
 if "search_results" not in st.session_state:
     st.session_state.search_results = []
+if "search_scope" not in st.session_state:
+    st.session_state.search_scope = "global"
 
 
 # ---------- 获取当前页面唯一标识 ----------
@@ -619,7 +621,7 @@ def get_current_page_full_content():
         return "\n".join(parts)
 
 
-# ========== 全局搜索函数 ==========
+# ========== 全局搜索函数（搜索所有textbook数据）==========
 def search_in_node(node, path_list, level_num, keyword):
     matches = []
     keyword_lower = keyword.lower()
@@ -649,6 +651,7 @@ def search_in_node(node, path_list, level_num, keyword):
 
 
 def global_search(keyword):
+    """全局搜索：搜索所有textbook内容"""
     if not keyword.strip():
         return []
     results = []
@@ -660,6 +663,113 @@ def global_search(keyword):
                 if isinstance(root_value, dict):
                     results.extend(search_in_node(root_value, [root_key], level_num, keyword))
     return results
+
+
+# ========== 本地搜索函数（只在当前模式下搜索）==========
+def local_search_in_node(node, path_list, level_num, keyword):
+    matches = []
+    keyword_lower = keyword.lower()
+    
+    if "name" in node and keyword_lower in node["name"].lower():
+        matches.append({"level": level_num, "path": path_list, "type": "Section", "content": node["name"]})
+    
+    if "notes" in node and keyword_lower in node["notes"].lower():
+        content = node["notes"][:200] + "..." if len(node["notes"]) > 200 else node["notes"]
+        matches.append({"level": level_num, "path": path_list, "type": "Note", "content": content})
+    
+    if "examples" in node:
+        for idx, ex in enumerate(node["examples"]):
+            if keyword_lower in ex.lower():
+                matches.append({"level": level_num, "path": path_list, "type": "Example", "content": ex, "index": idx})
+    
+    if "vocabulary" in node:
+        for idx, item in enumerate(node["vocabulary"]):
+            if keyword_lower in item.lower():
+                matches.append({"level": level_num, "path": path_list, "type": "Vocabulary", "content": item, "index": idx})
+    
+    for key, value in node.items():
+        if isinstance(value, dict) and key not in ("name", "notes", "examples", "vocabulary", "words"):
+            matches.extend(local_search_in_node(value, path_list + [key], level_num, keyword))
+    
+    return matches
+
+
+def local_search_textbook(keyword):
+    """在textbook模式下搜索当前所在level的内容"""
+    if not keyword.strip():
+        return []
+    if not st.session_state.level:
+        return []
+    
+    results = []
+    level_key = f"Level {st.session_state.level}"
+    if level_key in levels_data:
+        root_node = levels_data[level_key]
+        for root_key, root_value in root_node.items():
+            if isinstance(root_value, dict):
+                results.extend(local_search_in_node(root_value, [root_key], st.session_state.level, keyword))
+    return results
+
+
+def local_search_nemt_cet(keyword):
+    """在NEMT & CET模式下搜索当前选中的exam内容"""
+    if not keyword.strip():
+        return []
+    if not st.session_state.selected_nemt_cet:
+        return []
+    
+    results = []
+    data = nemt_cet_data.get(st.session_state.selected_nemt_cet, {})
+    
+    if len(data) == 1 and st.session_state.selected_nemt_cet in data:
+        data = data[st.session_state.selected_nemt_cet]
+    
+    def search_nemt_node(node, path_list, keyword):
+        matches = []
+        keyword_lower = keyword.lower()
+        
+        if isinstance(node, dict):
+            if "name" in node and keyword_lower in node["name"].lower():
+                matches.append({"type": "Section", "content": node["name"], "path": path_list})
+            
+            if "notes" in node and node["notes"] and keyword_lower in node["notes"].lower():
+                content = node["notes"][:200] + "..." if len(node["notes"]) > 200 else node["notes"]
+                matches.append({"type": "Note", "content": content, "path": path_list})
+            
+            if "words" in node and node["words"]:
+                if isinstance(node["words"], str):
+                    words_list = node["words"].split(" / ")
+                else:
+                    words_list = node["words"]
+                for idx, w in enumerate(words_list):
+                    if keyword_lower in w.lower():
+                        matches.append({"type": "Word", "content": w, "path": path_list, "index": idx})
+            
+            if "examples" in node and node["examples"]:
+                for idx, ex in enumerate(node["examples"]):
+                    if keyword_lower in ex.lower():
+                        matches.append({"type": "Example", "content": ex, "path": path_list, "index": idx})
+            
+            for key, value in node.items():
+                if isinstance(value, dict) and key not in ("name", "notes", "words", "examples"):
+                    matches.extend(search_nemt_node(value, path_list + [key], keyword))
+        
+        return matches
+    
+    for root_key, root_value in data.items():
+        if isinstance(root_value, dict):
+            results.extend(search_nemt_node(root_value, [root_key], keyword))
+    
+    return results
+
+
+def local_search(keyword):
+    """根据当前模式执行本地搜索"""
+    if st.session_state.current_mode == "textbook":
+        return local_search_textbook(keyword)
+    elif st.session_state.current_mode == "nemt_cet":
+        return local_search_nemt_cet(keyword)
+    return []
 
 
 # ========== 自动生成参考消息 ==========
@@ -1518,6 +1628,22 @@ st.markdown(f"""
         background-color: #f0f0f0 !important;
     }}
 
+    .search-container {{
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 20px;
+    }}
+    .search-scope-selector {{
+        width: 120px;
+        background: white;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+    }}
+    .search-input {{
+        flex: 1;
+    }}
+
     h1 {{
         text-align: left;
         color: #000000;
@@ -1792,46 +1918,96 @@ with language_col2:
         st.rerun()
 st.markdown('</div>', unsafe_allow_html=True)
 
-# ---------- 全局搜索框 ----------
+# ---------- 全局搜索框（带下拉选项）----------
 with st.container():
-    search_col1, search_col2 = st.columns([5, 1])
-    with search_col1:
-        search_input = st.text_input("Search", value=st.session_state.search_keyword, placeholder="Type to search...", key="search_box", label_visibility="collapsed")
-    with search_col2:
-        if st.button("Clear", key="clear_search"):
+    # 使用两列布局：搜索范围选择器 + 搜索输入框 + 清除按钮
+    search_col_scope, search_col_input, search_col_clear = st.columns([1, 4, 1])
+    
+    with search_col_scope:
+        search_scope = st.selectbox(
+            "Search in",
+            options=["🌐 Global", "📍 Local"],
+            index=0 if st.session_state.search_scope == "global" else 1,
+            key="search_scope_selector",
+            label_visibility="collapsed"
+        )
+        new_scope = "global" if search_scope == "🌐 Global" else "local"
+        if new_scope != st.session_state.search_scope:
+            st.session_state.search_scope = new_scope
+            # 切换范围时清空搜索结果
+            st.session_state.search_results = []
+            st.rerun()
+    
+    with search_col_input:
+        search_input = st.text_input(
+            "Search", 
+            value=st.session_state.search_keyword, 
+            placeholder="Type to search...", 
+            key="search_box", 
+            label_visibility="collapsed"
+        )
+    
+    with search_col_clear:
+        if st.button("Clear", key="clear_search", use_container_width=True):
             st.session_state.search_keyword = ""
             st.session_state.search_results = []
             st.rerun()
     
+    # 处理搜索
     if search_input != st.session_state.search_keyword:
         st.session_state.search_keyword = search_input
         if search_input.strip():
-            st.session_state.search_results = global_search(search_input)
+            # 根据选择的搜索范围执行搜索
+            if st.session_state.search_scope == "global":
+                st.session_state.search_results = global_search(search_input)
+            else:
+                st.session_state.search_results = local_search(search_input)
         else:
             st.session_state.search_results = []
         st.rerun()
     
+    # 显示搜索结果
     if st.session_state.search_keyword and st.session_state.search_results:
-        st.markdown(f"### Search Results for '{st.session_state.search_keyword}'")
-        for res in st.session_state.search_results:
-            path_str = " > ".join(res["path"])
+        scope_text = "Global" if st.session_state.search_scope == "global" else "Local"
+        st.markdown(f"### {scope_text} Search Results for '{st.session_state.search_keyword}'")
+        st.markdown(f"Found {len(st.session_state.search_results)} result(s)")
+        
+        for idx, res in enumerate(st.session_state.search_results):
+            path_str = " > ".join(res["path"]) if "path" in res else " > ".join(res.get("path", []))
+            
+            # 根据结果类型显示不同的预览
             content_preview = res["content"].replace("\n", " ")[:150]
+            if len(res["content"]) > 150:
+                content_preview += "..."
+            
             with st.container(border=True):
-                cols = st.columns([1, 5])
+                cols = st.columns([1, 5, 1])
                 with cols[0]:
                     st.markdown(f"**{res['type']}**")
                 with cols[1]:
                     st.markdown(f"{content_preview}")
-                if st.button(f"Go to {path_str}", key=f"search_{res['level']}_{'_'.join(res['path'])}_{res['type']}_{res.get('index', '')}"):
-                    st.session_state.current_mode = "textbook"
-                    st.session_state.level = res["level"]
-                    st.session_state.path = res["path"]
-                    st.session_state.search_keyword = ""
-                    st.session_state.search_results = []
-                    st.rerun()
+                with cols[2]:
+                    if st.button("Go", key=f"search_go_{idx}_{res.get('level', '')}_{res.get('type', '')}_{res.get('index', idx)}", use_container_width=True):
+                        # 导航到搜索结果
+                        if "level" in res:
+                            # textbook模式的结果
+                            st.session_state.current_mode = "textbook"
+                            st.session_state.level = res["level"]
+                            st.session_state.path = res["path"]
+                        elif "exam" in res:
+                            # NEMT模式的结果（如果需要支持NEMT本地搜索）
+                            st.session_state.current_mode = "nemt_cet"
+                            st.session_state.selected_nemt_cet = res.get("exam", st.session_state.selected_nemt_cet)
+                            st.session_state.nemt_cet_path = res.get("path", [])
+                        
+                        # 清除搜索状态
+                        st.session_state.search_keyword = ""
+                        st.session_state.search_results = []
+                        st.rerun()
         st.markdown("---")
     elif st.session_state.search_keyword:
-        st.info("No results found.")
+        scope_text = "global" if st.session_state.search_scope == "global" else "local"
+        st.info(f"No results found in {scope_text} search for '{st.session_state.search_keyword}'.")
 
 # ---------- 导航和卡片显示 ----------
 st.title("TEXTBOOK ASSISTANT")
