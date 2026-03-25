@@ -209,89 +209,60 @@ def save_conversation_summary(summary):
 
 # ---------- 生成 Quiz（根据语言模式使用相应模板，生成所有题型）----------
 def generate_quiz(topic, full_page_content):
-    # 根据当前语言模式选择模板
     if st.session_state.language == "Chinese":
-        # 中文学习模板 - 所有题型
         template = """
 ### 1. 单选题 (Multiple Choice)
 **Instruction:** Choose the ONE best answer.
-
-1. 他________每天都去学校。  
-A. 都  
-B. 很  
-C. 太  
-D. 也  
 
 ---
 
 ### 2. 填空题 (Fill in the blank)
 **Instruction:** Fill in the blank with the correct word.
-
-1. 我今天________朋友见面。  
 
 ---
 
 ### 3. 翻译题 (Translation)
 **Instruction:** Translate into English.
 
-1. 她喜欢喝咖啡。  
-
 ---
 
 ### 4. 改错题 (Error correction)
 **Instruction:** Find and correct the mistake.
-
-1. 我昨天去看电影了在商场。  
 
 ---
 
 ### 5. 造句题 (Sentence making)
 **Instruction:** Use the given words to make a sentence.
 
-1. 明天 / 我 / 去 / 学校  
 """
     else:
-        # 英文学习模板 - 所有题型
         template = """
 ### 1. 单选题 (Multiple Choice)
 **Instruction:** Choose the ONE best answer.
-
-1. He ______ to school every day.  
-A. go  
-B. goes  
-C. going  
-D. gone  
 
 ---
 
 ### 2. 填空题 (Fill in the blank)
 **Instruction:** Fill in the blank with the correct word.
 
-1. I ______ a book yesterday.  
-
 ---
 
 ### 3. 翻译题 (Translation)
 **Instruction:** Translate into Chinese.
-
-1. She likes drinking coffee.  
 
 ---
 
 ### 4. 改错题 (Error correction)
 **Instruction:** Find and correct the mistake.
 
-1. He go to school every day.  
-
 ---
 
 ### 5. 造句题 (Sentence making)
 **Instruction:** Use the given words to make a sentence.
 
-1. tomorrow / I / will / go / school
 """
     
-    prompt = f"""You are a language test designer. Based on the topic and content below, generate COMPLETE quiz questions for ALL 5 question types from the template.
+    prompt = f"""You are a language test designer. Based on the topic and content below, generate a COMPLETE quiz with ALL 5 question types.
 
 **Topic:** {topic}
 **Current Content:** {full_page_content[:800] if full_page_content else "No additional content"}
@@ -300,36 +271,25 @@ D. gone
 {template}
 
 **STRUCTURE REQUIREMENTS:**
-1. Generate ONE question for EACH of the 5 types above
-2. Use this EXACT STRUCTURE for the output:
+Use EXACTLY this format with 5 numbered questions:
 
 ## Quiz: {topic}
 
-### 1. 单选题 (Multiple Choice)
-[Your complete multiple choice question with 4 options A, B, C, D]
-
-### 2. 填空题 (Fill in the blank)
-[Your complete fill-in-the-blank question]
-
-### 3. 翻译题 (Translation)
-[Your complete translation question]
-
-### 4. 改错题 (Error correction)
-[Your complete error correction question]
-
-### 5. 造句题 (Sentence making)
-[Your complete sentence making question with words to arrange]
+1. [Question 1 - Multiple Choice with A, B, C, D options]
+2. [Question 2 - Fill in the blank with a complete sentence and a blank]
+3. [Question 3 - Translation question with a full sentence to translate]
+4. [Question 4 - Error correction question with a sentence containing one error]
+5. [Question 5 - Sentence making question with 3-5 words to arrange]
 
 **CRITICAL RULES:**
-- Replace ALL placeholder content with ACTUAL content related to "{topic}"
-- Create COMPLETE, answerable questions
-- Multiple choice: Provide 4 realistic options related to the topic
-- Fill in the blank: Create a complete sentence with one blank
-- Translation: Provide a full sentence to translate (to English if Chinese mode, to Chinese if English mode)
-- Error correction: Provide a sentence with ONE specific error to correct
+- Create COMPLETE, answerable questions based on "{topic}"
+- Multiple choice: Provide 4 realistic options (A, B, C, D)
+- Fill in the blank: Create a complete sentence with one blank (____)
+- Translation: Provide a full sentence to translate
+- Error correction: Provide a sentence with ONE specific error
 - Sentence making: Provide 3-5 words that can form a meaningful sentence
 - NEVER include the answer
-- Use EXACTLY the structure format above with the numbered sections
+- Number questions 1 through 5 only
 
 Generate the quiz:"""
     
@@ -341,12 +301,26 @@ Generate the quiz:"""
             max_tokens=1500,
         )
         quiz_text = response.choices[0].message.content.strip()
-        return quiz_text
+        
+        # 确保只有5个问题
+        lines = quiz_text.split('\n')
+        cleaned_lines = []
+        question_count = 0
+        for line in lines:
+            if re.match(r'^\d+\.', line.strip()):
+                question_count += 1
+                if question_count <= 5:
+                    cleaned_lines.append(line)
+            else:
+                if question_count <= 5:
+                    cleaned_lines.append(line)
+        
+        return "\n".join(cleaned_lines)
         
     except Exception as e:
         logger.error(f"Quiz generation error: {e}")
         return None
-
+        
 # ========== 评估 Quiz 答案（修复版）==========
 def evaluate_quiz(questions, user_answers):
     # 如果用户一次性回答了所有问题（答案包含多个）
@@ -937,7 +911,7 @@ Translation:"""
         return word
 
 
-# ========== AI 回复函数（只在用户要求时才生成 Quiz）==========
+# ========== AI 回复函数（修复版）==========
 def get_ai_reply(user_input):
     logger.info(f"User input: {user_input[:100]}...")
     
@@ -954,11 +928,31 @@ def get_ai_reply(user_input):
         quiz_text = generate_quiz(topic, full_page)
         if quiz_text:
             st.session_state.quiz_active = True
-            st.session_state.current_quiz = {"questions": quiz_text, "topic": topic}
+            # 存储完整的 quiz 文本和问题列表（用于评估）
+            # 提取问题列表用于评估
+            questions = []
+            for line in quiz_text.split('\n'):
+                line = line.strip()
+                # 匹配以数字开头的行（问题）
+                if re.match(r'^\d+\.', line):
+                    questions.append(line)
+                # 也匹配带括号的选项行（多选题选项）
+                elif re.match(r'^[A-D]\.', line):
+                    continue
+                # 匹配翻译题、改错题等
+                elif line and not line.startswith('###') and not line.startswith('##'):
+                    if len(questions) > 0 and questions[-1] not in line:
+                        pass
+            
+            st.session_state.current_quiz = {
+                "questions": questions,  # 存储提取的问题列表用于评估
+                "quiz_text": quiz_text,  # 存储完整文本用于显示
+                "topic": topic
+            }
             st.session_state.quiz_answers = {}
             st.session_state.quiz_asked = True
             
-            reply = f"Here's a quiz on {topic}:\n\n{quiz_text}\n\nPlease answer the questions (you can answer all at once)."
+            reply = f"Here's a quiz on {topic}:\n\n{quiz_text}\n\nPlease answer the questions (you can answer all at once, e.g., '1. A, 2. B, 3. C')."
             
             st.session_state.messages.append({"role": "assistant", "content": reply})
             st.session_state.conv_history.append({"role": "assistant", "content": reply})
@@ -971,10 +965,9 @@ def get_ai_reply(user_input):
                 logger.error(f"TTS error: {e}")
             return
     
-    # ... 后续代码不变
-    
     # 如果 Quiz 处于活跃状态，处理 Quiz 答案
     if st.session_state.quiz_active and st.session_state.current_quiz:
+        # 获取问题列表
         questions = st.session_state.current_quiz.get("questions", [])
         
         if user_input.lower().strip() in ["give me answers", "show answers", "give answers", "show me the answers"]:
@@ -995,8 +988,10 @@ def get_ai_reply(user_input):
                 logger.error(f"TTS error: {e}")
             return
         
+        # 收集答案
         st.session_state.quiz_answers[len(st.session_state.quiz_answers) + 1] = user_input
         
+        # 检查是否已经回答了所有问题
         if len(st.session_state.quiz_answers) >= len(questions):
             evaluation, score, total, feedback_list = evaluate_quiz(questions, st.session_state.quiz_answers)
             
@@ -1027,7 +1022,7 @@ def get_ai_reply(user_input):
                 logger.error(f"TTS error: {e}")
             return
         else:
-            reply = f"Please answer question {len(st.session_state.quiz_answers) + 1}: {questions[len(st.session_state.quiz_answers)]}"
+            reply = f"Please answer question {len(st.session_state.quiz_answers) + 1}:"
             st.session_state.messages.append({"role": "assistant", "content": reply})
             st.session_state.conv_history.append({"role": "assistant", "content": reply})
             
