@@ -1,7 +1,7 @@
 # ocr_pdf_module.py
 """
 白描OCR PDF模块 - 适配 Streamlit 应用版本
-功能：识别PDF中的文字，支持大PDF自动分卷处理
+功能：识别PDF中的文字，支持大PDF自动分卷处理，支持并发处理
 """
 
 import os
@@ -10,10 +10,11 @@ import json
 import hashlib
 import tempfile
 import shutil
+import threading
 from datetime import datetime
 from pathlib import Path
 from typing import List, Tuple, Optional, Callable, Dict, Any
-import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
 import requests
 
 
@@ -24,12 +25,23 @@ BAIMIAO_CONFIG = {
     "x_auth_token": "prhtXtnfV73JerwLRYrexn8BPffEcWBaLhqyJvkglwevL81mRsmEKMAuNGjQ1HTz",
     "x_auth_uuid": "2805ff4c-9c5d-48f1-acca-15260542dc7c",
     "pdf": {
-        "max_pages_per_part": 50,  # PDF分卷每卷最大页数
-        "dpi": 150,                 # PDF转图片分辨率
+        "max_pages_per_part": 50,      # PDF分卷每卷最大页数
+        "dpi": 150,                    # PDF转图片分辨率
     },
-    "request_interval": 0.5,       # 请求间隔（秒）
-    "max_retries": 2,              # 失败重试次数
-    "retry_delay": 5,              # 重试等待时间（秒）
+    "request_interval": 0.5,           # 请求间隔（秒）
+    "max_workers": 0,                  # 0=自动调整，>0=固定并发数
+    "max_retries": 2,                  # 失败重试次数
+    "retry_delay": 5,                  # 重试等待时间（秒）
+    "verbose": True,                   # 是否显示详细信息
+}
+
+# 并发规则（当 max_workers=0 时使用）
+CONCURRENCY_RULES = {
+    (0, 10): 6,      # 1-10个任务：3个并发
+    (11, 50): 8,     # 11-50个任务：5个并发
+    (51, 100): 10,    # 51-100个任务：8个并发
+    (101, 500): 12,  # 101-500个任务：10个并发
+    (501, float('inf')): 15,  # 500以上：15个并发
 }
 
 
@@ -65,7 +77,6 @@ def split_pdf_bytes(pdf_bytes: bytes, pages_per_part: int = 50) -> List[Tuple[by
         total_pages = len(pdf_doc)
         
         if total_pages <= pages_per_part:
-            # 不分卷，直接返回原PDF
             pdf_doc.close()
             return [(pdf_bytes, 1, 1, total_pages)]
         
@@ -76,12 +87,10 @@ def split_pdf_bytes(pdf_bytes: bytes, pages_per_part: int = 50) -> List[Tuple[by
             start_page = part_num * pages_per_part
             end_page = min(start_page + pages_per_part, total_pages)
             
-            # 创建新PDF
             new_doc = fitz.open()
             for page_num in range(start_page, end_page):
                 new_doc.insert_pdf(pdf_doc, from_page=page_num, to_page=page_num)
             
-            # 保存到字节流
             part_bytes = new_doc.tobytes()
             new_doc.close()
             
@@ -141,7 +150,7 @@ def cleanup_temp_files(file_list: List[str]) -> None:
 # ==================== OCR类 ====================
 
 class BaimiaoOCR:
-    """白描OCR客户端 - 适配字节流版本"""
+    """白描OCR客户端 - 线程安全版"""
     
     def __init__(self, cookie: str, x_auth_token: str, x_auth_uuid: str):
         self.base_url = "https://web.baimiaoapp.com"
@@ -149,6 +158,7 @@ class BaimiaoOCR:
         self.x_auth_token = x_auth_token
         self.x_auth_uuid = x_auth_uuid
         
+        # 每个实例有自己的session
         self.session = requests.Session()
         self.session.headers.update({
             "accept": "application/json, text/plain, */*",
@@ -160,6 +170,8 @@ class BaimiaoOCR:
             "x-auth-token": self.x_auth_token,
             "x-auth-uuid": self.x_auth_uuid,
         })
+        
+        self.lock = threading.Lock()
     
     def _calculate_bytes_md5(self, data: bytes) -> str:
         """计算字节数据的MD5值"""
@@ -344,14 +356,71 @@ class BaimiaoOCR:
                 return None
 
 
+# ==================== 任务类 ====================
+
+class PDFPageTask:
+    """PDF页面识别任务"""
+    
+    def __init__(self, task_id: int, image_bytes: bytes, page_num: int, filename: str,
+                 ocr: BaimiaoOCR, config: Dict[str, Any], verbose: bool = False):
+        self.task_id = task_id
+        self.image_bytes = image_bytes
+        self.page_num = page_num
+        self.filename = filename
+        self.ocr = ocr
+        self.config = config
+        self.verbose = verbose
+        self.result = None
+        self.status = "pending"
+    
+    def execute(self) -> Tuple[int, Optional[str]]:
+        """执行任务，返回 (page_num, text)"""
+        max_retries = self.config.get("max_retries", 2)
+        retry_delay = self.config.get("retry_delay", 5)
+        
+        if self.verbose:
+            print(f"[Task {self.task_id}] Processing page {self.page_num}...")
+        
+        text = self.ocr.recognize_image_bytes(
+            self.image_bytes, 
+            self.filename,
+            verbose=False,
+            max_retries=max_retries,
+            retry_delay=retry_delay
+        )
+        
+        if text:
+            self.status = "success"
+            self.result = text
+            if self.verbose:
+                print(f"[Task {self.task_id}] Page {self.page_num} completed ({len(text)} chars)")
+            return (self.page_num, text)
+        else:
+            self.status = "failed"
+            if self.verbose:
+                print(f"[Task {self.task_id}] Page {self.page_num} failed")
+            return (self.page_num, None)
+
+
 # ==================== PDF OCR处理函数 ====================
+
+def get_concurrency(total_tasks: int, max_workers: int = 0) -> int:
+    """根据任务数量计算并发数"""
+    if max_workers > 0:
+        return min(max_workers, total_tasks)
+    
+    for (min_count, max_count), workers in CONCURRENCY_RULES.items():
+        if min_count <= total_tasks <= max_count:
+            return min(workers, total_tasks)
+    return 3
+
 
 def ocr_pdf(pdf_bytes: bytes, filename: str,
             cookie: str, x_auth_token: str, x_auth_uuid: str,
             progress_callback: Optional[Callable] = None,
             config: Dict[str, Any] = None) -> Tuple[str, Optional[str]]:
     """
-    OCR识别PDF文件
+    OCR识别PDF文件（支持并发处理）
     
     参数:
         pdf_bytes: PDF字节数据
@@ -368,7 +437,163 @@ def ocr_pdf(pdf_bytes: bytes, filename: str,
     if config is None:
         config = BAIMIAO_CONFIG
     
-    ocr = BaimiaoOCR(cookie, x_auth_token, x_auth_uuid)
+    pdf_config = config.get("pdf", {"max_pages_per_part": 50, "dpi": 150})
+    request_interval = config.get("request_interval", 0.5)
+    max_workers = config.get("max_workers", 0)
+    verbose = config.get("verbose", True)
+    
+    try:
+        # 1. 获取PDF页数
+        if progress_callback:
+            progress_callback(0, 100, "Reading PDF...")
+        
+        total_pages = get_pdf_page_count(pdf_bytes)
+        
+        if total_pages == 0:
+            return "failed", None
+        
+        if progress_callback:
+            progress_callback(5, 100, f"PDF has {total_pages} pages")
+        
+        # 2. 分卷处理（单线程，因为分卷是CPU密集操作）
+        pages_per_part = pdf_config.get("max_pages_per_part", 50)
+        
+        if progress_callback:
+            progress_callback(10, 100, "Splitting PDF into parts...")
+        
+        parts = split_pdf_bytes(pdf_bytes, pages_per_part)
+        
+        if not parts:
+            return "failed", None
+        
+        num_parts = len(parts)
+        all_page_texts = []  # 存储所有页面的识别结果
+        part_progress = 10  # 进度起点
+        
+        # 3. 处理每个分卷
+        for part_idx, (part_bytes, part_num, start_page, end_page) in enumerate(parts):
+            # 计算当前分卷的页数
+            part_page_count = end_page - start_page + 1
+            
+            if progress_callback:
+                msg = f"Converting part {part_num}/{num_parts} to images..."
+                progress_callback(part_progress, 100, msg)
+            
+            # 将PDF分卷转为图片
+            images = pdf_bytes_to_images(part_bytes, pdf_config.get("dpi", 150))
+            
+            if not images:
+                # 如果转换失败，记录失败信息
+                for page_num in range(start_page, end_page + 1):
+                    all_page_texts.append((page_num, None))
+                continue
+            
+            # 创建OCR客户端
+            ocr = BaimiaoOCR(cookie, x_auth_token, x_auth_uuid)
+            
+            # 准备任务列表
+            tasks = []
+            for img_idx, img_bytes in enumerate(images):
+                page_num = start_page + img_idx
+                img_filename = f"page_{page_num}.png"
+                task = PDFPageTask(
+                    task_id=len(tasks) + 1,
+                    image_bytes=img_bytes,
+                    page_num=page_num,
+                    filename=img_filename,
+                    ocr=ocr,
+                    config=config,
+                    verbose=verbose
+                )
+                tasks.append(task)
+            
+            # 计算并发数
+            concurrency = get_concurrency(len(tasks), max_workers)
+            
+            if verbose:
+                print(f"\nPart {part_num}: Processing {len(tasks)} pages with {concurrency} workers")
+            
+            # 执行并发任务
+            results = {}
+            with ThreadPoolExecutor(max_workers=concurrency) as executor:
+                futures = {executor.submit(task.execute): task for task in tasks}
+                
+                completed = 0
+                for future in as_completed(futures):
+                    page_num, text = future.result()
+                    results[page_num] = text
+                    completed += 1
+                    
+                    # 更新进度
+                    if progress_callback:
+                        part_total = len(tasks)
+                        overall_progress = part_progress + int(70 * (part_idx * part_total + completed) / (num_parts * part_total))
+                        progress_callback(min(overall_progress, 95), 100, f"Processing part {part_num}: page {completed}/{part_total}")
+                    
+                    # 请求间隔
+                    time.sleep(request_interval)
+            
+            # 收集结果
+            for page_num in range(start_page, end_page + 1):
+                text = results.get(page_num)
+                all_page_texts.append((page_num, text))
+            
+            # 更新进度起点
+            part_progress += int(70 / num_parts)
+        
+        # 4. 合并所有结果
+        if progress_callback:
+            progress_callback(95, 100, "Merging results...")
+        
+        # 按页号排序
+        all_page_texts.sort(key=lambda x: x[0])
+        
+        final_text = f"=== PDF OCR Result (Total {total_pages} pages) ===\n\n"
+        
+        for page_num, text in all_page_texts:
+            if page_num > 1:
+                final_text += f"\n\n--- Page {page_num} ---\n\n"
+            else:
+                final_text += f"--- Page {page_num} ---\n\n"
+            
+            if text:
+                final_text += text
+            else:
+                final_text += f"[Page {page_num}: Recognition failed]"
+        
+        if progress_callback:
+            progress_callback(100, 100, "Complete")
+        
+        return "success", final_text
+        
+    except Exception as e:
+        if verbose:
+            print(f"PDF OCR error: {e}")
+        return "failed", None
+
+
+def ocr_pdf_simple(pdf_bytes: bytes, filename: str,
+                   cookie: str, x_auth_token: str, x_auth_uuid: str,
+                   progress_callback: Optional[Callable] = None,
+                   config: Dict[str, Any] = None) -> Tuple[str, Optional[str]]:
+    """
+    OCR识别PDF文件（简单版，单线程处理，适合小PDF）
+    
+    参数:
+        pdf_bytes: PDF字节数据
+        filename: 文件名
+        cookie: 白描Cookie
+        x_auth_token: 白描Token
+        x_auth_uuid: 白描UUID
+        progress_callback: 进度回调函数 (current, total, message)
+        config: 配置字典
+    
+    返回:
+        (status, text) - status: "success" / "failed"
+    """
+    if config is None:
+        config = BAIMIAO_CONFIG
+    
     pdf_config = config.get("pdf", {"max_pages_per_part": 50, "dpi": 150})
     request_interval = config.get("request_interval", 0.5)
     max_retries = config.get("max_retries", 2)
@@ -387,66 +612,47 @@ def ocr_pdf(pdf_bytes: bytes, filename: str,
         if progress_callback:
             progress_callback(10, 100, f"PDF has {total_pages} pages")
         
-        # 分卷处理
-        pages_per_part = pdf_config.get("max_pages_per_part", 50)
-        
+        # 转为图片
         if progress_callback:
-            progress_callback(15, 100, "Splitting PDF into parts...")
+            progress_callback(20, 100, "Converting PDF to images...")
         
-        parts = split_pdf_bytes(pdf_bytes, pages_per_part)
+        images = pdf_bytes_to_images(pdf_bytes, pdf_config.get("dpi", 150))
         
-        if not parts:
+        if not images:
             return "failed", None
         
-        num_parts = len(parts)
+        ocr = BaimiaoOCR(cookie, x_auth_token, x_auth_uuid)
+        
         all_texts = []
+        total = len(images)
         
-        for idx, (part_bytes, part_num, start_page, end_page) in enumerate(parts):
+        for idx, img_bytes in enumerate(images):
+            page_num = idx + 1
+            
             if progress_callback:
-                msg = f"Processing part {part_num}/{num_parts} (pages {start_page}-{end_page})"
-                progress_callback(20 + int(70 * idx / num_parts), 100, msg)
+                progress_callback(20 + int(70 * idx / total), 100, f"Processing page {page_num}/{total}")
             
-            # 将PDF部分转为图片
-            images = pdf_bytes_to_images(part_bytes, pdf_config.get("dpi", 150))
+            text = ocr.recognize_image_bytes(
+                img_bytes, f"page_{page_num}.png",
+                verbose=False, max_retries=max_retries, retry_delay=retry_delay
+            )
             
-            if not images:
-                all_texts.append(f"[Part {part_num}: Failed to convert to images]")
-                continue
+            if text:
+                all_texts.append(text)
+            else:
+                all_texts.append(f"[Page {page_num}: Recognition failed]")
             
-            part_texts = []
-            for img_idx, img_bytes in enumerate(images):
-                page_num = start_page + img_idx
-                img_filename = f"page_{page_num}.png"
-                
-                text = ocr.recognize_image_bytes(
-                    img_bytes, img_filename, 
-                    verbose=False, max_retries=max_retries, retry_delay=retry_delay
-                )
-                
-                if text:
-                    part_texts.append(text)
-                else:
-                    part_texts.append(f"[Page {page_num}: Recognition failed]")
-                
-                # 请求间隔
-                time.sleep(request_interval)
-            
-            # 合并部分文本
-            part_result = ""
-            for i, text in enumerate(part_texts):
-                page_num = start_page + i
-                if i > 0:
-                    part_result += f"\n\n--- Page {page_num} ---\n\n"
-                part_result += text
-            
-            all_texts.append(part_result)
+            time.sleep(request_interval)
         
-        # 合并所有部分
+        # 合并结果
         final_text = f"=== PDF OCR Result (Total {total_pages} pages) ===\n\n"
-        for i, part_text in enumerate(all_texts):
+        for i, text in enumerate(all_texts):
+            page_num = i + 1
             if i > 0:
-                final_text += "\n\n" + "="*60 + "\n\n"
-            final_text += part_text
+                final_text += f"\n\n--- Page {page_num} ---\n\n"
+            else:
+                final_text += f"--- Page {page_num} ---\n\n"
+            final_text += text
         
         if progress_callback:
             progress_callback(100, 100, "Complete")
@@ -465,7 +671,10 @@ def test_ocr_pdf():
     print("PDF OCR Module Test")
     print("=" * 60)
     print("This module is designed to be used with Streamlit app.")
-    print("Use ocr_pdf() function to OCR PDF files.")
+    print("\nFeatures:")
+    print("- Auto-split large PDFs into parts")
+    print("- Concurrent processing of pages (configurable)")
+    print("- Progress callback support")
     print("\nUsage example in Streamlit:")
     print("""
     from ocr_pdf_module import ocr_pdf, BAIMIAO_CONFIG
@@ -473,16 +682,29 @@ def test_ocr_pdf():
     uploaded_file = st.file_uploader("Upload PDF", type=["pdf"])
     if uploaded_file:
         pdf_bytes = uploaded_file.read()
+        
+        # 显示进度
+        progress_bar = st.progress(0)
+        status_text = st.empty()
+        
+        def update_progress(current, total, message):
+            progress_bar.progress(current / total)
+            status_text.text(message)
+        
         status, text = ocr_pdf(
             pdf_bytes,
             uploaded_file.name,
             BAIMIAO_CONFIG["cookie"],
             BAIMIAO_CONFIG["x_auth_token"],
             BAIMIAO_CONFIG["x_auth_uuid"],
-            progress_callback=lambda c,t,m: st.progress(c/t)
+            progress_callback=update_progress,
+            config={"max_workers": 5}  # 5个并发
         )
+        
         if status == "success":
             st.text_area("OCR Result", text, height=300)
+        else:
+            st.error("OCR failed")
     """)
 
 
