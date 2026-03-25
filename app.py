@@ -207,25 +207,106 @@ def save_conversation_summary(summary):
         logger.error(f"Failed to save local summary: {e}")
 
 
-# ---------- 生成 Quiz（直接使用模板格式）----------
+# ---------- 生成 Quiz（根据语言模式使用相应模板）----------
 def generate_quiz(topic, full_page_content):
-    # 加载模板
-    template = QUIZ_TEMPLATE
-    
-    prompt = f"""You are a Chinese language test designer. Generate 3 COMPLETE quiz questions about "{topic}" following EXACTLY the format shown in the template below.
+    # 根据当前语言模式选择模板
+    if st.session_state.language == "Chinese":
+        # 中文学习模板
+        template = """
+### 1. 单选题 (Multiple Choice)
+**Instruction (EN):** Choose the ONE best answer.
 
-**TEMPLATE FORMAT (MUST FOLLOW EXACTLY):**
+1. 他________每天都去学校。  
+A. 都  
+B. 很  
+C. 太  
+D. 也  
+
+---
+
+### 2. 填空题 (Fill in the blank)
+**Instruction (EN):** Fill in the blank with the correct word.
+
+1. 我今天________朋友见面。  
+
+---
+
+### 3. 翻译题 (Translation)
+**Instruction (EN):** Translate into English.
+
+1. 她喜欢喝咖啡。  
+
+---
+
+### 4. 改错题 (Error correction)
+**Instruction (EN):** Find and correct the mistake.
+
+1. 我昨天去看电影了在商场。  
+
+---
+
+### 5. 造句题 (Sentence making)
+**Instruction (EN):** Use the given words to make a sentence.
+
+1. 明天 / 我 / 去 / 学校  
+"""
+    else:
+        # 英文学习模板
+        template = """
+### 1. 单选题 (Multiple Choice)
+**Instruction (EN):** Choose the ONE best answer.
+
+1. He ______ to school every day.  
+A. go  
+B. goes  
+C. going  
+D. gone  
+
+---
+
+### 2. 填空题 (Fill in the blank)
+**Instruction (EN):** Fill in the blank with the correct word.
+
+1. I ______ a book yesterday.  
+
+---
+
+### 3. 翻译题 (Translation)
+**Instruction (EN):** Translate into Chinese.
+
+1. She likes drinking coffee.  
+
+---
+
+### 4. 改错题 (Error correction)
+**Instruction (EN):** Find and correct the mistake.
+
+1. He go to school every day.  
+
+---
+
+### 5. 造句题 (Sentence making)
+**Instruction (EN):** Use the given words to make a sentence.
+
+1. tomorrow / I / will / go / school
+"""
+    
+    prompt = f"""You are a language test designer. Generate 3 COMPLETE quiz questions about "{topic}" using the template below.
+
+**TEMPLATE (MUST FOLLOW THE QUESTION TYPES):**
 {template}
 
 **CRITICAL RULES:**
-1. Copy the exact question types from the template
+1. Choose 3 DIFFERENT question types from the template
 2. For each question, replace the placeholder content with actual content about "{topic}"
 3. Each question must be COMPLETE with all options and context
 4. Multiple choice questions MUST have A, B, C, D options
 5. Fill-in-the-blank questions MUST have a complete sentence with blank
 6. Translation questions MUST have a full sentence to translate
-7. NEVER include the answer
-8. Return ONLY the 3 questions, numbered 1., 2., 3.
+7. Error correction questions MUST have a sentence with an error
+8. Sentence making questions MUST provide words to arrange
+9. NEVER include the answer in the question
+10. Return ONLY the 3 questions, numbered 1., 2., 3.
 
 Generate 3 COMPLETE quiz questions about "{topic}":"""
     
@@ -243,7 +324,7 @@ Generate 3 COMPLETE quiz questions about "{topic}":"""
         current_question = ""
         lines = questions_text.split('\n')
         
-        for i, line in enumerate(lines):
+        for line in lines:
             line = line.strip()
             if not line:
                 continue
@@ -256,39 +337,52 @@ Generate 3 COMPLETE quiz questions about "{topic}":"""
             else:
                 if current_question:
                     current_question += "\n" + line
-                else:
-                    current_question = line
         
         if current_question:
             questions.append(current_question)
         
-        # 确保有3个完整问题
-        if len(questions) < 3:
-            # 根据模板生成默认问题
-            default_questions = [
-                f"1. 单选题：以下哪个选项最符合“{topic}”的含义？\n   A. 第一个选项\n   B. 第二个选项\n   C. 第三个选项\n   D. 第四个选项",
-                f"2. 填空题：请用与“{topic}”相关的词语完成以下句子：\n   他今天心情很好，脸上露出了___的笑容。",
-                f"3. 翻译题：请将以下句子翻译成中文：\n   He felt a sense of joy and satisfaction."
-            ]
-            questions = (questions + default_questions)[:3]
-        
-        # 确保每个问题都有编号和完整格式
-        final_questions = []
-        for i, q in enumerate(questions[:3]):
-            # 确保有编号
+        # 清理问题，移除多余内容
+        cleaned_questions = []
+        for q in questions:
+            # 移除 "Instruction" 等标题
+            q = re.sub(r'Instruction.*?:\s*', '', q)
+            # 确保问题有编号
             if not re.match(r'^\d+\.', q):
-                q = f"{i+1}. {q}"
-            final_questions.append(q)
+                q = f"{len(cleaned_questions) + 1}. {q}"
+            cleaned_questions.append(q)
         
-        return final_questions[:3]
+        # 确保有3个问题
+        if len(cleaned_questions) < 3:
+            if st.session_state.language == "Chinese":
+                default_questions = [
+                    f"1. 单选题：以下哪个选项最符合“{topic}”的含义？\n   A. 选项A\n   B. 选项B\n   C. 选项C\n   D. 选项D",
+                    f"2. 填空题：请用与“{topic}”相关的词语完成以下句子：\n   他今天心情很好，脸上露出了___的笑容。",
+                    f"3. 翻译题：请将以下句子翻译成中文：\n   This is an example about {topic}."
+                ]
+            else:
+                default_questions = [
+                    f"1. Multiple Choice: Which of the following best describes \"{topic}\"?\n   A. Option A\n   B. Option B\n   C. Option C\n   D. Option D",
+                    f"2. Fill in the blank: The ___ provided accommodation for 50 guests.",
+                    f"3. Translation: Translate into Chinese: This is an example about {topic}."
+                ]
+            cleaned_questions = (cleaned_questions + default_questions)[:3]
+        
+        return cleaned_questions[:3]
         
     except Exception as e:
         logger.error(f"Quiz generation error: {e}")
-        return [
-            f"1. 单选题：以下哪个选项最符合“{topic}”的含义？\n   A. 第一个选项\n   B. 第二个选项\n   C. 第三个选项\n   D. 第四个选项",
-            f"2. 填空题：请用与“{topic}”相关的词语完成以下句子：\n   ______",
-            f"3. 翻译题：请将以下句子翻译成中文：\n   ______"
-        ]
+        if st.session_state.language == "Chinese":
+            return [
+                f"1. 单选题：以下哪个选项最符合“{topic}”的含义？\n   A. 选项A\n   B. 选项B\n   C. 选项C\n   D. 选项D",
+                f"2. 填空题：请用与“{topic}”相关的词语完成以下句子：\n   ______",
+                f"3. 翻译题：请将以下句子翻译成中文：\n   ______"
+            ]
+        else:
+            return [
+                f"1. Multiple Choice: Which of the following best describes \"{topic}\"?\n   A. Option A\n   B. Option B\n   C. Option C\n   D. Option D",
+                f"2. Fill in the blank: ______",
+                f"3. Translation: Translate into Chinese: ______"
+            ]
 
 # ========== 评估 Quiz 答案（修复版）==========
 def evaluate_quiz(questions, user_answers):
