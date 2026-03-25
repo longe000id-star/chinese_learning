@@ -367,36 +367,6 @@ st.set_page_config(
     menu_items=None
 )
 
-# ========== 添加侧边栏强制显示样式 ==========
-st.markdown("""
-<style>
-    /* 确保侧边栏可见 */
-    [data-testid="stSidebar"] {
-        background-color: #ffffff !important;
-        z-index: 999999 !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-    }
-    
-    [data-testid="stSidebar"] * {
-        color: #000000 !important;
-    }
-    
-    /* 移除可能遮挡侧边栏的元素 */
-    div[style*="position: fixed"][style*="inset: 0"] {
-        pointer-events: none !important;
-    }
-    
-    /* 确保侧边栏内容可点击 */
-    [data-testid="stSidebar"] button,
-    [data-testid="stSidebar"] input,
-    [data-testid="stSidebar"] select {
-        pointer-events: auto !important;
-    }
-</style>
-""", unsafe_allow_html=True)
-
-
 # ---------- 初始化语言状态 ----------
 if "language" not in st.session_state:
     st.session_state.language = "Chinese"
@@ -1593,6 +1563,29 @@ st.markdown(f"""
         display: none !important;
     }}
 
+    /* 侧边栏样式 - 带 emoji 标识 */
+    section[data-testid="stSidebar"] {{
+        display: block !important;
+        width: 320px !important;
+        background-color: rgba(20, 20, 30, 0.95) !important;
+        border-right: 1px solid rgba(255,255,255,0.2) !important;
+        z-index: 999 !important;
+        backdrop-filter: blur(10px) !important;
+    }}
+
+    /* 侧边栏标题加 emoji */
+    section[data-testid="stSidebar"]::before {{
+        content: "⚙️ Settings Panel ";
+        display: block;
+        font-size: 18px;
+        font-weight: bold;
+        padding: 15px 20px;
+        color: white;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+        font-family: 'Manrope', sans-serif;
+    }}
+
     div[role="dialog"] {{
         display: none !important;
     }}
@@ -1888,10 +1881,10 @@ st.markdown(f"""
 
 # ========== 侧边栏：所有设置项 ==========
 with st.sidebar:
-    st.markdown("## Settings")
+    st.markdown("## ⚙️ Settings Panel")
     
     # 语言选择
-    st.markdown("### Mode")
+    st.markdown("### 🌐 Mode")
     mode_options = ["Chinese", "English", "NEMT & CET"]
     current_index = 0
     if st.session_state.language == "English":
@@ -1932,7 +1925,7 @@ with st.sidebar:
     st.markdown("---")
     
     # 搜索框
-    st.markdown("### Search")
+    st.markdown("### 🔍 Search")
     
     search_scope = st.selectbox(
         "Search in",
@@ -1976,7 +1969,7 @@ with st.sidebar:
     st.markdown("---")
     
     # 模型选择
-    st.markdown("### Model")
+    st.markdown("### 🤖 Model")
     selected_model_display = st.selectbox(
         "Select Model",
         options=list(AVAILABLE_MODELS.keys()),
@@ -1992,7 +1985,7 @@ with st.sidebar:
     st.markdown("---")
     
     # Quiz 按钮
-    if st.button("Generate Quiz", key="sidebar_quiz_button", use_container_width=True):
+    if st.button("📝 Generate Quiz", key="sidebar_quiz_button", use_container_width=True):
         full_page = get_current_page_full_content()
         topic = "general"
         if full_page:
@@ -2033,7 +2026,7 @@ with st.sidebar:
     st.markdown("---")
     
     # OCR 区域
-    st.markdown("### OCR")
+    st.markdown("### 📷 OCR")
     
     # 图片上传
     uploaded_images = st.file_uploader(
