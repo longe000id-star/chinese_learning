@@ -321,58 +321,6 @@ Generate the quiz:"""
         logger.error(f"Quiz generation error: {e}")
         return None
         
-# ========== 评估 Quiz 答案 ==========
-def evaluate_quiz(questions, user_answers):
-    # 直接构建问题和答案列表
-    qa_list = []
-    for i, q in enumerate(questions):
-        user_ans = user_answers.get(i+1, "No answer")
-        qa_list.append(f"问题 {i+1}: {q}\n用户答案: {user_ans}")
-    
-    prompt = f"""请判断以下每个问题的用户答案是否正确。如果错误，请给出简短的解释说明为什么错。保持简洁。
-
-{chr(10).join(qa_list)}
-
-返回格式：
-1: 正确/错误 (如果错误，加简短解释)
-2: 正确/错误 (如果错误，加简短解释)
-3: 正确/错误 (如果错误，加简短解释)
-4: 正确/错误 (如果错误，加简短解释)
-5: 正确/错误 (如果错误，加简短解释)
-总分: X/5"""
-    
-    try:
-        response = client.chat.completions.create(
-            model="openai/gpt-oss-20b",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.2,
-            max_tokens=300,
-        )
-        result = response.choices[0].message.content.strip()
-        
-        # 解析分数
-        score_match = re.search(r'总分:\s*(\d+)/(\d+)', result)
-        if score_match:
-            score = int(score_match.group(1))
-            total = int(score_match.group(2))
-        else:
-            total = len(questions)
-            score = 0
-            for i in range(len(questions)):
-                if f"{i+1}: 正确" in result:
-                    score += 1
-        
-        # 生成反馈列表
-        feedback_list = []
-        for i in range(len(questions)):
-            is_correct = f"{i+1}: 正确" in result
-            feedback_list.append(is_correct)
-        
-        return result, score, len(questions), feedback_list
-        
-    except Exception as e:
-        logger.error(f"Quiz evaluation error: {e}")
-        return "评估失败", 0, len(questions), [False] * len(questions)
 
 # ---------- 将背景图片转换为 Base64 嵌入 CSS ----------
 def get_base64_of_image(image_path):
@@ -890,7 +838,7 @@ Translation:"""
         return word
 
 
-# ========== AI 回复函数（只在用户要求时才生成 Quiz）==========
+# ========== AI 回复函数 ==========
 def get_ai_reply(user_input):
     logger.info(f"User input: {user_input[:100]}...")
     
@@ -957,42 +905,62 @@ def get_ai_reply(user_input):
         
         # 检查是否已经回答了所有问题
         if len(st.session_state.quiz_answers) >= len(questions):
-            evaluation, score, total, feedback_list = evaluate_quiz(questions, st.session_state.quiz_answers)
-            
-            save_quiz_to_feedback(
-                st.session_state.current_quiz.get("topic", "General"),
-                questions,
-                st.session_state.quiz_answers,
-                feedback_list,
-                score,
-                total
-            )
-            
-            # ========== 构建详细反馈 ==========
-            feedback_lines = []
-            
-            # 添加评估结果
-            feedback_lines.append(evaluation)
-            feedback_lines.append("")
-            feedback_lines.append("--- Detailed Feedback ---")
-            
-            # 逐题添加详细反馈
+            # ========== 直接让 AI 评估，不做解析 ==========
+            qa_list = []
             for i, q in enumerate(questions):
                 user_ans = st.session_state.quiz_answers.get(i+1, "No answer")
-                is_correct = feedback_list[i] if i < len(feedback_list) else False
-                status = "🎉 Correct" if is_correct else "❌ Incorrect"
-                
-                feedback_lines.append(f"\n**Q{i+1}: {q}**")
-                feedback_lines.append(f"Your answer: {user_ans}")
-                feedback_lines.append(f"Status: {status}")
-                
-                # 如果错误，给出提示
-                if not is_correct:
-                    feedback_lines.append("Hint: Review the topic and try again.")
+                qa_list.append(f"问题 {i+1}: {q}\n你的答案: {user_ans}")
             
-            feedback_lines.append("\nGreat job! Let me know if you have any questions about the feedback.")
+            eval_prompt = f"""请评估以下每个问题的答案是否正确。如果错误，请给出简短解释。保持简洁。
+
+{chr(10).join(qa_list)}
+
+请用以下格式返回：
+1: [正确/错误] (如果错误，加解释)
+2: [正确/错误] (如果错误，加解释)
+3: [正确/错误] (如果错误，加解释)
+4: [正确/错误] (如果错误，加解释)
+5: [正确/错误] (如果错误，加解释)
+总分: X/5"""
             
-            reply = "\n".join(feedback_lines)
+            try:
+                eval_response = client.chat.completions.create(
+                    model="openai/gpt-oss-20b",
+                    messages=[{"role": "user", "content": eval_prompt}],
+                    temperature=0.2,
+                    max_tokens=500,
+                )
+                evaluation = eval_response.choices[0].message.content.strip()
+                
+                # 保存到 feedback.md
+                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                entry = f"""
+## Quiz Record - {timestamp}
+
+**Topic:** {st.session_state.current_quiz.get("topic", "General")}
+
+{evaluation}
+
+---
+"""
+                existing_content = ""
+                try:
+                    with open("feedback.md", "r", encoding="utf-8") as f:
+                        existing_content = f.read()
+                except FileNotFoundError:
+                    pass
+                
+                new_content = existing_content + entry if existing_content else "# Quiz Records\n\n" + entry
+                save_to_github("feedback.md", new_content, f"Add quiz record - {timestamp}")
+                
+                with open("feedback.md", "w", encoding="utf-8") as f:
+                    f.write(new_content)
+                
+                reply = evaluation + "\n\nGreat job! Let me know if you have any questions about the feedback."
+                
+            except Exception as e:
+                logger.error(f"Evaluation error: {e}")
+                reply = "Unable to evaluate. Please try again."
             
             st.session_state.quiz_active = False
             st.session_state.current_quiz = None
