@@ -253,3 +253,31 @@
 **Score:** 0/5
 
 ---
+
+## Quiz Record - 2026-03-25 06:01:52
+
+**Topic:** Law / Politics / Governance / Religion
+**Questions:**
+1. 1. Which of the following best describes the term “tribunal”?
+2. 2. The citizens lived in ____ under the new regime, fearing loss of their civil liberties.
+3. 3. Translate into Chinese: *The tribunal will convene tomorrow to hear the case.*
+4. 4. Find and correct the mistake in the following sentence:
+5. 5. Arrange the following words to form a meaningful sentence:
+
+**User Answers:**
+1. B
+2. subjection
+3. 法庭将于明天开庭审理此案。
+4. The tribunal is responsible for ensuring justice for all parties involved.
+5. The tribunal protects those under subjection.
+
+**Feedback:**
+- Q1: ❌ Incorrect
+- Q2: ❌ Incorrect
+- Q3: ❌ Incorrect
+- Q4: ❌ Incorrect
+- Q5: ❌ Incorrect
+
+**Score:** 0/5
+
+---
