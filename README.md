@@ -121,7 +121,7 @@ This module extracts text from images and non-searchable documents for further i
 ### Images
 ![PDF First Page](09.png)  
 ![PDF Last Page](10.png)  
-![OCR Processing](12.png)  
+![OCR Processing](11.png)  
 ![OCR Processed](12.png)
 ![OCR Processed 2](13.png) 
 
