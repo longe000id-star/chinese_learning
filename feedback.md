@@ -141,3 +141,31 @@
 **Score:** 0/5
 
 ---
+
+## Quiz Record - 2026-03-25 05:31:16
+
+**Topic:** Law / Politics / Governance / Religion
+**Questions:**
+1. 1. 单选题：在国际法中，哪个机构负责审理国家之间的争端并作出具有约束力的裁决？
+2. 2. 填空题：在法律体系中，________ 是指个人或团体被迫接受法律或政府的支配。
+3. 3. 翻译题：Translate the following sentence into Chinese:
+4. 4. 改错题：请改正下列句子中的错误：
+5. 5. 造句题：使用下列词语造句（可任意排列）：subjection, tribunal, justice, appeal, rights
+
+**User Answers:**
+1. B
+2. subjection
+3. 法庭将于下周开庭审理涉嫌政治压迫的案件。
+4. The tribunal was convened to address the issue of subjection by the state.
+5. The tribunal reviewed the appeal to protect rights and ensure justice under subjection.
+
+**Feedback:**
+- Q1: ❌ Incorrect
+- Q2: ❌ Incorrect
+- Q3: ❌ Incorrect
+- Q4: ❌ Incorrect
+- Q5: ❌ Incorrect
+
+**Score:** 0/5
+
+---
