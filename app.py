@@ -1620,7 +1620,7 @@ st.markdown(f"""
 
     /* 确保侧边栏中的文本可见 */
     section[data-testid="stSidebar"] * {{
-        color: #b0b0b0 !important;
+        color: #ffffff !important;
     }}
 
     /* 侧边栏输入框、选择框、按钮 - 黑色半透明 */
