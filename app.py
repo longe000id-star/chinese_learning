@@ -1623,6 +1623,24 @@ st.markdown(f"""
         color: #ffffff !important;
     }}
 
+    /* 侧边栏输入框、选择框、按钮 - 黑色半透明 */
+    section[data-testid="stSidebar"] input,
+    section[data-testid="stSidebar"] textarea,
+    section[data-testid="stSidebar"] select,
+    section[data-testid="stSidebar"] div[data-baseweb="select"] > div,
+    section[data-testid="stSidebar"] [data-baseweb="select"] {{
+        background-color: rgba(0, 0, 0, 0.3) !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        border-radius: 8px !important;
+    }}
+
+    /* 侧边栏按钮 - 黑色半透明 */
+    section[data-testid="stSidebar"] button {{
+        background-color: rgba(0, 0, 0, 0.3) !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        border-radius: 8px !important;
+    }}
+
     /* 其他原有样式保持不变 */
     .breadcrumb {{
         background-color: rgba(255, 255, 255, 0.1);
@@ -1707,7 +1725,7 @@ st.markdown(f"""
 
 # ========== 侧边栏 ==========
 with st.sidebar:
-    # ========== 聊天区域（占80%） ==========
+    # ========== 聊天区域 ==========
     # 聊天消息显示区域
     chat_messages = st.container(height=500)
     with chat_messages:
@@ -1719,16 +1737,9 @@ with st.sidebar:
             else:
                 st.write(f"**AI:** {msg['content']}")
     
-    # 第一行：清空、语音、文本输入
-    col1, col2, col3 = st.columns([1, 1, 4])
-    with col1:
-        if st.button("Clear", key="clear_btn"):
-            st.session_state.messages = [{"role": "system", "content": system_prompt}]
-            st.session_state.conversation_summary = ""
-            st.session_state.conv_history = []
-            st.session_state.user_msg_count = 0
-            st.rerun()
-    with col2:
+    # 第一行：语音 + 文本输入框
+    col_voice, col_text = st.columns([1, 4])
+    with col_voice:
         audio_in = st.audio_input("", key="audio_in", label_visibility="collapsed")
         if audio_in is not None:
             audio_id = f"{audio_in.name}_{audio_in.size}"
@@ -1741,20 +1752,30 @@ with st.sidebar:
                     if transcript:
                         get_ai_reply(transcript)
                         st.rerun()
-    with col3:
+    with col_text:
         user_msg = st.chat_input("")
         if user_msg:
             get_ai_reply(user_msg)
             st.rerun()
     
-    # 第二行：四个小按钮（Clear Search, Generate Quiz, Run OCR）
-    col_a, col_b, col_c, col_d = st.columns(4)
+    # 第二行：Clear + Clear Search
+    col_a, col_b = st.columns(2)
     with col_a:
+        if st.button("Clear", key="clear_btn", use_container_width=True):
+            st.session_state.messages = [{"role": "system", "content": system_prompt}]
+            st.session_state.conversation_summary = ""
+            st.session_state.conv_history = []
+            st.session_state.user_msg_count = 0
+            st.rerun()
+    with col_b:
         if st.button("Clear Search", key="clear_search_btn", use_container_width=True):
             st.session_state.search_keyword = ""
             st.session_state.search_results = []
             st.rerun()
-    with col_b:
+    
+    # 第三行：Generate Quiz + Run OCR
+    col_c, col_d = st.columns(2)
+    with col_c:
         if st.button("Generate Quiz", key="quiz_btn_small", use_container_width=True):
             full_page = get_current_page_full_content()
             topic = "general"
@@ -1787,9 +1808,8 @@ with st.sidebar:
                 except Exception as e:
                     logger.error(f"TTS error: {e}")
                 st.rerun()
-    with col_c:
+    with col_d:
         if st.button("Run OCR", key="ocr_run_small", use_container_width=True):
-            # 获取上传的文件
             img_files = st.session_state.get("ocr_imgs", [])
             pdf_file = st.session_state.get("ocr_pdf", None)
             zip_file = st.session_state.get("ocr_zip", None)
@@ -1823,9 +1843,6 @@ with st.sidebar:
                 result_text = format_results_as_text(ocr_results)
                 st.session_state.ocr_result_text = result_text
                 st.rerun()
-    with col_d:
-        # 占位，保持四个按钮对齐
-        pass
     
     # 如果有OCR结果，显示
     if st.session_state.get("ocr_result_text"):
@@ -1907,8 +1924,7 @@ with st.sidebar:
         st.session_state.model_max_tokens = AVAILABLE_MODELS[new_model]["max_tokens"]
         st.rerun()
     
-    # OCR 文件上传（移到下面）
-    st.write("**OCR Files**")
+    # OCR 文件上传
     img_files = st.file_uploader("Images", type=["jpg","jpeg","png","bmp","webp","tiff"], accept_multiple_files=True, key="ocr_imgs")
     pdf_file = st.file_uploader("PDF", type=["pdf"], key="ocr_pdf")
     zip_file = st.file_uploader("ZIP", type=["zip"], key="ocr_zip")
