@@ -1776,7 +1776,7 @@ st.markdown(f"""
 with st.sidebar:
     # ========== 聊天区域 ==========
     # 聊天消息显示区域
-    chat_messages = st.container(height=500)
+    chat_messages = st.container(height=800)
     with chat_messages:
         for msg in st.session_state.messages:
             if msg["role"] == "system":
