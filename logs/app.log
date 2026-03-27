@@ -1,0 +1,709 @@
+2026-03-25 23:15:37,579 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-25 23:15:37,596 - __main__ - INFO - Successfully loaded TEM-8.json
+2026-03-25 23:15:37,598 - __main__ - INFO - Successfully loaded NEMT.json
+2026-03-25 23:15:37,599 - __main__ - INFO - Successfully loaded CET-46.json
+2026-03-25 23:15:53,294 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-25 23:15:55,135 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-25 23:15:59,332 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-25 23:16:00,675 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-25 23:16:00,752 - __main__ - INFO - === OCR图片处理开始 ===
+2026-03-25 23:16:00,752 - __main__ - INFO - 上传图片数量: 1
+2026-03-25 23:16:00,752 - __main__ - INFO -   图片 1: 01.png, 大小: 418546 bytes, 类型: image/png
+2026-03-25 23:16:00,753 - __main__ - INFO - 读取图片 01.png: 0.00秒, 大小: 408.7KB
+2026-03-25 23:16:00,753 - __main__ - INFO - 开始调用 ocr_images_batch...
+2026-03-25 23:16:10,804 - __main__ - INFO - ocr_images_batch 完成，耗时: 10.05秒
+2026-03-25 23:16:10,804 - __main__ - INFO - OCR结果: 成功=0, 失败=2
+2026-03-25 23:16:10,804 - __main__ - ERROR -   ❌ 01.png: 识别失败
+2026-03-25 23:16:10,805 - __main__ - ERROR -   ❌ 01.png: 识别失败
+2026-03-25 23:16:10,809 - __main__ - INFO - === OCR图片处理结束 ===
+2026-03-25 23:16:16,487 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-25 23:16:21,536 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-25 23:16:21,622 - __main__ - INFO - === OCR图片处理开始 ===
+2026-03-25 23:16:21,623 - __main__ - INFO - 上传图片数量: 1
+2026-03-25 23:16:21,623 - __main__ - INFO -   图片 1: 01.png, 大小: 418546 bytes, 类型: image/png
+2026-03-25 23:16:21,623 - __main__ - INFO - 读取图片 01.png: 0.00秒, 大小: 408.7KB
+2026-03-25 23:16:21,623 - __main__ - INFO - 开始调用 ocr_images_batch...
+2026-03-25 23:16:31,649 - __main__ - INFO - ocr_images_batch 完成，耗时: 10.03秒
+2026-03-25 23:16:31,650 - __main__ - INFO - OCR结果: 成功=0, 失败=2
+2026-03-25 23:16:31,650 - __main__ - ERROR -   ❌ 01.png: 识别失败
+2026-03-25 23:16:31,650 - __main__ - ERROR -   ❌ 01.png: 识别失败
+2026-03-25 23:16:31,660 - __main__ - INFO - === OCR图片处理结束 ===
+2026-03-25 23:23:07,885 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-25 23:23:07,946 - __main__ - INFO - Successfully loaded TEM-8.json
+2026-03-25 23:23:07,946 - __main__ - INFO - Successfully loaded NEMT.json
+2026-03-25 23:23:07,947 - __main__ - INFO - Successfully loaded CET-46.json
+2026-03-25 23:24:01,793 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-25 23:24:03,436 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-25 23:24:03,489 - __main__ - INFO - === OCR图片处理开始 ===
+2026-03-25 23:24:03,489 - __main__ - INFO - 上传图片数量: 1
+2026-03-25 23:24:03,489 - __main__ - INFO -   图片 1: 01.png, 大小: 418546 bytes, 类型: image/png
+2026-03-25 23:24:03,490 - __main__ - INFO - 读取图片 01.png: 0.00秒, 大小: 408.7KB
+2026-03-25 23:24:03,490 - __main__ - INFO - 开始调用 ocr_images_batch...
+2026-03-25 23:24:16,669 - __main__ - INFO - ocr_images_batch 完成，耗时: 13.18秒
+2026-03-25 23:24:16,670 - __main__ - INFO - OCR结果: 成功=0, 失败=2
+2026-03-25 23:24:16,670 - __main__ - ERROR -   ❌ 01.png: 识别失败
+2026-03-25 23:24:16,670 - __main__ - ERROR -   ❌ 01.png: 识别失败
+2026-03-25 23:24:16,673 - __main__ - INFO - === OCR图片处理结束 ===
+2026-03-26 00:18:56,446 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:18:56,457 - __main__ - INFO - Successfully loaded TEM-8.json
+2026-03-26 00:18:56,458 - __main__ - INFO - Successfully loaded NEMT.json
+2026-03-26 00:18:56,459 - __main__ - INFO - Successfully loaded CET-46.json
+2026-03-26 00:19:21,557 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:19:23,831 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:19:23,879 - __main__ - INFO - === OCR图片处理开始 ===
+2026-03-26 00:19:23,879 - __main__ - INFO - 上传图片数量: 1
+2026-03-26 00:19:23,879 - __main__ - INFO -   图片 1: 01.jpg, 大小: 418546 bytes, 类型: image/jpeg
+2026-03-26 00:19:23,880 - __main__ - INFO - 读取图片 01.jpg: 0.00秒, 大小: 408.7KB
+2026-03-26 00:19:23,880 - __main__ - INFO - 开始调用 ocr_images_batch...
+2026-03-26 00:19:29,136 - __main__ - INFO - ocr_images_batch 完成，耗时: 5.26秒
+2026-03-26 00:19:29,137 - __main__ - INFO - OCR结果: 成功=1, 失败=1
+2026-03-26 00:19:29,137 - __main__ - INFO -   ✅ 01.jpg: 1602 字符
+2026-03-26 00:19:29,137 - __main__ - ERROR -   ❌ 01.jpg: 识别失败
+2026-03-26 00:19:29,140 - __main__ - INFO - === OCR图片处理结束 ===
+2026-03-26 00:19:50,543 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:20:21,179 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:20:23,200 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:20:23,301 - __main__ - INFO - === OCR图片处理开始 ===
+2026-03-26 00:20:23,301 - __main__ - INFO - 上传图片数量: 1
+2026-03-26 00:20:23,301 - __main__ - INFO -   图片 1: 01.jpg, 大小: 418546 bytes, 类型: image/jpeg
+2026-03-26 00:20:23,302 - __main__ - INFO - 读取图片 01.jpg: 0.00秒, 大小: 408.7KB
+2026-03-26 00:20:23,302 - __main__ - INFO - 开始调用 ocr_images_batch...
+2026-03-26 00:20:31,902 - __main__ - INFO - ocr_images_batch 完成，耗时: 8.60秒
+2026-03-26 00:20:31,904 - __main__ - INFO - OCR结果: 成功=1, 失败=1
+2026-03-26 00:20:31,904 - __main__ - INFO -   ✅ 01.jpg: 1602 字符
+2026-03-26 00:20:31,904 - __main__ - ERROR -   ❌ 01.jpg: 识别失败
+2026-03-26 00:20:31,908 - __main__ - INFO - === OCR图片处理结束 ===
+2026-03-26 00:20:31,911 - __main__ - INFO - === OCR PDF处理开始 ===
+2026-03-26 00:20:31,911 - __main__ - INFO - PDF文件: chinese.pdf, 大小: 51104405 bytes
+2026-03-26 00:20:31,982 - __main__ - INFO - 读取PDF耗时: 0.07秒, 大小: 49906.6KB
+2026-03-26 00:20:31,983 - __main__ - INFO - 开始调用 ocr_pdf...
+2026-03-26 00:20:31,984 - __main__ - INFO - PDF OCR进度: 0/100 - Reading PDF...
+2026-03-26 00:20:32,149 - __main__ - INFO - PDF OCR进度: 10/100 - PDF has 260 pages
+2026-03-26 00:20:32,149 - __main__ - INFO - PDF OCR进度: 15/100 - Splitting PDF into parts...
+2026-03-26 00:20:32,221 - __main__ - INFO - PDF OCR进度: 20/100 - Processing part 1/6 (pages 1-50)
+2026-03-26 00:24:51,152 - __main__ - INFO - PDF OCR进度: 31/100 - Processing part 2/6 (pages 51-100)
+2026-03-26 00:29:26,934 - __main__ - INFO - PDF OCR进度: 43/100 - Processing part 3/6 (pages 101-150)
+2026-03-26 00:33:11,214 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:35:01,830 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:35:03,868 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:35:10,837 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:35:12,697 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:35:12,745 - __main__ - INFO - === OCR PDF处理开始 ===
+2026-03-26 00:35:12,749 - __main__ - INFO - PDF文件: chinese.pdf, 大小: 51104405 bytes
+2026-03-26 00:35:12,767 - __main__ - INFO - 读取PDF耗时: 0.02秒, 大小: 49906.6KB
+2026-03-26 00:35:12,770 - __main__ - INFO - 开始调用 ocr_pdf...
+2026-03-26 00:35:12,771 - __main__ - INFO - PDF OCR进度: 0/100 - Reading PDF...
+2026-03-26 00:35:12,984 - __main__ - INFO - PDF OCR进度: 5/100 - PDF has 260 pages
+2026-03-26 00:35:12,985 - __main__ - INFO - PDF OCR进度: 10/100 - Splitting PDF into parts...
+2026-03-26 00:35:13,190 - __main__ - INFO - PDF OCR进度: 10/100 - Converting part 1/6 to images...
+2026-03-26 00:35:20,453 - __main__ - INFO - PDF OCR进度: 10/100 - Processing part 1: page 1/50
+2026-03-26 00:35:20,958 - __main__ - INFO - PDF OCR进度: 10/100 - Processing part 1: page 2/50
+2026-03-26 00:35:21,464 - __main__ - INFO - PDF OCR进度: 10/100 - Processing part 1: page 3/50
+2026-03-26 00:35:21,967 - __main__ - INFO - PDF OCR进度: 10/100 - Processing part 1: page 4/50
+2026-03-26 00:35:22,471 - __main__ - INFO - PDF OCR进度: 11/100 - Processing part 1: page 5/50
+2026-03-26 00:35:22,973 - __main__ - INFO - PDF OCR进度: 11/100 - Processing part 1: page 6/50
+2026-03-26 00:35:23,475 - __main__ - INFO - PDF OCR进度: 11/100 - Processing part 1: page 7/50
+2026-03-26 00:35:23,980 - __main__ - INFO - PDF OCR进度: 11/100 - Processing part 1: page 8/50
+2026-03-26 00:35:24,487 - __main__ - INFO - PDF OCR进度: 12/100 - Processing part 1: page 9/50
+2026-03-26 00:35:24,990 - __main__ - INFO - PDF OCR进度: 12/100 - Processing part 1: page 10/50
+2026-03-26 00:35:25,492 - __main__ - INFO - PDF OCR进度: 12/100 - Processing part 1: page 11/50
+2026-03-26 00:35:26,000 - __main__ - INFO - PDF OCR进度: 12/100 - Processing part 1: page 12/50
+2026-03-26 00:35:26,502 - __main__ - INFO - PDF OCR进度: 13/100 - Processing part 1: page 13/50
+2026-03-26 00:35:27,009 - __main__ - INFO - PDF OCR进度: 13/100 - Processing part 1: page 14/50
+2026-03-26 00:35:27,626 - __main__ - INFO - PDF OCR进度: 13/100 - Processing part 1: page 15/50
+2026-03-26 00:35:28,129 - __main__ - INFO - PDF OCR进度: 13/100 - Processing part 1: page 16/50
+2026-03-26 00:35:28,632 - __main__ - INFO - PDF OCR进度: 13/100 - Processing part 1: page 17/50
+2026-03-26 00:35:29,134 - __main__ - INFO - PDF OCR进度: 14/100 - Processing part 1: page 18/50
+2026-03-26 00:35:30,495 - __main__ - INFO - PDF OCR进度: 14/100 - Processing part 1: page 19/50
+2026-03-26 00:35:31,002 - __main__ - INFO - PDF OCR进度: 14/100 - Processing part 1: page 20/50
+2026-03-26 00:35:31,506 - __main__ - INFO - PDF OCR进度: 14/100 - Processing part 1: page 21/50
+2026-03-26 00:35:32,010 - __main__ - INFO - PDF OCR进度: 15/100 - Processing part 1: page 22/50
+2026-03-26 00:35:32,582 - __main__ - INFO - PDF OCR进度: 15/100 - Processing part 1: page 23/50
+2026-03-26 00:35:33,085 - __main__ - INFO - PDF OCR进度: 15/100 - Processing part 1: page 24/50
+2026-03-26 00:35:33,587 - __main__ - INFO - PDF OCR进度: 15/100 - Processing part 1: page 25/50
+2026-03-26 00:35:34,091 - __main__ - INFO - PDF OCR进度: 16/100 - Processing part 1: page 26/50
+2026-03-26 00:35:34,597 - __main__ - INFO - PDF OCR进度: 16/100 - Processing part 1: page 27/50
+2026-03-26 00:35:35,449 - __main__ - INFO - PDF OCR进度: 16/100 - Processing part 1: page 28/50
+2026-03-26 00:35:35,955 - __main__ - INFO - PDF OCR进度: 16/100 - Processing part 1: page 29/50
+2026-03-26 00:35:36,458 - __main__ - INFO - PDF OCR进度: 17/100 - Processing part 1: page 30/50
+2026-03-26 00:35:37,540 - __main__ - INFO - PDF OCR进度: 17/100 - Processing part 1: page 31/50
+2026-03-26 00:35:38,043 - __main__ - INFO - PDF OCR进度: 17/100 - Processing part 1: page 32/50
+2026-03-26 00:35:38,547 - __main__ - INFO - PDF OCR进度: 17/100 - Processing part 1: page 33/50
+2026-03-26 00:35:39,053 - __main__ - INFO - PDF OCR进度: 17/100 - Processing part 1: page 34/50
+2026-03-26 00:35:39,559 - __main__ - INFO - PDF OCR进度: 18/100 - Processing part 1: page 35/50
+2026-03-26 00:35:40,412 - __main__ - INFO - PDF OCR进度: 18/100 - Processing part 1: page 36/50
+2026-03-26 00:35:40,915 - __main__ - INFO - PDF OCR进度: 18/100 - Processing part 1: page 37/50
+2026-03-26 00:35:41,417 - __main__ - INFO - PDF OCR进度: 18/100 - Processing part 1: page 38/50
+2026-03-26 00:35:42,434 - __main__ - INFO - PDF OCR进度: 19/100 - Processing part 1: page 39/50
+2026-03-26 00:35:42,941 - __main__ - INFO - PDF OCR进度: 19/100 - Processing part 1: page 40/50
+2026-03-26 00:35:43,447 - __main__ - INFO - PDF OCR进度: 19/100 - Processing part 1: page 41/50
+2026-03-26 00:35:43,952 - __main__ - INFO - PDF OCR进度: 19/100 - Processing part 1: page 42/50
+2026-03-26 00:35:44,458 - __main__ - INFO - PDF OCR进度: 20/100 - Processing part 1: page 43/50
+2026-03-26 00:35:44,963 - __main__ - INFO - PDF OCR进度: 20/100 - Processing part 1: page 44/50
+2026-03-26 00:35:45,466 - __main__ - INFO - PDF OCR进度: 20/100 - Processing part 1: page 45/50
+2026-03-26 00:35:45,971 - __main__ - INFO - PDF OCR进度: 20/100 - Processing part 1: page 46/50
+2026-03-26 00:35:47,394 - __main__ - INFO - PDF OCR进度: 20/100 - Processing part 1: page 47/50
+2026-03-26 00:35:47,897 - __main__ - INFO - PDF OCR进度: 21/100 - Processing part 1: page 48/50
+2026-03-26 00:35:48,400 - __main__ - INFO - PDF OCR进度: 21/100 - Processing part 1: page 49/50
+2026-03-26 00:35:48,903 - __main__ - INFO - PDF OCR进度: 21/100 - Processing part 1: page 50/50
+2026-03-26 00:35:49,408 - __main__ - INFO - PDF OCR进度: 21/100 - Converting part 2/6 to images...
+2026-03-26 00:35:58,365 - __main__ - INFO - PDF OCR进度: 32/100 - Processing part 2: page 1/50
+2026-03-26 00:35:58,873 - __main__ - INFO - PDF OCR进度: 33/100 - Processing part 2: page 2/50
+2026-03-26 00:35:59,378 - __main__ - INFO - PDF OCR进度: 33/100 - Processing part 2: page 3/50
+2026-03-26 00:35:59,883 - __main__ - INFO - PDF OCR进度: 33/100 - Processing part 2: page 4/50
+2026-03-26 00:36:00,387 - __main__ - INFO - PDF OCR进度: 33/100 - Processing part 2: page 5/50
+2026-03-26 00:36:00,893 - __main__ - INFO - PDF OCR进度: 34/100 - Processing part 2: page 6/50
+2026-03-26 00:36:01,402 - __main__ - INFO - PDF OCR进度: 34/100 - Processing part 2: page 7/50
+2026-03-26 00:36:01,905 - __main__ - INFO - PDF OCR进度: 34/100 - Processing part 2: page 8/50
+2026-03-26 00:36:02,407 - __main__ - INFO - PDF OCR进度: 34/100 - Processing part 2: page 9/50
+2026-03-26 00:36:03,374 - __main__ - INFO - PDF OCR进度: 35/100 - Processing part 2: page 10/50
+2026-03-26 00:36:03,880 - __main__ - INFO - PDF OCR进度: 35/100 - Processing part 2: page 11/50
+2026-03-26 00:36:04,382 - __main__ - INFO - PDF OCR进度: 35/100 - Processing part 2: page 12/50
+2026-03-26 00:36:04,884 - __main__ - INFO - PDF OCR进度: 35/100 - Processing part 2: page 13/50
+2026-03-26 00:36:05,387 - __main__ - INFO - PDF OCR进度: 35/100 - Processing part 2: page 14/50
+2026-03-26 00:36:05,890 - __main__ - INFO - PDF OCR进度: 36/100 - Processing part 2: page 15/50
+2026-03-26 00:36:06,396 - __main__ - INFO - PDF OCR进度: 36/100 - Processing part 2: page 16/50
+2026-03-26 00:36:06,902 - __main__ - INFO - PDF OCR进度: 36/100 - Processing part 2: page 17/50
+2026-03-26 00:36:07,408 - __main__ - INFO - PDF OCR进度: 36/100 - Processing part 2: page 18/50
+2026-03-26 00:36:07,910 - __main__ - INFO - PDF OCR进度: 37/100 - Processing part 2: page 19/50
+2026-03-26 00:36:08,415 - __main__ - INFO - PDF OCR进度: 37/100 - Processing part 2: page 20/50
+2026-03-26 00:36:08,919 - __main__ - INFO - PDF OCR进度: 37/100 - Processing part 2: page 21/50
+2026-03-26 00:36:09,426 - __main__ - INFO - PDF OCR进度: 37/100 - Processing part 2: page 22/50
+2026-03-26 00:36:09,930 - __main__ - INFO - PDF OCR进度: 38/100 - Processing part 2: page 23/50
+2026-03-26 00:36:10,437 - __main__ - INFO - PDF OCR进度: 38/100 - Processing part 2: page 24/50
+2026-03-26 00:36:11,260 - __main__ - INFO - PDF OCR进度: 38/100 - Processing part 2: page 25/50
+2026-03-26 00:36:11,765 - __main__ - INFO - PDF OCR进度: 38/100 - Processing part 2: page 26/50
+2026-03-26 00:36:12,271 - __main__ - INFO - PDF OCR进度: 38/100 - Processing part 2: page 27/50
+2026-03-26 00:36:13,314 - __main__ - INFO - PDF OCR进度: 39/100 - Processing part 2: page 28/50
+2026-03-26 00:36:13,822 - __main__ - INFO - PDF OCR进度: 39/100 - Processing part 2: page 29/50
+2026-03-26 00:36:14,324 - __main__ - INFO - PDF OCR进度: 39/100 - Processing part 2: page 30/50
+2026-03-26 00:36:14,831 - __main__ - INFO - PDF OCR进度: 39/100 - Processing part 2: page 31/50
+2026-03-26 00:36:15,337 - __main__ - INFO - PDF OCR进度: 40/100 - Processing part 2: page 32/50
+2026-03-26 00:36:16,197 - __main__ - INFO - PDF OCR进度: 40/100 - Processing part 2: page 33/50
+2026-03-26 00:36:16,704 - __main__ - INFO - PDF OCR进度: 40/100 - Processing part 2: page 34/50
+2026-03-26 00:36:17,206 - __main__ - INFO - PDF OCR进度: 40/100 - Processing part 2: page 35/50
+2026-03-26 00:36:18,249 - __main__ - INFO - PDF OCR进度: 41/100 - Processing part 2: page 36/50
+2026-03-26 00:36:18,751 - __main__ - INFO - PDF OCR进度: 41/100 - Processing part 2: page 37/50
+2026-03-26 00:36:19,253 - __main__ - INFO - PDF OCR进度: 41/100 - Processing part 2: page 38/50
+2026-03-26 00:36:19,759 - __main__ - INFO - PDF OCR进度: 41/100 - Processing part 2: page 39/50
+2026-03-26 00:36:20,265 - __main__ - INFO - PDF OCR进度: 42/100 - Processing part 2: page 40/50
+2026-03-26 00:36:21,171 - __main__ - INFO - PDF OCR进度: 42/100 - Processing part 2: page 41/50
+2026-03-26 00:36:21,677 - __main__ - INFO - PDF OCR进度: 42/100 - Processing part 2: page 42/50
+2026-03-26 00:36:22,179 - __main__ - INFO - PDF OCR进度: 42/100 - Processing part 2: page 43/50
+2026-03-26 00:36:23,249 - __main__ - INFO - PDF OCR进度: 42/100 - Processing part 2: page 44/50
+2026-03-26 00:36:23,753 - __main__ - INFO - PDF OCR进度: 43/100 - Processing part 2: page 45/50
+2026-03-26 00:36:24,255 - __main__ - INFO - PDF OCR进度: 43/100 - Processing part 2: page 46/50
+2026-03-26 00:36:24,758 - __main__ - INFO - PDF OCR进度: 43/100 - Processing part 2: page 47/50
+2026-03-26 00:36:25,262 - __main__ - INFO - PDF OCR进度: 43/100 - Processing part 2: page 48/50
+2026-03-26 00:36:26,463 - __main__ - INFO - PDF OCR进度: 44/100 - Processing part 2: page 49/50
+2026-03-26 00:36:26,966 - __main__ - INFO - PDF OCR进度: 44/100 - Processing part 2: page 50/50
+2026-03-26 00:36:27,470 - __main__ - INFO - PDF OCR进度: 32/100 - Converting part 3/6 to images...
+2026-03-26 00:36:36,585 - __main__ - INFO - PDF OCR进度: 55/100 - Processing part 3: page 1/50
+2026-03-26 00:36:37,092 - __main__ - INFO - PDF OCR进度: 55/100 - Processing part 3: page 2/50
+2026-03-26 00:36:37,596 - __main__ - INFO - PDF OCR进度: 56/100 - Processing part 3: page 3/50
+2026-03-26 00:36:38,104 - __main__ - INFO - PDF OCR进度: 56/100 - Processing part 3: page 4/50
+2026-03-26 00:36:38,612 - __main__ - INFO - PDF OCR进度: 56/100 - Processing part 3: page 5/50
+2026-03-26 00:36:39,118 - __main__ - INFO - PDF OCR进度: 56/100 - Processing part 3: page 6/50
+2026-03-26 00:36:39,623 - __main__ - INFO - PDF OCR进度: 56/100 - Processing part 3: page 7/50
+2026-03-26 00:36:40,129 - __main__ - INFO - PDF OCR进度: 57/100 - Processing part 3: page 8/50
+2026-03-26 00:36:43,711 - __main__ - INFO - PDF OCR进度: 57/100 - Processing part 3: page 9/50
+2026-03-26 00:36:44,217 - __main__ - INFO - PDF OCR进度: 57/100 - Processing part 3: page 10/50
+2026-03-26 00:36:44,720 - __main__ - INFO - PDF OCR进度: 57/100 - Processing part 3: page 11/50
+2026-03-26 00:36:45,223 - __main__ - INFO - PDF OCR进度: 58/100 - Processing part 3: page 12/50
+2026-03-26 00:36:45,726 - __main__ - INFO - PDF OCR进度: 58/100 - Processing part 3: page 13/50
+2026-03-26 00:36:46,231 - __main__ - INFO - PDF OCR进度: 58/100 - Processing part 3: page 14/50
+2026-03-26 00:36:46,738 - __main__ - INFO - PDF OCR进度: 58/100 - Processing part 3: page 15/50
+2026-03-26 00:36:47,243 - __main__ - INFO - PDF OCR进度: 59/100 - Processing part 3: page 16/50
+2026-03-26 00:36:48,709 - __main__ - INFO - PDF OCR进度: 59/100 - Processing part 3: page 17/50
+2026-03-26 00:36:49,217 - __main__ - INFO - PDF OCR进度: 59/100 - Processing part 3: page 18/50
+2026-03-26 00:36:49,720 - __main__ - INFO - PDF OCR进度: 59/100 - Processing part 3: page 19/50
+2026-03-26 00:36:50,229 - __main__ - INFO - PDF OCR进度: 60/100 - Processing part 3: page 20/50
+2026-03-26 00:36:50,733 - __main__ - INFO - PDF OCR进度: 60/100 - Processing part 3: page 21/50
+2026-03-26 00:36:51,238 - __main__ - INFO - PDF OCR进度: 60/100 - Processing part 3: page 22/50
+2026-03-26 00:36:51,743 - __main__ - INFO - PDF OCR进度: 60/100 - Processing part 3: page 23/50
+2026-03-26 00:36:52,246 - __main__ - INFO - PDF OCR进度: 60/100 - Processing part 3: page 24/50
+2026-03-26 00:36:53,692 - __main__ - INFO - PDF OCR进度: 61/100 - Processing part 3: page 25/50
+2026-03-26 00:36:54,199 - __main__ - INFO - PDF OCR进度: 61/100 - Processing part 3: page 26/50
+2026-03-26 00:36:54,705 - __main__ - INFO - PDF OCR进度: 61/100 - Processing part 3: page 27/50
+2026-03-26 00:36:55,213 - __main__ - INFO - PDF OCR进度: 61/100 - Processing part 3: page 28/50
+2026-03-26 00:36:55,714 - __main__ - INFO - PDF OCR进度: 62/100 - Processing part 3: page 29/50
+2026-03-26 00:36:56,220 - __main__ - INFO - PDF OCR进度: 62/100 - Processing part 3: page 30/50
+2026-03-26 00:36:56,722 - __main__ - INFO - PDF OCR进度: 62/100 - Processing part 3: page 31/50
+2026-03-26 00:36:57,227 - __main__ - INFO - PDF OCR进度: 62/100 - Processing part 3: page 32/50
+2026-03-26 00:36:57,734 - __main__ - INFO - PDF OCR进度: 63/100 - Processing part 3: page 33/50
+2026-03-26 00:36:58,717 - __main__ - INFO - PDF OCR进度: 63/100 - Processing part 3: page 34/50
+2026-03-26 00:36:59,220 - __main__ - INFO - PDF OCR进度: 63/100 - Processing part 3: page 35/50
+2026-03-26 00:36:59,726 - __main__ - INFO - PDF OCR进度: 63/100 - Processing part 3: page 36/50
+2026-03-26 00:37:00,228 - __main__ - INFO - PDF OCR进度: 63/100 - Processing part 3: page 37/50
+2026-03-26 00:37:00,736 - __main__ - INFO - PDF OCR进度: 64/100 - Processing part 3: page 38/50
+2026-03-26 00:37:01,243 - __main__ - INFO - PDF OCR进度: 64/100 - Processing part 3: page 39/50
+2026-03-26 00:37:01,749 - __main__ - INFO - PDF OCR进度: 64/100 - Processing part 3: page 40/50
+2026-03-26 00:37:02,254 - __main__ - INFO - PDF OCR进度: 64/100 - Processing part 3: page 41/50
+2026-03-26 00:37:02,756 - __main__ - INFO - PDF OCR进度: 65/100 - Processing part 3: page 42/50
+2026-03-26 00:37:03,701 - __main__ - INFO - PDF OCR进度: 65/100 - Processing part 3: page 43/50
+2026-03-26 00:37:04,205 - __main__ - INFO - PDF OCR进度: 65/100 - Processing part 3: page 44/50
+2026-03-26 00:37:05,043 - __main__ - INFO - PDF OCR进度: 65/100 - Processing part 3: page 45/50
+2026-03-26 00:37:05,548 - __main__ - INFO - PDF OCR进度: 66/100 - Processing part 3: page 46/50
+2026-03-26 00:37:06,053 - __main__ - INFO - PDF OCR进度: 66/100 - Processing part 3: page 47/50
+2026-03-26 00:37:06,559 - __main__ - INFO - PDF OCR进度: 66/100 - Processing part 3: page 48/50
+2026-03-26 00:37:07,064 - __main__ - INFO - PDF OCR进度: 66/100 - Processing part 3: page 49/50
+2026-03-26 00:37:07,569 - __main__ - INFO - PDF OCR进度: 67/100 - Processing part 3: page 50/50
+2026-03-26 00:37:08,076 - __main__ - INFO - PDF OCR进度: 43/100 - Converting part 4/6 to images...
+2026-03-26 00:37:17,003 - __main__ - INFO - PDF OCR进度: 78/100 - Processing part 4: page 1/50
+2026-03-26 00:37:17,514 - __main__ - INFO - PDF OCR进度: 78/100 - Processing part 4: page 2/50
+2026-03-26 00:37:18,018 - __main__ - INFO - PDF OCR进度: 78/100 - Processing part 4: page 3/50
+2026-03-26 00:37:18,520 - __main__ - INFO - PDF OCR进度: 78/100 - Processing part 4: page 4/50
+2026-03-26 00:37:19,025 - __main__ - INFO - PDF OCR进度: 79/100 - Processing part 4: page 5/50
+2026-03-26 00:37:19,531 - __main__ - INFO - PDF OCR进度: 79/100 - Processing part 4: page 6/50
+2026-03-26 00:37:20,034 - __main__ - INFO - PDF OCR进度: 79/100 - Processing part 4: page 7/50
+2026-03-26 00:37:20,538 - __main__ - INFO - PDF OCR进度: 79/100 - Processing part 4: page 8/50
+2026-03-26 00:37:21,992 - __main__ - INFO - PDF OCR进度: 80/100 - Processing part 4: page 9/50
+2026-03-26 00:37:22,499 - __main__ - INFO - PDF OCR进度: 80/100 - Processing part 4: page 10/50
+2026-03-26 00:37:23,002 - __main__ - INFO - PDF OCR进度: 80/100 - Processing part 4: page 11/50
+2026-03-26 00:37:23,511 - __main__ - INFO - PDF OCR进度: 80/100 - Processing part 4: page 12/50
+2026-03-26 00:37:24,018 - __main__ - INFO - PDF OCR进度: 81/100 - Processing part 4: page 13/50
+2026-03-26 00:37:24,521 - __main__ - INFO - PDF OCR进度: 81/100 - Processing part 4: page 14/50
+2026-03-26 00:37:25,025 - __main__ - INFO - PDF OCR进度: 81/100 - Processing part 4: page 15/50
+2026-03-26 00:37:25,529 - __main__ - INFO - PDF OCR进度: 81/100 - Processing part 4: page 16/50
+2026-03-26 00:37:27,014 - __main__ - INFO - PDF OCR进度: 81/100 - Processing part 4: page 17/50
+2026-03-26 00:37:27,517 - __main__ - INFO - PDF OCR进度: 82/100 - Processing part 4: page 18/50
+2026-03-26 00:37:28,019 - __main__ - INFO - PDF OCR进度: 82/100 - Processing part 4: page 19/50
+2026-03-26 00:37:28,523 - __main__ - INFO - PDF OCR进度: 82/100 - Processing part 4: page 20/50
+2026-03-26 00:37:29,033 - __main__ - INFO - PDF OCR进度: 82/100 - Processing part 4: page 21/50
+2026-03-26 00:37:29,536 - __main__ - INFO - PDF OCR进度: 83/100 - Processing part 4: page 22/50
+2026-03-26 00:37:30,044 - __main__ - INFO - PDF OCR进度: 83/100 - Processing part 4: page 23/50
+2026-03-26 00:37:30,547 - __main__ - INFO - PDF OCR进度: 83/100 - Processing part 4: page 24/50
+2026-03-26 00:37:31,053 - __main__ - INFO - PDF OCR进度: 83/100 - Processing part 4: page 25/50
+2026-03-26 00:37:31,556 - __main__ - INFO - PDF OCR进度: 84/100 - Processing part 4: page 26/50
+2026-03-26 00:37:32,063 - __main__ - INFO - PDF OCR进度: 84/100 - Processing part 4: page 27/50
+2026-03-26 00:37:32,570 - __main__ - INFO - PDF OCR进度: 84/100 - Processing part 4: page 28/50
+2026-03-26 00:37:33,077 - __main__ - INFO - PDF OCR进度: 84/100 - Processing part 4: page 29/50
+2026-03-26 00:37:33,582 - __main__ - INFO - PDF OCR进度: 85/100 - Processing part 4: page 30/50
+2026-03-26 00:37:34,089 - __main__ - INFO - PDF OCR进度: 85/100 - Processing part 4: page 31/50
+2026-03-26 00:37:34,592 - __main__ - INFO - PDF OCR进度: 85/100 - Processing part 4: page 32/50
+2026-03-26 00:37:35,098 - __main__ - INFO - PDF OCR进度: 85/100 - Processing part 4: page 33/50
+2026-03-26 00:37:35,601 - __main__ - INFO - PDF OCR进度: 85/100 - Processing part 4: page 34/50
+2026-03-26 00:37:36,106 - __main__ - INFO - PDF OCR进度: 86/100 - Processing part 4: page 35/50
+2026-03-26 00:37:36,610 - __main__ - INFO - PDF OCR进度: 86/100 - Processing part 4: page 36/50
+2026-03-26 00:37:37,115 - __main__ - INFO - PDF OCR进度: 86/100 - Processing part 4: page 37/50
+2026-03-26 00:37:37,617 - __main__ - INFO - PDF OCR进度: 86/100 - Processing part 4: page 38/50
+2026-03-26 00:37:38,122 - __main__ - INFO - PDF OCR进度: 87/100 - Processing part 4: page 39/50
+2026-03-26 00:37:38,627 - __main__ - INFO - PDF OCR进度: 87/100 - Processing part 4: page 40/50
+2026-03-26 00:37:39,133 - __main__ - INFO - PDF OCR进度: 87/100 - Processing part 4: page 41/50
+2026-03-26 00:37:39,635 - __main__ - INFO - PDF OCR进度: 87/100 - Processing part 4: page 42/50
+2026-03-26 00:37:40,139 - __main__ - INFO - PDF OCR进度: 88/100 - Processing part 4: page 43/50
+2026-03-26 00:37:40,645 - __main__ - INFO - PDF OCR进度: 88/100 - Processing part 4: page 44/50
+2026-03-26 00:37:41,149 - __main__ - INFO - PDF OCR进度: 88/100 - Processing part 4: page 45/50
+2026-03-26 00:37:41,651 - __main__ - INFO - PDF OCR进度: 88/100 - Processing part 4: page 46/50
+2026-03-26 00:37:42,156 - __main__ - INFO - PDF OCR进度: 88/100 - Processing part 4: page 47/50
+2026-03-26 00:37:42,659 - __main__ - INFO - PDF OCR进度: 89/100 - Processing part 4: page 48/50
+2026-03-26 00:37:43,165 - __main__ - INFO - PDF OCR进度: 89/100 - Processing part 4: page 49/50
+2026-03-26 00:37:43,670 - __main__ - INFO - PDF OCR进度: 89/100 - Processing part 4: page 50/50
+2026-03-26 00:37:44,175 - __main__ - INFO - PDF OCR进度: 54/100 - Converting part 5/6 to images...
+2026-03-26 00:37:53,466 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 1/50
+2026-03-26 00:37:53,969 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 2/50
+2026-03-26 00:37:54,473 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 3/50
+2026-03-26 00:37:54,979 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 4/50
+2026-03-26 00:37:55,606 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 5/50
+2026-03-26 00:37:56,109 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 6/50
+2026-03-26 00:37:56,613 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 7/50
+2026-03-26 00:37:57,119 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 8/50
+2026-03-26 00:37:57,624 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 9/50
+2026-03-26 00:37:58,131 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 10/50
+2026-03-26 00:37:58,636 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 11/50
+2026-03-26 00:37:59,140 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 12/50
+2026-03-26 00:37:59,642 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 13/50
+2026-03-26 00:38:00,145 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 14/50
+2026-03-26 00:38:00,647 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 15/50
+2026-03-26 00:38:01,154 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 16/50
+2026-03-26 00:38:01,659 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 17/50
+2026-03-26 00:38:02,164 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 18/50
+2026-03-26 00:38:02,670 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 19/50
+2026-03-26 00:38:03,175 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 20/50
+2026-03-26 00:38:03,678 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 21/50
+2026-03-26 00:38:04,180 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 22/50
+2026-03-26 00:38:04,688 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 23/50
+2026-03-26 00:38:05,191 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 24/50
+2026-03-26 00:38:05,695 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 25/50
+2026-03-26 00:38:06,201 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 26/50
+2026-03-26 00:38:06,759 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 27/50
+2026-03-26 00:38:07,266 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 28/50
+2026-03-26 00:38:07,771 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 29/50
+2026-03-26 00:38:08,275 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 30/50
+2026-03-26 00:38:08,784 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 31/50
+2026-03-26 00:38:09,288 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 32/50
+2026-03-26 00:38:09,791 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 33/50
+2026-03-26 00:38:10,295 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 34/50
+2026-03-26 00:38:10,803 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 35/50
+2026-03-26 00:38:11,310 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 36/50
+2026-03-26 00:38:11,813 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 37/50
+2026-03-26 00:38:12,315 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 38/50
+2026-03-26 00:38:12,821 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 39/50
+2026-03-26 00:38:13,324 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 40/50
+2026-03-26 00:38:13,830 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 41/50
+2026-03-26 00:38:14,333 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 42/50
+2026-03-26 00:38:14,840 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 43/50
+2026-03-26 00:38:15,344 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 44/50
+2026-03-26 00:38:15,850 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 45/50
+2026-03-26 00:38:16,359 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 46/50
+2026-03-26 00:38:16,867 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 47/50
+2026-03-26 00:38:17,371 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 48/50
+2026-03-26 00:38:17,878 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 49/50
+2026-03-26 00:38:18,385 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 50/50
+2026-03-26 00:38:18,892 - __main__ - INFO - PDF OCR进度: 65/100 - Converting part 6/6 to images...
+2026-03-26 00:38:22,567 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 1/10
+2026-03-26 00:38:23,072 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 2/10
+2026-03-26 00:38:23,579 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 3/10
+2026-03-26 00:38:24,083 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 4/10
+2026-03-26 00:38:24,585 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 5/10
+2026-03-26 00:38:25,091 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 6/10
+2026-03-26 00:38:25,597 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 7/10
+2026-03-26 00:38:26,103 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 8/10
+2026-03-26 00:38:26,606 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 9/10
+2026-03-26 00:38:27,113 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 10/10
+2026-03-26 00:38:27,618 - __main__ - INFO - PDF OCR进度: 95/100 - Merging results...
+2026-03-26 00:38:27,623 - __main__ - INFO - PDF OCR进度: 100/100 - Complete
+2026-03-26 00:38:27,630 - __main__ - INFO - ocr_pdf 完成，耗时: 194.86秒
+2026-03-26 00:38:27,631 - __main__ - INFO - PDF OCR成功，文本长度: 254473 字符
+2026-03-26 00:38:27,634 - __main__ - INFO - === OCR PDF处理结束 ===
+2026-03-26 00:55:19,119 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:55:19,470 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:55:22,140 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 00:55:23,135 - __main__ - INFO - === OCR PDF处理开始 ===
+2026-03-26 00:55:23,135 - __main__ - INFO - PDF文件: chinese.pdf, 大小: 51104405 bytes
+2026-03-26 00:55:23,470 - __main__ - INFO - 读取PDF耗时: 0.33秒, 大小: 49906.6KB
+2026-03-26 00:55:23,471 - __main__ - INFO - 开始调用 ocr_pdf...
+2026-03-26 00:55:23,471 - __main__ - INFO - PDF OCR进度: 0/100 - Reading PDF...
+2026-03-26 00:55:23,499 - __main__ - INFO - PDF OCR进度: 5/100 - PDF has 260 pages
+2026-03-26 00:55:23,499 - __main__ - INFO - PDF OCR进度: 10/100 - Splitting PDF into parts...
+2026-03-26 00:55:23,605 - __main__ - INFO - PDF OCR进度: 10/100 - Converting part 1/6 to images...
+2026-03-26 00:55:32,344 - __main__ - INFO - PDF OCR进度: 10/100 - Processing part 1: page 1/50
+2026-03-26 00:55:32,851 - __main__ - INFO - PDF OCR进度: 10/100 - Processing part 1: page 2/50
+2026-03-26 00:55:33,355 - __main__ - INFO - PDF OCR进度: 10/100 - Processing part 1: page 3/50
+2026-03-26 00:55:33,861 - __main__ - INFO - PDF OCR进度: 10/100 - Processing part 1: page 4/50
+2026-03-26 00:55:34,368 - __main__ - INFO - PDF OCR进度: 11/100 - Processing part 1: page 5/50
+2026-03-26 00:55:34,875 - __main__ - INFO - PDF OCR进度: 11/100 - Processing part 1: page 6/50
+2026-03-26 00:55:35,382 - __main__ - INFO - PDF OCR进度: 11/100 - Processing part 1: page 7/50
+2026-03-26 00:55:35,890 - __main__ - INFO - PDF OCR进度: 11/100 - Processing part 1: page 8/50
+2026-03-26 00:55:36,394 - __main__ - INFO - PDF OCR进度: 12/100 - Processing part 1: page 9/50
+2026-03-26 00:55:36,900 - __main__ - INFO - PDF OCR进度: 12/100 - Processing part 1: page 10/50
+2026-03-26 00:55:37,404 - __main__ - INFO - PDF OCR进度: 12/100 - Processing part 1: page 11/50
+2026-03-26 00:55:37,908 - __main__ - INFO - PDF OCR进度: 12/100 - Processing part 1: page 12/50
+2026-03-26 00:55:38,416 - __main__ - INFO - PDF OCR进度: 13/100 - Processing part 1: page 13/50
+2026-03-26 00:55:38,935 - __main__ - INFO - PDF OCR进度: 13/100 - Processing part 1: page 14/50
+2026-03-26 00:55:39,462 - __main__ - INFO - PDF OCR进度: 13/100 - Processing part 1: page 15/50
+2026-03-26 00:55:39,969 - __main__ - INFO - PDF OCR进度: 13/100 - Processing part 1: page 16/50
+2026-03-26 00:55:41,527 - __main__ - INFO - PDF OCR进度: 13/100 - Processing part 1: page 17/50
+2026-03-26 00:55:42,033 - __main__ - INFO - PDF OCR进度: 14/100 - Processing part 1: page 18/50
+2026-03-26 00:55:42,538 - __main__ - INFO - PDF OCR进度: 14/100 - Processing part 1: page 19/50
+2026-03-26 00:55:43,041 - __main__ - INFO - PDF OCR进度: 14/100 - Processing part 1: page 20/50
+2026-03-26 00:55:43,546 - __main__ - INFO - PDF OCR进度: 14/100 - Processing part 1: page 21/50
+2026-03-26 00:55:44,053 - __main__ - INFO - PDF OCR进度: 15/100 - Processing part 1: page 22/50
+2026-03-26 00:55:44,559 - __main__ - INFO - PDF OCR进度: 15/100 - Processing part 1: page 23/50
+2026-03-26 00:55:45,937 - __main__ - INFO - PDF OCR进度: 15/100 - Processing part 1: page 24/50
+2026-03-26 00:55:46,927 - __main__ - INFO - PDF OCR进度: 15/100 - Processing part 1: page 25/50
+2026-03-26 00:55:47,435 - __main__ - INFO - PDF OCR进度: 16/100 - Processing part 1: page 26/50
+2026-03-26 00:55:47,962 - __main__ - INFO - PDF OCR进度: 16/100 - Processing part 1: page 27/50
+2026-03-26 00:55:48,472 - __main__ - INFO - PDF OCR进度: 16/100 - Processing part 1: page 28/50
+2026-03-26 00:55:48,979 - __main__ - INFO - PDF OCR进度: 16/100 - Processing part 1: page 29/50
+2026-03-26 00:55:49,483 - __main__ - INFO - PDF OCR进度: 17/100 - Processing part 1: page 30/50
+2026-03-26 00:55:49,990 - __main__ - INFO - PDF OCR进度: 17/100 - Processing part 1: page 31/50
+2026-03-26 00:55:50,899 - __main__ - INFO - PDF OCR进度: 17/100 - Processing part 1: page 32/50
+2026-03-26 00:55:52,142 - __main__ - INFO - PDF OCR进度: 17/100 - Processing part 1: page 33/50
+2026-03-26 00:55:52,942 - __main__ - INFO - PDF OCR进度: 17/100 - Processing part 1: page 34/50
+2026-03-26 00:55:53,447 - __main__ - INFO - PDF OCR进度: 18/100 - Processing part 1: page 35/50
+2026-03-26 00:55:53,951 - __main__ - INFO - PDF OCR进度: 18/100 - Processing part 1: page 36/50
+2026-03-26 00:55:54,459 - __main__ - INFO - PDF OCR进度: 18/100 - Processing part 1: page 37/50
+2026-03-26 00:55:54,964 - __main__ - INFO - PDF OCR进度: 18/100 - Processing part 1: page 38/50
+2026-03-26 00:55:55,469 - __main__ - INFO - PDF OCR进度: 19/100 - Processing part 1: page 39/50
+2026-03-26 00:55:55,973 - __main__ - INFO - PDF OCR进度: 19/100 - Processing part 1: page 40/50
+2026-03-26 00:55:56,480 - __main__ - INFO - PDF OCR进度: 19/100 - Processing part 1: page 41/50
+2026-03-26 00:55:56,984 - __main__ - INFO - PDF OCR进度: 19/100 - Processing part 1: page 42/50
+2026-03-26 00:55:57,489 - __main__ - INFO - PDF OCR进度: 20/100 - Processing part 1: page 43/50
+2026-03-26 00:55:58,555 - __main__ - INFO - PDF OCR进度: 20/100 - Processing part 1: page 44/50
+2026-03-26 00:55:59,057 - __main__ - INFO - PDF OCR进度: 20/100 - Processing part 1: page 45/50
+2026-03-26 00:55:59,567 - __main__ - INFO - PDF OCR进度: 20/100 - Processing part 1: page 46/50
+2026-03-26 00:56:00,070 - __main__ - INFO - PDF OCR进度: 20/100 - Processing part 1: page 47/50
+2026-03-26 00:56:00,576 - __main__ - INFO - PDF OCR进度: 21/100 - Processing part 1: page 48/50
+2026-03-26 00:56:01,082 - __main__ - INFO - PDF OCR进度: 21/100 - Processing part 1: page 49/50
+2026-03-26 00:56:01,590 - __main__ - INFO - PDF OCR进度: 21/100 - Processing part 1: page 50/50
+2026-03-26 00:56:02,101 - __main__ - INFO - PDF OCR进度: 21/100 - Converting part 2/6 to images...
+2026-03-26 00:56:10,968 - __main__ - INFO - PDF OCR进度: 32/100 - Processing part 2: page 1/50
+2026-03-26 00:56:13,022 - __main__ - INFO - PDF OCR进度: 33/100 - Processing part 2: page 2/50
+2026-03-26 00:56:13,527 - __main__ - INFO - PDF OCR进度: 33/100 - Processing part 2: page 3/50
+2026-03-26 00:56:14,031 - __main__ - INFO - PDF OCR进度: 33/100 - Processing part 2: page 4/50
+2026-03-26 00:56:14,534 - __main__ - INFO - PDF OCR进度: 33/100 - Processing part 2: page 5/50
+2026-03-26 00:56:15,041 - __main__ - INFO - PDF OCR进度: 34/100 - Processing part 2: page 6/50
+2026-03-26 00:56:15,549 - __main__ - INFO - PDF OCR进度: 34/100 - Processing part 2: page 7/50
+2026-03-26 00:56:16,051 - __main__ - INFO - PDF OCR进度: 34/100 - Processing part 2: page 8/50
+2026-03-26 00:56:16,553 - __main__ - INFO - PDF OCR进度: 34/100 - Processing part 2: page 9/50
+2026-03-26 00:56:18,346 - __main__ - INFO - PDF OCR进度: 35/100 - Processing part 2: page 10/50
+2026-03-26 00:56:18,853 - __main__ - INFO - PDF OCR进度: 35/100 - Processing part 2: page 11/50
+2026-03-26 00:56:19,359 - __main__ - INFO - PDF OCR进度: 35/100 - Processing part 2: page 12/50
+2026-03-26 00:56:19,861 - __main__ - INFO - PDF OCR进度: 35/100 - Processing part 2: page 13/50
+2026-03-26 00:56:20,366 - __main__ - INFO - PDF OCR进度: 35/100 - Processing part 2: page 14/50
+2026-03-26 00:56:20,871 - __main__ - INFO - PDF OCR进度: 36/100 - Processing part 2: page 15/50
+2026-03-26 00:56:21,377 - __main__ - INFO - PDF OCR进度: 36/100 - Processing part 2: page 16/50
+2026-03-26 00:56:21,878 - __main__ - INFO - PDF OCR进度: 36/100 - Processing part 2: page 17/50
+2026-03-26 00:56:22,381 - __main__ - INFO - PDF OCR进度: 36/100 - Processing part 2: page 18/50
+2026-03-26 00:56:23,543 - __main__ - INFO - PDF OCR进度: 37/100 - Processing part 2: page 19/50
+2026-03-26 00:56:24,048 - __main__ - INFO - PDF OCR进度: 37/100 - Processing part 2: page 20/50
+2026-03-26 00:56:24,550 - __main__ - INFO - PDF OCR进度: 37/100 - Processing part 2: page 21/50
+2026-03-26 00:56:25,058 - __main__ - INFO - PDF OCR进度: 37/100 - Processing part 2: page 22/50
+2026-03-26 00:56:25,565 - __main__ - INFO - PDF OCR进度: 38/100 - Processing part 2: page 23/50
+2026-03-26 00:56:26,068 - __main__ - INFO - PDF OCR进度: 38/100 - Processing part 2: page 24/50
+2026-03-26 00:56:26,574 - __main__ - INFO - PDF OCR进度: 38/100 - Processing part 2: page 25/50
+2026-03-26 00:56:27,076 - __main__ - INFO - PDF OCR进度: 38/100 - Processing part 2: page 26/50
+2026-03-26 00:56:27,585 - __main__ - INFO - PDF OCR进度: 38/100 - Processing part 2: page 27/50
+2026-03-26 00:56:28,833 - __main__ - INFO - PDF OCR进度: 39/100 - Processing part 2: page 28/50
+2026-03-26 00:56:29,344 - __main__ - INFO - PDF OCR进度: 39/100 - Processing part 2: page 29/50
+2026-03-26 00:56:29,848 - __main__ - INFO - PDF OCR进度: 39/100 - Processing part 2: page 30/50
+2026-03-26 00:56:30,351 - __main__ - INFO - PDF OCR进度: 39/100 - Processing part 2: page 31/50
+2026-03-26 00:56:30,856 - __main__ - INFO - PDF OCR进度: 40/100 - Processing part 2: page 32/50
+2026-03-26 00:56:31,359 - __main__ - INFO - PDF OCR进度: 40/100 - Processing part 2: page 33/50
+2026-03-26 00:56:31,866 - __main__ - INFO - PDF OCR进度: 40/100 - Processing part 2: page 34/50
+2026-03-26 00:56:32,372 - __main__ - INFO - PDF OCR进度: 40/100 - Processing part 2: page 35/50
+2026-03-26 00:56:33,884 - __main__ - INFO - PDF OCR进度: 41/100 - Processing part 2: page 36/50
+2026-03-26 00:56:34,391 - __main__ - INFO - PDF OCR进度: 41/100 - Processing part 2: page 37/50
+2026-03-26 00:56:34,894 - __main__ - INFO - PDF OCR进度: 41/100 - Processing part 2: page 38/50
+2026-03-26 00:56:35,396 - __main__ - INFO - PDF OCR进度: 41/100 - Processing part 2: page 39/50
+2026-03-26 00:56:35,903 - __main__ - INFO - PDF OCR进度: 42/100 - Processing part 2: page 40/50
+2026-03-26 00:56:36,409 - __main__ - INFO - PDF OCR进度: 42/100 - Processing part 2: page 41/50
+2026-03-26 00:56:36,916 - __main__ - INFO - PDF OCR进度: 42/100 - Processing part 2: page 42/50
+2026-03-26 00:56:37,421 - __main__ - INFO - PDF OCR进度: 42/100 - Processing part 2: page 43/50
+2026-03-26 00:56:39,001 - __main__ - INFO - PDF OCR进度: 42/100 - Processing part 2: page 44/50
+2026-03-26 00:56:39,504 - __main__ - INFO - PDF OCR进度: 43/100 - Processing part 2: page 45/50
+2026-03-26 00:56:40,010 - __main__ - INFO - PDF OCR进度: 43/100 - Processing part 2: page 46/50
+2026-03-26 00:56:40,517 - __main__ - INFO - PDF OCR进度: 43/100 - Processing part 2: page 47/50
+2026-03-26 00:56:41,023 - __main__ - INFO - PDF OCR进度: 43/100 - Processing part 2: page 48/50
+2026-03-26 00:56:41,530 - __main__ - INFO - PDF OCR进度: 44/100 - Processing part 2: page 49/50
+2026-03-26 00:56:42,037 - __main__ - INFO - PDF OCR进度: 44/100 - Processing part 2: page 50/50
+2026-03-26 00:56:42,543 - __main__ - INFO - PDF OCR进度: 32/100 - Converting part 3/6 to images...
+2026-03-26 00:56:50,656 - __main__ - INFO - PDF OCR进度: 55/100 - Processing part 3: page 1/50
+2026-03-26 00:56:52,804 - __main__ - INFO - PDF OCR进度: 55/100 - Processing part 3: page 2/50
+2026-03-26 00:56:53,312 - __main__ - INFO - PDF OCR进度: 56/100 - Processing part 3: page 3/50
+2026-03-26 00:56:53,816 - __main__ - INFO - PDF OCR进度: 56/100 - Processing part 3: page 4/50
+2026-03-26 00:56:54,319 - __main__ - INFO - PDF OCR进度: 56/100 - Processing part 3: page 5/50
+2026-03-26 00:56:54,824 - __main__ - INFO - PDF OCR进度: 56/100 - Processing part 3: page 6/50
+2026-03-26 00:56:55,327 - __main__ - INFO - PDF OCR进度: 56/100 - Processing part 3: page 7/50
+2026-03-26 00:56:55,834 - __main__ - INFO - PDF OCR进度: 57/100 - Processing part 3: page 8/50
+2026-03-26 00:56:56,339 - __main__ - INFO - PDF OCR进度: 57/100 - Processing part 3: page 9/50
+2026-03-26 00:56:58,069 - __main__ - INFO - PDF OCR进度: 57/100 - Processing part 3: page 10/50
+2026-03-26 00:56:58,576 - __main__ - INFO - PDF OCR进度: 57/100 - Processing part 3: page 11/50
+2026-03-26 00:56:59,082 - __main__ - INFO - PDF OCR进度: 58/100 - Processing part 3: page 12/50
+2026-03-26 00:56:59,588 - __main__ - INFO - PDF OCR进度: 58/100 - Processing part 3: page 13/50
+2026-03-26 00:57:00,091 - __main__ - INFO - PDF OCR进度: 58/100 - Processing part 3: page 14/50
+2026-03-26 00:57:00,594 - __main__ - INFO - PDF OCR进度: 58/100 - Processing part 3: page 15/50
+2026-03-26 00:57:01,101 - __main__ - INFO - PDF OCR进度: 59/100 - Processing part 3: page 16/50
+2026-03-26 00:57:01,603 - __main__ - INFO - PDF OCR进度: 59/100 - Processing part 3: page 17/50
+2026-03-26 00:57:03,270 - __main__ - INFO - PDF OCR进度: 59/100 - Processing part 3: page 18/50
+2026-03-26 00:57:03,775 - __main__ - INFO - PDF OCR进度: 59/100 - Processing part 3: page 19/50
+2026-03-26 00:57:04,281 - __main__ - INFO - PDF OCR进度: 60/100 - Processing part 3: page 20/50
+2026-03-26 00:57:04,801 - __main__ - INFO - PDF OCR进度: 60/100 - Processing part 3: page 21/50
+2026-03-26 00:57:05,317 - __main__ - INFO - PDF OCR进度: 60/100 - Processing part 3: page 22/50
+2026-03-26 00:57:05,823 - __main__ - INFO - PDF OCR进度: 60/100 - Processing part 3: page 23/50
+2026-03-26 00:57:06,327 - __main__ - INFO - PDF OCR进度: 60/100 - Processing part 3: page 24/50
+2026-03-26 00:57:07,376 - __main__ - INFO - PDF OCR进度: 61/100 - Processing part 3: page 25/50
+2026-03-26 00:57:08,326 - __main__ - INFO - PDF OCR进度: 61/100 - Processing part 3: page 26/50
+2026-03-26 00:57:08,831 - __main__ - INFO - PDF OCR进度: 61/100 - Processing part 3: page 27/50
+2026-03-26 00:57:09,339 - __main__ - INFO - PDF OCR进度: 61/100 - Processing part 3: page 28/50
+2026-03-26 00:57:09,846 - __main__ - INFO - PDF OCR进度: 62/100 - Processing part 3: page 29/50
+2026-03-26 00:57:10,348 - __main__ - INFO - PDF OCR进度: 62/100 - Processing part 3: page 30/50
+2026-03-26 00:57:10,856 - __main__ - INFO - PDF OCR进度: 62/100 - Processing part 3: page 31/50
+2026-03-26 00:57:11,359 - __main__ - INFO - PDF OCR进度: 62/100 - Processing part 3: page 32/50
+2026-03-26 00:57:11,865 - __main__ - INFO - PDF OCR进度: 63/100 - Processing part 3: page 33/50
+2026-03-26 00:57:12,475 - __main__ - INFO - PDF OCR进度: 63/100 - Processing part 3: page 34/50
+2026-03-26 00:57:13,584 - __main__ - INFO - PDF OCR进度: 63/100 - Processing part 3: page 35/50
+2026-03-26 00:57:14,091 - __main__ - INFO - PDF OCR进度: 63/100 - Processing part 3: page 36/50
+2026-03-26 00:57:14,595 - __main__ - INFO - PDF OCR进度: 63/100 - Processing part 3: page 37/50
+2026-03-26 00:57:15,098 - __main__ - INFO - PDF OCR进度: 64/100 - Processing part 3: page 38/50
+2026-03-26 00:57:15,604 - __main__ - INFO - PDF OCR进度: 64/100 - Processing part 3: page 39/50
+2026-03-26 00:57:16,107 - __main__ - INFO - PDF OCR进度: 64/100 - Processing part 3: page 40/50
+2026-03-26 00:57:16,611 - __main__ - INFO - PDF OCR进度: 64/100 - Processing part 3: page 41/50
+2026-03-26 00:57:17,116 - __main__ - INFO - PDF OCR进度: 65/100 - Processing part 3: page 42/50
+2026-03-26 00:57:17,624 - __main__ - INFO - PDF OCR进度: 65/100 - Processing part 3: page 43/50
+2026-03-26 00:57:18,958 - __main__ - INFO - PDF OCR进度: 65/100 - Processing part 3: page 44/50
+2026-03-26 00:57:19,463 - __main__ - INFO - PDF OCR进度: 65/100 - Processing part 3: page 45/50
+2026-03-26 00:57:19,970 - __main__ - INFO - PDF OCR进度: 66/100 - Processing part 3: page 46/50
+2026-03-26 00:57:20,474 - __main__ - INFO - PDF OCR进度: 66/100 - Processing part 3: page 47/50
+2026-03-26 00:57:20,976 - __main__ - INFO - PDF OCR进度: 66/100 - Processing part 3: page 48/50
+2026-03-26 00:57:22,002 - __main__ - INFO - PDF OCR进度: 66/100 - Processing part 3: page 49/50
+2026-03-26 00:57:24,033 - __main__ - INFO - PDF OCR进度: 67/100 - Processing part 3: page 50/50
+2026-03-26 00:57:24,537 - __main__ - INFO - PDF OCR进度: 43/100 - Converting part 4/6 to images...
+2026-03-26 00:57:33,918 - __main__ - INFO - PDF OCR进度: 78/100 - Processing part 4: page 1/50
+2026-03-26 00:57:34,422 - __main__ - INFO - PDF OCR进度: 78/100 - Processing part 4: page 2/50
+2026-03-26 00:57:34,927 - __main__ - INFO - PDF OCR进度: 78/100 - Processing part 4: page 3/50
+2026-03-26 00:57:35,430 - __main__ - INFO - PDF OCR进度: 78/100 - Processing part 4: page 4/50
+2026-03-26 00:57:35,936 - __main__ - INFO - PDF OCR进度: 79/100 - Processing part 4: page 5/50
+2026-03-26 00:57:36,442 - __main__ - INFO - PDF OCR进度: 79/100 - Processing part 4: page 6/50
+2026-03-26 00:57:36,948 - __main__ - INFO - PDF OCR进度: 79/100 - Processing part 4: page 7/50
+2026-03-26 00:57:37,452 - __main__ - INFO - PDF OCR进度: 79/100 - Processing part 4: page 8/50
+2026-03-26 00:57:39,662 - __main__ - INFO - PDF OCR进度: 80/100 - Processing part 4: page 9/50
+2026-03-26 00:57:40,165 - __main__ - INFO - PDF OCR进度: 80/100 - Processing part 4: page 10/50
+2026-03-26 00:57:40,669 - __main__ - INFO - PDF OCR进度: 80/100 - Processing part 4: page 11/50
+2026-03-26 00:57:41,173 - __main__ - INFO - PDF OCR进度: 80/100 - Processing part 4: page 12/50
+2026-03-26 00:57:41,674 - __main__ - INFO - PDF OCR进度: 81/100 - Processing part 4: page 13/50
+2026-03-26 00:57:42,181 - __main__ - INFO - PDF OCR进度: 81/100 - Processing part 4: page 14/50
+2026-03-26 00:57:42,684 - __main__ - INFO - PDF OCR进度: 81/100 - Processing part 4: page 15/50
+2026-03-26 00:57:43,189 - __main__ - INFO - PDF OCR进度: 81/100 - Processing part 4: page 16/50
+2026-03-26 00:57:45,896 - __main__ - INFO - PDF OCR进度: 81/100 - Processing part 4: page 17/50
+2026-03-26 00:57:46,402 - __main__ - INFO - PDF OCR进度: 82/100 - Processing part 4: page 18/50
+2026-03-26 00:57:46,905 - __main__ - INFO - PDF OCR进度: 82/100 - Processing part 4: page 19/50
+2026-03-26 00:57:47,407 - __main__ - INFO - PDF OCR进度: 82/100 - Processing part 4: page 20/50
+2026-03-26 00:57:47,910 - __main__ - INFO - PDF OCR进度: 82/100 - Processing part 4: page 21/50
+2026-03-26 00:57:48,711 - __main__ - INFO - PDF OCR进度: 83/100 - Processing part 4: page 22/50
+2026-03-26 00:57:49,217 - __main__ - INFO - PDF OCR进度: 83/100 - Processing part 4: page 23/50
+2026-03-26 00:57:49,725 - __main__ - INFO - PDF OCR进度: 83/100 - Processing part 4: page 24/50
+2026-03-26 00:57:50,228 - __main__ - INFO - PDF OCR进度: 83/100 - Processing part 4: page 25/50
+2026-03-26 00:57:50,735 - __main__ - INFO - PDF OCR进度: 84/100 - Processing part 4: page 26/50
+2026-03-26 00:57:51,244 - __main__ - INFO - PDF OCR进度: 84/100 - Processing part 4: page 27/50
+2026-03-26 00:57:51,747 - __main__ - INFO - PDF OCR进度: 84/100 - Processing part 4: page 28/50
+2026-03-26 00:57:52,251 - __main__ - INFO - PDF OCR进度: 84/100 - Processing part 4: page 29/50
+2026-03-26 00:57:52,754 - __main__ - INFO - PDF OCR进度: 85/100 - Processing part 4: page 30/50
+2026-03-26 00:57:53,259 - __main__ - INFO - PDF OCR进度: 85/100 - Processing part 4: page 31/50
+2026-03-26 00:57:53,764 - __main__ - INFO - PDF OCR进度: 85/100 - Processing part 4: page 32/50
+2026-03-26 00:57:54,267 - __main__ - INFO - PDF OCR进度: 85/100 - Processing part 4: page 33/50
+2026-03-26 00:57:54,769 - __main__ - INFO - PDF OCR进度: 85/100 - Processing part 4: page 34/50
+2026-03-26 00:58:02,887 - __main__ - INFO - PDF OCR进度: 86/100 - Processing part 4: page 35/50
+2026-03-26 00:58:03,393 - __main__ - INFO - PDF OCR进度: 86/100 - Processing part 4: page 36/50
+2026-03-26 00:58:03,900 - __main__ - INFO - PDF OCR进度: 86/100 - Processing part 4: page 37/50
+2026-03-26 00:58:04,403 - __main__ - INFO - PDF OCR进度: 86/100 - Processing part 4: page 38/50
+2026-03-26 00:58:04,907 - __main__ - INFO - PDF OCR进度: 87/100 - Processing part 4: page 39/50
+2026-03-26 00:58:05,411 - __main__ - INFO - PDF OCR进度: 87/100 - Processing part 4: page 40/50
+2026-03-26 00:58:05,913 - __main__ - INFO - PDF OCR进度: 87/100 - Processing part 4: page 41/50
+2026-03-26 00:58:06,693 - __main__ - INFO - PDF OCR进度: 87/100 - Processing part 4: page 42/50
+2026-03-26 00:58:15,392 - __main__ - INFO - PDF OCR进度: 88/100 - Processing part 4: page 43/50
+2026-03-26 00:58:15,900 - __main__ - INFO - PDF OCR进度: 88/100 - Processing part 4: page 44/50
+2026-03-26 00:58:16,404 - __main__ - INFO - PDF OCR进度: 88/100 - Processing part 4: page 45/50
+2026-03-26 00:58:16,911 - __main__ - INFO - PDF OCR进度: 88/100 - Processing part 4: page 46/50
+2026-03-26 00:58:17,951 - __main__ - INFO - PDF OCR进度: 88/100 - Processing part 4: page 47/50
+2026-03-26 00:58:18,477 - __main__ - INFO - PDF OCR进度: 89/100 - Processing part 4: page 48/50
+2026-03-26 00:58:18,984 - __main__ - INFO - PDF OCR进度: 89/100 - Processing part 4: page 49/50
+2026-03-26 00:58:19,488 - __main__ - INFO - PDF OCR进度: 89/100 - Processing part 4: page 50/50
+2026-03-26 00:58:19,994 - __main__ - INFO - PDF OCR进度: 54/100 - Converting part 5/6 to images...
+2026-03-26 00:58:36,460 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 1/50
+2026-03-26 00:58:36,963 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 2/50
+2026-03-26 00:58:37,468 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 3/50
+2026-03-26 00:58:37,975 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 4/50
+2026-03-26 00:58:38,481 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 5/50
+2026-03-26 00:58:38,985 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 6/50
+2026-03-26 00:58:39,488 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 7/50
+2026-03-26 00:58:39,992 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 8/50
+2026-03-26 00:58:48,881 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 9/50
+2026-03-26 00:58:49,390 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 10/50
+2026-03-26 00:58:49,894 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 11/50
+2026-03-26 00:58:50,399 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 12/50
+2026-03-26 00:58:50,904 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 13/50
+2026-03-26 00:58:51,411 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 14/50
+2026-03-26 00:58:51,915 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 15/50
+2026-03-26 00:58:52,419 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 16/50
+2026-03-26 00:59:01,617 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 17/50
+2026-03-26 00:59:02,476 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 18/50
+2026-03-26 00:59:02,980 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 19/50
+2026-03-26 00:59:03,485 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 20/50
+2026-03-26 00:59:03,989 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 21/50
+2026-03-26 00:59:04,495 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 22/50
+2026-03-26 00:59:04,999 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 23/50
+2026-03-26 00:59:05,506 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 24/50
+2026-03-26 00:59:14,743 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 25/50
+2026-03-26 00:59:16,265 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 26/50
+2026-03-26 00:59:16,772 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 27/50
+2026-03-26 00:59:17,278 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 28/50
+2026-03-26 00:59:17,783 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 29/50
+2026-03-26 00:59:18,286 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 30/50
+2026-03-26 00:59:18,792 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 31/50
+2026-03-26 00:59:19,296 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 32/50
+2026-03-26 00:59:27,226 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 33/50
+2026-03-26 00:59:29,375 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 34/50
+2026-03-26 00:59:29,876 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 35/50
+2026-03-26 00:59:30,381 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 36/50
+2026-03-26 00:59:30,885 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 37/50
+2026-03-26 00:59:31,391 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 38/50
+2026-03-26 00:59:31,897 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 39/50
+2026-03-26 00:59:32,399 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 40/50
+2026-03-26 00:59:39,949 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 41/50
+2026-03-26 00:59:42,092 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 42/50
+2026-03-26 00:59:42,708 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 43/50
+2026-03-26 00:59:43,340 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 44/50
+2026-03-26 00:59:43,841 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 45/50
+2026-03-26 00:59:44,344 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 46/50
+2026-03-26 00:59:44,849 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 47/50
+2026-03-26 00:59:45,355 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 48/50
+2026-03-26 00:59:53,238 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 49/50
+2026-03-26 00:59:54,752 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 5: page 50/50
+2026-03-26 00:59:55,257 - __main__ - INFO - PDF OCR进度: 65/100 - Converting part 6/6 to images...
+2026-03-26 01:00:09,630 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 1/10
+2026-03-26 01:00:10,136 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 2/10
+2026-03-26 01:00:10,641 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 3/10
+2026-03-26 01:00:11,147 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 4/10
+2026-03-26 01:00:11,650 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 5/10
+2026-03-26 01:00:12,155 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 6/10
+2026-03-26 01:00:22,421 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 7/10
+2026-03-26 01:00:23,671 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 8/10
+2026-03-26 01:00:24,175 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 9/10
+2026-03-26 01:00:24,680 - __main__ - INFO - PDF OCR进度: 95/100 - Processing part 6: page 10/10
+2026-03-26 01:00:25,188 - __main__ - INFO - PDF OCR进度: 95/100 - Merging results...
+2026-03-26 01:00:25,192 - __main__ - INFO - PDF OCR进度: 100/100 - Complete
+2026-03-26 01:00:25,200 - __main__ - INFO - ocr_pdf 完成，耗时: 301.73秒
+2026-03-26 01:00:25,200 - __main__ - INFO - PDF OCR成功，文本长度: 216395 字符
+2026-03-26 01:00:25,201 - __main__ - INFO - === OCR PDF处理结束 ===
+2026-03-26 01:00:32,563 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:05:53,588 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:05:53,743 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:12:41,381 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:12:41,508 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:12:43,826 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:12:43,918 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:12:57,047 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:12:57,150 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:12:58,095 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 01:13:04,730 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:13:05,425 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 01:13:05,639 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 01:13:05,640 - __main__ - ERROR - Quiz generation error: Error code: 403 - {'error': {'message': 'Forbidden'}}
+2026-03-26 01:13:27,594 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:13:28,341 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 01:13:28,425 - __main__ - INFO - User input: hi...
+2026-03-26 01:13:28,630 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 01:13:28,631 - __main__ - ERROR - AI reply error: Error code: 403 - {'error': {'message': 'Forbidden'}}
+2026-03-26 01:13:30,124 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 403 Forbidden"
+2026-03-26 01:13:30,127 - __main__ - ERROR - Orpheus TTS error: Error code: 403 - {'error': {'message': 'Forbidden'}}
+2026-03-26 01:13:30,209 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:13:31,340 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 01:13:39,574 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:13:40,361 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 01:13:40,583 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 01:13:40,584 - __main__ - ERROR - Quiz generation error: Error code: 403 - {'error': {'message': 'Forbidden'}}
+2026-03-26 01:13:57,186 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:13:57,927 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 01:13:58,151 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 01:13:58,152 - __main__ - ERROR - Quiz generation error: Error code: 403 - {'error': {'message': 'Forbidden'}}
+2026-03-26 01:15:03,294 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:15:08,218 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:15:08,426 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:15:13,961 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 01:15:14,091 - __main__ - INFO - User input: hi...
+2026-03-26 01:15:14,719 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 01:15:14,720 - __main__ - ERROR - AI reply error: Error code: 403 - {'error': {'message': 'Forbidden'}}
+2026-03-26 01:15:14,923 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 403 Forbidden"
+2026-03-26 01:15:14,924 - __main__ - ERROR - Orpheus TTS error: Error code: 403 - {'error': {'message': 'Forbidden'}}
+2026-03-26 01:15:15,017 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:06:21,812 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:06:22,408 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:06:34,780 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:06:35,085 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:19:35,817 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:19:36,515 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:19:39,299 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:19:39,444 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:19:41,323 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:19:41,481 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:19:41,820 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 02:19:42,225 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 02:19:43,512 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:19:43,625 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:19:44,393 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 02:19:49,719 - __main__ - INFO - Successfully loaded chinese_test_template.txt
+2026-03-26 02:19:51,442 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 02:19:51,691 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 403 Forbidden"
+2026-03-26 02:19:51,693 - __main__ - ERROR - Quiz generation error: Error code: 403 - {'error': {'message': 'Forbidden'}}
