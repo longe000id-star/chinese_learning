@@ -1711,14 +1711,14 @@ st.markdown(f"""
         display: none !important;
     }}
 
-    /* 只添加紫色背景，不改其他 */
+    /* 只添加紫色背景，其他不变 */
     button[data-testid="stBaseButton-headerNoPadding"],
     button[data-testid="stSidebarCollapseButton"],
     button[kind="headerNoPadding"] {{
         background-color: #667eea !important;
         border-radius: 8px !important;
     }}
-        
+
     /* 确保按钮容器可见 */
     div[data-testid="stSidebarCollapseButton"] {{
         display: block !important;
