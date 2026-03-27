@@ -2076,7 +2076,7 @@ if st.session_state.search_keyword and st.session_state.search_results:
                 # 如果没有 exam 名称，无法跳转
                 if not exam:
                     st.warning("无法识别考试类型")
-                    return
+                    st.stop()
                 
                 st.session_state.current_mode = "nemt_cet"
                 st.session_state.selected_nemt_cet = exam
@@ -2116,7 +2116,7 @@ if st.session_state.search_keyword and st.session_state.search_results:
                 
                 # 刷新页面
                 st.rerun()
-                                
+
     st.markdown("---")
 
 elif st.session_state.search_keyword:
