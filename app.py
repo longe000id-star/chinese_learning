@@ -370,7 +370,7 @@ st.set_page_config(
 #     bg_css = "background-color: #f0f0f0;"
 # else:
 #     bg_css = f"background-image: url('data:image/jpeg;base64,{bg_base64}');"
-bg_css = "background-color: #f0f0f0;"
+
 # ---------- 初始化语言状态 ----------
 if "language" not in st.session_state:
     st.session_state.language = "Chinese"
