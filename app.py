@@ -352,20 +352,24 @@ def get_base64_of_image(image_path):
     except FileNotFoundError:
         return None
 
-bg_base64 = get_base64_of_image("background.jpg")
-if bg_base64 is None:
-    st.warning("Background image not found. Using solid light background.")
-    bg_css = "background-color: #f0f0f0;"
-else:
-    bg_css = f"background-image: url('data:image/jpeg;base64,{bg_base64}');"
-
-# Page config
+# ================================================================
+# FIX 1: st.set_page_config 必须在任何 st.* 渲染命令之前调用
+# 原代码先调用 st.warning() 再调用 st.set_page_config()，会崩溃
+# ================================================================
 st.set_page_config(
     layout="wide",
     page_title="LVING PDF Assistant",
     initial_sidebar_state="expanded",
     menu_items=None
 )
+
+bg_base64 = get_base64_of_image("background.jpg")
+_bg_warning = None  # 延迟显示，避免在 set_page_config 之前调用 st.*
+if bg_base64 is None:
+    _bg_warning = "Background image not found. Using solid light background."
+    bg_css = "background-color: #f0f0f0;"
+else:
+    bg_css = f"background-image: url('data:image/jpeg;base64,{bg_base64}');"
 
 # ---------- 初始化语言状态 ----------
 if "language" not in st.session_state:
@@ -713,6 +717,18 @@ def search_in_dict(node, path_list, source, level_num, keyword):
     return matches
 
 
+# ========== FIX 9: 搜索结果去重辅助函数 ==========
+def deduplicate_results(results):
+    seen = set()
+    deduped = []
+    for r in results:
+        key = (r.get("source"), r.get("level"), tuple(r.get("path", [])), r.get("type"), r.get("content", "")[:50])
+        if key not in seen:
+            seen.add(key)
+            deduped.append(r)
+    return deduped
+
+
 # ========== 全局搜索（搜索所有数据）==========
 def global_search(keyword):
     if not keyword.strip():
@@ -745,13 +761,13 @@ def global_search(keyword):
                         "source": "nemt_cet",
                         "exam": exam_name,
                         "level": None,
-                        "path": [exam_name, key],
+                        "path": [key],
                         "type": "Category",
                         "content": str(key)[:150]
                     })
-                results.extend(search_in_dict(value, [exam_name, key], "nemt_cet", None, keyword))
+                results.extend(search_in_dict(value, [key], "nemt_cet", None, keyword))
     
-    return results
+    return deduplicate_results(results)
 
 
 # ========== 本地搜索 ==========
@@ -768,13 +784,14 @@ def local_search_textbook(keyword):
         for root_key, root_value in root_node.items():
             if isinstance(root_value, dict):
                 results.extend(search_in_dict(root_value, [root_key], "textbook", st.session_state.level, keyword))
-    return results
+    return deduplicate_results(results)
 
 
 def local_search_nemt_cet(keyword):
     if not keyword.strip():
         return []
     if not st.session_state.selected_nemt_cet:
+        st.warning("Please select an exam (TEM-8 / NEMT / CET-46) before using Local Search.")
         return []
     
     results = []
@@ -795,13 +812,13 @@ def local_search_nemt_cet(keyword):
                     "source": "nemt_cet",
                     "exam": exam_name,
                     "level": None,
-                    "path": [exam_name, key],
+                    "path": [key],
                     "type": "Category",
                     "content": str(key)[:150]
                 })
-            results.extend(search_in_dict(value, [exam_name, key], "nemt_cet", None, keyword))
+            results.extend(search_in_dict(value, [key], "nemt_cet", None, keyword))
     
-    return results
+    return deduplicate_results(results)
 
 
 def local_search(keyword):
@@ -975,19 +992,22 @@ def get_page_recommendations():
     return st.session_state.page_recommendations.get(page_key)
 
 
-# ========== 使用语言模型翻译单词 ==========
+# ========== FIX 5+6+7: 使用语言模型翻译单词 ==========
+# 修复1: 正则允许中文字符，避免中文词被清空
+# 修复2: max_tokens 改为 50，翻译单词不需要 8192
 def translate_word(word, target_lang="Chinese"):
     try:
         logger.info(f"Translating word: {word}")
-        clean_word = re.sub(r'[^a-zA-Z\s-]', '', word).strip()
+        # FIX: 原正则 [^a-zA-Z\s-] 会把中文字符全部删除，导致翻译失败
+        clean_word = re.sub(r'[^a-zA-Z\u4e00-\u9fff\s-]', '', word).strip()
         clean_word = clean_word.split()[0] if clean_word else word
-        clean_word = clean_word.lower()
+        clean_word = clean_word.lower() if not has_chinese(clean_word) else clean_word
         
-        if not clean_word or len(clean_word) < 2:
+        if not clean_word or len(clean_word) < 1:
             logger.warning(f"Invalid word after cleaning: {word}, returning original")
             return word
         
-        prompt = f"""Translate the following English word to {target_lang}. Only return the translation word, nothing else.
+        prompt = f"""Translate the following word to {target_lang}. Only return the translation word, nothing else.
 Word: {clean_word}
 Translation:"""
         
@@ -995,7 +1015,7 @@ Translation:"""
             model=st.session_state.model_name,
             messages=[{"role": "user", "content": prompt}],
             temperature=0.3,
-            max_tokens=st.session_state.model_max_tokens,
+            max_tokens=50,  # FIX: 原来是 model_max_tokens (8192)，翻译一个词只需要 50
         )
         translation = response.choices[0].message.content.strip()
         
@@ -1104,8 +1124,7 @@ def get_ai_reply(user_input):
                 if current_q_num <= len(questions):
                     st.session_state.quiz_answers[current_q_num] = user_input
         
-        # ========== 关键修复：每次输入后都检查是否已完成 ==========
-        # 如果已经收集到所有答案，立即评估
+        # ========== 每次输入后都检查是否已完成 ==========
         if len(st.session_state.quiz_answers) >= len(questions):
             # 构建问题和答案列表
             qa_list = []
@@ -1113,63 +1132,14 @@ def get_ai_reply(user_input):
                 user_ans = st.session_state.quiz_answers.get(i+1, "No answer")
                 qa_list.append(f"Question {i+1}: {q}\nYour answer: {user_ans}")
             
-            # 根据模式选择评估提示
-            if st.session_state.language == "Chinese":
-                eval_prompt = f"""You are a language teacher. Evaluate these quiz answers. Be GENEROUS in your evaluation.
+            # ========== FIX 8: 合并三份完全相同的 eval_prompt 为一份 ==========
+            # 原代码对 Chinese/English/else 三种情况写了三段完全相同的 prompt，现在统一
+            eval_prompt = f"""You are a language teacher. Evaluate these quiz answers. Be GENEROUS in your evaluation.
 
 CRITICAL RULES:
 - Multiple choice: Accept the letter (A, B, C, D) OR the full text. Any answer that indicates the correct option is CORRECT.
-- Fill in the blank: Accept ANY word that makes the sentence grammatically correct and semantically meaningful. If multiple answers are possible, ALL are CORRECT. Only mark incorrect if the word makes no sense or creates a grammar error.- Translation: Accept if the meaning is preserved. Wording can vary. Even if it's not exactly the same, if the idea is conveyed, it's CORRECT.
-- Error correction: Accept if the error is fixed. The fix doesn't have to be exactly the same as expected.
-- Sentence making: Accept ANY grammatically correct sentence that uses all the given words. Order and wording can vary.
-
-For incorrect answers, DO NOT give the correct answer directly. Instead:
-1. Briefly explain why it's not ideal
-2. Ask a Socratic question to help
-
-CRITICAL: Must give the correct answers when the user asks for them (e.g., "give me answers", "show answers").
-
-Quiz Questions and Answers:
-{chr(10).join(qa_list)}
-
-Return exactly this format:
-1: [✅/❌] - [if ❌: brief explanation + Socratic question]
-2: [✅/❌] - [if ❌: brief explanation + Socratic question]
-3: [✅/❌] - [if ❌: brief explanation + Socratic question]
-4: [✅/❌] - [if ❌: brief explanation + Socratic question]
-5: [✅/❌] - [if ❌: brief explanation + Socratic question]
-Total: X/5"""
-            elif st.session_state.language == "English":
-                eval_prompt = f"""You are a language teacher. Evaluate these quiz answers. Be GENEROUS in your evaluation.
-
-CRITICAL RULES:
-- Multiple choice: Accept the letter (A, B, C, D) OR the full text. Any answer that indicates the correct option is CORRECT.
-- Fill in the blank: Accept ANY word that makes the sentence grammatically correct and semantically meaningful. If multiple answers are possible, ALL are CORRECT. Only mark incorrect if the word makes no sense or creates a grammar error.- Translation: Accept if the meaning is preserved. Wording can vary. Even if it's not exactly the same, if the idea is conveyed, it's CORRECT.
-- Error correction: Accept if the error is fixed. The fix doesn't have to be exactly the same as expected.
-- Sentence making: Accept ANY grammatically correct sentence that uses all the given words. Order and wording can vary.
-
-For incorrect answers, DO NOT give the correct answer directly. Instead:
-1. Briefly explain why it's not ideal
-2. Ask a Socratic question to help
-
-CRITICAL: Must give the correct answers when the user asks for them (e.g., "give me answers", "show answers").
-
-Quiz Questions and Answers:
-{chr(10).join(qa_list)}
-
-Return exactly this format:
-1: [✅/❌] - [if ❌: brief explanation + Socratic question]
-2: [✅/❌] - [if ❌: brief explanation + Socratic question]
-3: [✅/❌] - [if ❌: brief explanation + Socratic question]
-4: [✅/❌] - [if ❌: brief explanation + Socratic question]
-5: [✅/❌] - [if ❌: brief explanation + Socratic question]
-Total: X/5"""
-            else:
-                eval_prompt = f"""You are a language teacher. Evaluate these quiz answers. Be GENEROUS in your evaluation.
-
-CRITICAL RULES:
-- Multiple choice: Accept the letter (A, B, C, D) OR the full text. Any answer that indicates the correct option is CORRECT.
-- Fill in the blank: Accept ANY word that makes the sentence grammatically correct and semantically meaningful. If multiple answers are possible, ALL are CORRECT. Only mark incorrect if the word makes no sense or creates a grammar error.- Translation: Accept if the meaning is preserved. Wording can vary. Even if it's not exactly the same, if the idea is conveyed, it's CORRECT.
+- Fill in the blank: Accept ANY word that makes the sentence grammatically correct and semantically meaningful. If multiple answers are possible, ALL are CORRECT. Only mark incorrect if the word makes no sense or creates a grammar error.
+- Translation: Accept if the meaning is preserved. Wording can vary. Even if it's not exactly the same, if the idea is conveyed, it's CORRECT.
 - Error correction: Accept if the error is fixed. The fix doesn't have to be exactly the same as expected.
 - Sentence making: Accept ANY grammatically correct sentence that uses all the given words. Order and wording can vary.
 
@@ -1199,7 +1169,9 @@ Total: X/5"""
                 )
                 evaluation = eval_response.choices[0].message.content.strip()
                 
-                # 保存到 feedback.md
+                # ========== FIX 7: 修复 feedback.md GitHub 上传只存最后一条的问题 ==========
+                # 原代码把单条 entry 上传到 GitHub，导致历史全部丢失
+                # 修复：追加本地文件后，读取完整内容再上传
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 entry = f"""
 ## Quiz Record - {timestamp}
@@ -1220,7 +1192,14 @@ Total: X/5"""
 """
                 with open("feedback.md", "a", encoding="utf-8") as f:
                     f.write(entry)
-                save_to_github("feedback.md", entry, f"Add quiz record - {timestamp}")      
+                # FIX: 读取完整文件内容再上传，而不是只上传单条 entry
+                try:
+                    with open("feedback.md", "r", encoding="utf-8") as f:
+                        full_feedback_content = f.read()
+                    save_to_github("feedback.md", full_feedback_content, f"Add quiz record - {timestamp}")
+                except Exception as e:
+                    logger.error(f"Failed to read feedback.md for GitHub upload: {e}")
+
                 reply = evaluation + "\n\nGreat job! Let me know if you have any questions about the feedback."
                 
                 # 重置 quiz 状态
@@ -1526,7 +1505,7 @@ def process_ocr_pdf(uploaded_pdf):
     else:
         return None
 
-# ---------- CSS样式（修改版）----------
+# ---------- CSS样式 ----------
 st.markdown(f"""
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
@@ -1563,7 +1542,7 @@ st.markdown(f"""
         display: none !important;
     }}
 
-        /* ========== 侧边栏样式 - 可折叠保留小竖条 ========== */
+    /* ========== 侧边栏样式 - 可折叠保留小竖条 ========== */
     section[data-testid="stSidebar"] {{
         background-color: transparent !important;
         border-right: none !important;
@@ -1591,35 +1570,39 @@ st.markdown(f"""
         display: none !important;
     }}
 
-    /* 折叠按钮样式 */
-    section[data-testid="stSidebar"] button[data-testid="stSidebarCollapseButton"] {{
-        background-color: rgba(102, 126, 234, 0.8) !important;
+    /* ================================================================
+       FIX 3: 折叠按钮 position:fixed，无论折叠还是展开都始终可见可点击
+       原代码只是改样式，但折叠后按钮跟着内容一起被 display:none 了
+       ================================================================ */
+    button[data-testid="stSidebarCollapseButton"] {{
+        position: fixed !important;
+        top: 12px !important;
+        left: 12px !important;
+        z-index: 999999 !important;
+        background-color: rgba(102, 126, 234, 0.9) !important;
         border-radius: 8px !important;
-        margin: 10px !important;
-        padding: 8px !important;
-        width: 32px !important;
-        height: 32px !important;
+        width: 36px !important;
+        height: 36px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
         cursor: pointer !important;
         transition: all 0.3s ease !important;
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        border: 1px solid rgba(255, 255, 255, 0.4) !important;
         color: white !important;
         font-size: 16px !important;
-        z-index: 101 !important;
-        display: block !important;
+        pointer-events: auto !important;
     }}
 
-    section[data-testid="stSidebar"] button[data-testid="stSidebarCollapseButton"]:hover {{
+    button[data-testid="stSidebarCollapseButton"]:hover {{
         background-color: rgba(102, 126, 234, 1) !important;
         transform: scale(1.05) !important;
     }}
 
-    /* 折叠状态下按钮位置调整 */
-    section[data-testid="stSidebar"][aria-expanded="false"] button[data-testid="stSidebarCollapseButton"] {{
-        transform: rotate(180deg) !important;
-        margin-top: 20px !important;
-        margin-left: 8px !important;
+    /* 折叠状态下按钮图标旋转 */
+    section[data-testid="stSidebar"][aria-expanded="false"] button[data-testid="stSidebarCollapseButton"] svg {{
+        transform: rotate(180deg);
     }}
-
 
     /* 确保侧边栏中的文本可见 */
     section[data-testid="stSidebar"] * {{
@@ -1691,8 +1674,6 @@ st.markdown(f"""
         color: #b0b0b0 !important;
     }}
 
-
-
     /* 其他原有样式保持不变 */
     .breadcrumb {{
         background-color: rgba(255, 255, 255, 0.1);
@@ -1706,12 +1687,16 @@ st.markdown(f"""
         border: 1px solid rgba(255, 255, 255, 0.2);
     }}
 
+    /* ================================================================
+       FIX 4: CSS 字体大小修复
+       原代码 font-size: 100px / 92px / 300px 明显是调试遗留值
+       ================================================================ */
     button[kind="primary"],
     .stButton button {{
         background-color: rgba(255, 255, 255, 0.2) !important;
         color: #ffffff !important;
         font-family: 'Manrope', sans-serif !important;
-        font-size: 100px !important;
+        font-size: 20px !important;
         font-weight: 800 !important;
         padding: 30px !important;
         transition: all 0.3s ease !important;
@@ -1720,7 +1705,7 @@ st.markdown(f"""
     }}
 
     .stButton button > div {{
-        font-size: 92px !important;
+        font-size: 18px !important;
         font-weight: 800 !important;
     }}
 
@@ -1731,14 +1716,14 @@ st.markdown(f"""
 
     h1 {{
         color: #ffffff !important;
-        font-size: 300px;
+        font-size: 60px;
         font-weight: 800;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }}
 
     @media (max-width: 768px) {{
         h1 {{
-            font-size: 96px;
+            font-size: 36px;
         }}
     }}
 
@@ -1775,38 +1760,16 @@ st.markdown(f"""
 </style>
 """, unsafe_allow_html=True)
 
-# ========== 侧边栏 ==========
-with st.sidebar:
-    # ========== 聊天区域 ==========
-    # 聊天消息显示区域
-    chat_messages = st.container()
-    with chat_messages:
-        for msg in st.session_state.messages:
-            if msg["role"] == "system":
-                continue
-            if msg["role"] == "user":
-                st.write(f"**You:** {msg['content']}")
-            else:
-                st.write(f"**AI:** {msg['content']}")
-        # 添加自动滚动脚本（放在这里，for循环之后，with块结束之前）
-        st.markdown("""
-        <script>
-            setTimeout(function() {
-                var sidebar = document.querySelector('section[data-testid="stSidebar"]');
-                if (sidebar) {
-                    var scrollable = sidebar.querySelector('[data-testid="stVerticalBlock"]');
-                    if (scrollable) {
-                        scrollable.scrollTop = scrollable.scrollHeight;
-                    }
-                }
-            }, 50);
-        </script>
-        """, unsafe_allow_html=True)
+# FIX 1: 延迟显示背景图片警告（set_page_config 之后才能调用 st.warning）
+if _bg_warning:
+    st.warning(_bg_warning)
 
-# ========== 侧边栏 ==========
+# ================================================================
+# FIX 2: 侧边栏只保留一个 with st.sidebar: 块
+# 原代码有两个完整的 with st.sidebar: 块，导致聊天记录双重渲染
+# ================================================================
 with st.sidebar:
-    # ========== 聊天区域 ==========
-    # 聊天消息显示区域
+    # ========== 聊天消息展示区域 ==========
     chat_messages = st.container()
     with chat_messages:
         for msg in st.session_state.messages:
@@ -1816,7 +1779,7 @@ with st.sidebar:
                 st.write(f"**You:** {msg['content']}")
             else:
                 st.write(f"**AI:** {msg['content']}")
-        # 添加自动滚动脚本（放在这里，for循环之后，with块结束之前）
+        # 自动滚动到最新消息
         st.markdown("""
         <script>
             setTimeout(function() {
@@ -1828,23 +1791,6 @@ with st.sidebar:
                     }
                 }
             }, 50);
-        </script>
-        """, unsafe_allow_html=True)
-        # 确保折叠按钮始终可点击
-        st.markdown("""
-        <script>
-            // 确保折叠按钮在折叠后仍然可点击
-            setTimeout(function() {
-                var sidebar = document.querySelector('section[data-testid="stSidebar"]');
-                if (sidebar) {
-                    var btn = sidebar.querySelector('button[data-testid="stSidebarCollapseButton"]');
-                    if (btn) {
-                        btn.style.pointerEvents = 'auto';
-                        btn.style.zIndex = '9999';
-                        console.log('折叠按钮已激活');
-                    }
-                }
-            }, 100);
         </script>
         """, unsafe_allow_html=True)
 
@@ -1900,7 +1846,7 @@ with st.sidebar:
                 questions = []
                 for line in quiz_text.split('\n'):
                     line = line.strip()
-                    if re.match(r'^\d+\.', line):
+                    if re.match(r'^\d+[\.\s]', line):
                         questions.append(line)
                 st.session_state.current_quiz = {
                     "questions": questions,
@@ -2046,11 +1992,13 @@ if st.session_state.pending_tts:
     st.audio(audio_bytes, format=fmt, autoplay=True)
     st.session_state.pending_tts = None
 
-# ========== 主界面：内容显示和聊天 ==========
+# ========== 主界面：内容显示 ==========
 # 显示搜索结果
 if st.session_state.search_keyword and st.session_state.search_results:
     st.markdown(f"### Search Results for '{st.session_state.search_keyword}'")
     st.markdown(f"Found {len(st.session_state.search_results)} result(s)")
+    
+    kw = st.session_state.search_keyword  # FIX 10: 用于关键词高亮
     
     for idx, res in enumerate(st.session_state.search_results):
         if "path" in res and res["path"]:
@@ -2075,24 +2023,63 @@ if st.session_state.search_keyword and st.session_state.search_results:
         if len(res["content"]) > 120:
             content_preview += "..."
         
-        button_label = f"{res.get('type', 'Content')} | {source_info}\n\n{content_preview}\n\nPath: {path_str}"
+        # FIX 10: 关键词高亮（大小写不敏感替换）
+        try:
+            highlighted_preview = re.sub(
+                re.escape(kw),
+                f"[{kw.upper()}]",
+                content_preview,
+                flags=re.IGNORECASE
+            )
+        except Exception:
+            highlighted_preview = content_preview
+        
+        button_label = f"{res.get('type', 'Content')} | {source_info}\n\n{highlighted_preview}\n\nPath: {path_str}"
         
         if st.button(
             button_label,
             key=f"search_result_{idx}_{hash(str(res))}",
             use_container_width=True
         ):
+            # ================================================================
+            # FIX 8: 搜索结果点击精确导航
+            # 原代码忽略 res["path"]，只跳到 Level 顶层或 exam 顶层
+            # 修复：使用 res["path"] 精确跳转到匹配内容所在位置
+            # ================================================================
             if res.get("source") == "textbook" and res.get("level"):
                 st.session_state.current_mode = "textbook"
                 st.session_state.level = res["level"]
-                st.session_state.path = [f"LEVEL_{['I','II','III'][res['level']-1]}"]
+                level_prefix = f"LEVEL_{['I','II','III'][res['level']-1]}"
+                raw_path = res.get("path", [])
+                # 过滤掉列表索引标记（如 "key[0]"），保留真实路径段
+                clean_path = []
+                for p in raw_path:
+                    p_str = str(p)
+                    if '[' in p_str:
+                        p_str = p_str.split('[')[0]
+                    if p_str:
+                        clean_path.append(p_str)
+                # 确保路径以 Level 前缀开头
+                if clean_path and clean_path[0] != level_prefix:
+                    clean_path = [level_prefix] + clean_path
+                st.session_state.path = clean_path if clean_path else [level_prefix]
                 st.session_state.search_keyword = ""
                 st.session_state.search_results = []
                 st.rerun()
             elif res.get("source") == "nemt_cet" and res.get("exam"):
                 st.session_state.current_mode = "nemt_cet"
-                st.session_state.selected_nemt_cet = res["exam"]
-                st.session_state.nemt_cet_path = []
+                exam = res.get("exam", "")
+                st.session_state.selected_nemt_cet = exam
+                raw_path = res.get("path", [])
+                # path 里第一个元素是分类key，直接作为 nemt_cet_path
+                clean_nemt_path = []
+                for p in raw_path:
+                    p_str = str(p)
+                    if '[' in p_str:
+                        p_str = p_str.split('[')[0]
+                    if p_str:
+                        clean_nemt_path.append(p_str)
+                st.session_state.nemt_cet_path = clean_nemt_path
                 st.session_state.search_keyword = ""
                 st.session_state.search_results = []
                 st.rerun()
@@ -2230,7 +2217,10 @@ if st.session_state.current_mode == "textbook":
                             other_item = other_node["vocabulary"][idx]
                         other_parts = other_item.rsplit(" ", 1) if other_item else ["", ""]
                         other_word = other_parts[0]
-                        other_pron = other_parts[1] if len(other_parts) > 1 else ""
+                        if other_item:
+                            other_pron = other_parts[1] if len(other_parts) > 1 else ""
+                        else:
+                            other_pron = other_parts[1] if len(other_parts) > 1 else ""
 
                         key = f"vocab_{idx}"
                         flipped = st.session_state.get("flip_states", {}).get(key, False)
@@ -2427,6 +2417,3 @@ elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_n
             st.markdown("---")
             with st.container():
                 st.markdown(recommendations, unsafe_allow_html=True)
-
-
-   
