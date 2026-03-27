@@ -10,9 +10,9 @@
     background-position: center;
     background-attachment: fixed;
     font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
     background-color: rgba(0, 0, 0, 0.7) !important;
     background-blend-mode: overlay !important;
+}
 
 * {
     font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
