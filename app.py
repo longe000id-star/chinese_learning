@@ -1522,8 +1522,30 @@ def process_ocr_pdf(uploaded_pdf):
 # ---------- CSS样式 ----------
 st.markdown(f"""
 <style>
+    /* 添加 Material Icons 字体 */
+    @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
     @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 
+    /* 确保图标正确显示 */
+
+    .material-icons {{
+        font-family: 'Material Icons' !important;
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px;
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+        -moz-osx-font-smoothing: grayscale;
+        font-feature-settings: 'liga';
+    }}
+       
     /* 主应用样式 */
     .stApp {{
         {bg_css}
