@@ -300,32 +300,22 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                                     st.session_state.flip_states = {}
                                 st.session_state.flip_states[key] = not flipped
                                 
-                                # 点击后如果是显示翻译状态，加载图片和视频并存入 session_state
                                 if not was_flipped:
-                                    with st.spinner(f"正在搜索 '{word}' 的图片和视频..."):
+                                    with st.spinner(f"Searching '{word}'..."):
                                         st.session_state[f"vocab_img_{key}"] = search_pexels_image(word)
                                         st.session_state[f"vocab_video_{key}"] = search_pexels_video(word)
-                                        st.session_state[f"vocab_trans_{key}"] = other_word
                                 
                                 st.rerun()
                             
-                            # 显示图片和视频（从 session_state 读取）
+                            # 显示图片和视频
                             if flipped:
-                                st.markdown("---")
-                                trans = st.session_state.get(f"vocab_trans_{key}", other_word)
-                                st.info(f"📖 **翻译:** {trans}")
-                                
                                 img_url = st.session_state.get(f"vocab_img_{key}")
                                 if img_url:
-                                    st.image(img_url, caption=f"📷 图片: {word}", use_container_width=True)
-                                else:
-                                    st.warning(f"没有找到 '{word}' 的图片")
+                                    st.image(img_url, use_container_width=True)
                                 
                                 video_url = st.session_state.get(f"vocab_video_{key}")
                                 if video_url:
                                     st.video(video_url)
-                                else:
-                                    st.info(f"没有找到 '{word}' 的视频")
 
                 if not any(key in node for key in ["notes", "examples", "vocabulary"]):
                     sub_keys = [k for k in node.keys() if k not in ("name", "notes", "examples", "vocabulary")]
@@ -451,15 +441,15 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                     flipped = st.session_state.get("flip_states", {}).get(card_key, False)
                     
                     with cols[idx % 3]:
+                        # 获取翻译
+                        cache_key = f"{word}_{target_lang}"
+                        if cache_key in st.session_state.translation_cache_nemt:
+                            translation = st.session_state.translation_cache_nemt[cache_key]
+                        else:
+                            translation = None
+                        
                         if flipped:
-                            cache_key = f"{word}_{target_lang}"
-                            if cache_key in st.session_state.translation_cache_nemt:
-                                translation = st.session_state.translation_cache_nemt[cache_key]
-                            else:
-                                with st.spinner(f"Translating {word}..."):
-                                    translation = translate_word(client, word, target_lang)
-                                    st.session_state.translation_cache_nemt[cache_key] = translation
-                            display_content = translation
+                            display_content = translation if translation else word
                         else:
                             display_content = word
                         
@@ -473,32 +463,33 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                                 st.session_state.flip_states = {}
                             st.session_state.flip_states[card_key] = not flipped
                             
-                            # 点击后如果是显示翻译状态，加载图片和视频并存入 session_state
                             if not was_flipped:
-                                with st.spinner(f"Searching images and videos for '{word}'..."):
+                                # 获取翻译
+                                cache_key = f"{word}_{target_lang}"
+                                if cache_key in st.session_state.translation_cache_nemt:
+                                    trans = st.session_state.translation_cache_nemt[cache_key]
+                                else:
+                                    with st.spinner(f"Translating {word}..."):
+                                        trans = translate_word(client, word, target_lang)
+                                        st.session_state.translation_cache_nemt[cache_key] = trans
+                                
+                                # 搜索图片和视频
+                                with st.spinner(f"Searching '{word}'..."):
                                     st.session_state[f"word_img_{card_key}"] = search_pexels_image(word)
                                     st.session_state[f"word_video_{card_key}"] = search_pexels_video(word)
-                                    st.session_state[f"word_trans_{card_key}"] = translation
+                                    st.session_state[f"word_trans_{card_key}"] = trans
                             
                             st.rerun()
                         
-                        # 显示图片和视频（从 session_state 读取）
+                        # 显示图片和视频
                         if flipped:
-                            st.markdown("---")
-                            trans = st.session_state.get(f"word_trans_{card_key}", translation if flipped else "")
-                            st.info(f"📖 **Translation:** {trans}")
-                            
                             img_url = st.session_state.get(f"word_img_{card_key}")
                             if img_url:
-                                st.image(img_url, caption=f"📷 Image: {word}", use_container_width=True)
-                            else:
-                                st.warning(f"No images found for '{word}'")
+                                st.image(img_url, use_container_width=True)
                             
                             video_url = st.session_state.get(f"word_video_{card_key}")
                             if video_url:
                                 st.video(video_url)
-                            else:
-                                st.info(f"No videos found for '{word}'")
             
             if "examples" in content_node and content_node["examples"]:
                 st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px; margin-bottom: 15px;'>Example Sentences</h3>", unsafe_allow_html=True)
