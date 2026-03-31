@@ -165,6 +165,7 @@ def save_nlp_chapter_notes(chapter_key, section_key, notes_content):
     except Exception as e:
         logger.error(f"Failed to save notes: {e}")
         return False
+<<<<<<< HEAD
 
 
 # ========== 学习状态管理函数 ==========
@@ -204,3 +205,5 @@ def get_vocab_key(source, level, path, vocab_index):
     elif source == "nlp":
         return f"nlp_{level}_{path_str}_{vocab_index}"
     return f"unknown_{vocab_index}"
+=======
+>>>>>>> 071894d (NLP textbbook upload)

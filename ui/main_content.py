@@ -5,7 +5,11 @@ import requests
 import time
 from utils.search import global_search, local_search
 from utils.helpers import translate_word
+<<<<<<< HEAD
 from utils.data_loader import load_nlp_textbook_data, save_nlp_chapter_notes, get_vocab_key, save_learning_states
+=======
+from utils.data_loader import load_nlp_textbook_data, save_nlp_chapter_notes
+>>>>>>> 071894d (NLP textbbook upload)
 
 # ========== Pexels API 函数 ==========
 PEXELS_API_KEY = "d2CD01GRjacnW1194nyOXkkZsAMEO3xWY6I6YYLvMA3ycjSKmaBuFp4Z"
@@ -197,6 +201,7 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                     st.rerun()
         
         with col3:
+<<<<<<< HEAD
             exam_key = "nemt_CET-46"
             current_status = st.session_state.learning_states.get(exam_key, 0)
             col_status, col_btn = st.columns([1, 5])
@@ -215,6 +220,15 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                     st.session_state.path = []
                     st.rerun()
     
+=======
+            if st.button("CET-46", use_container_width=True):
+                st.session_state.current_mode = "nemt_cet"
+                st.session_state.selected_nemt_cet = "CET-46"
+                st.session_state.nemt_cet_path = []
+                st.session_state.level = None
+                st.session_state.path = []
+                st.rerun()
+>>>>>>> 071894d (NLP textbbook upload)
     elif st.session_state.language == "NLP Textbook":
         # ========== NLP Textbook 模式 ==========
         nlp_data = load_nlp_textbook_data()
@@ -232,14 +246,23 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
             st.markdown("---")
             st.markdown("## Chapters")
             
+<<<<<<< HEAD
             chapters = sorted(nlp_data.keys(), key=lambda x: int(x.replace("CHAPTER_", "")))
             cols = st.columns(3)
             
+=======
+            # 按章节号排序
+            chapters = sorted(nlp_data.keys(), key=lambda x: int(x.replace("CHAPTER_", "")))
+            
+            # 每行显示 3 个章节按钮
+            cols = st.columns(3)
+>>>>>>> 071894d (NLP textbbook upload)
             for idx, chapter_key in enumerate(chapters):
                 chapter = nlp_data[chapter_key]
                 chapter_num = chapter_key.replace("CHAPTER_", "")
                 chapter_name = chapter.get("name", f"Chapter {chapter_num}")
                 
+<<<<<<< HEAD
                 chap_key = f"nlp_chapter_{chapter_key}"
                 current_status = st.session_state.learning_states.get(chap_key, 0)
                 
@@ -258,13 +281,29 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                             st.rerun()
         
         # 如果选中了章节，显示小节
+=======
+                with cols[idx % 3]:
+                    if st.button(f"📖 {chapter_name}\n\nChapter {chapter_num}", key=f"nlp_chapter_{chapter_key}", use_container_width=True):
+                        st.session_state.nlp_selected_chapter = chapter_key
+                        st.session_state.nlp_selected_section = None
+                        st.rerun()
+        
+        # 如果选中了章节，显示章节内容和小节
+>>>>>>> 071894d (NLP textbbook upload)
         else:
             chapter = nlp_data[st.session_state.nlp_selected_chapter]
             chapter_num = st.session_state.nlp_selected_chapter.replace("CHAPTER_", "")
             chapter_name = chapter.get("name", f"Chapter {chapter_num}")
             
+<<<<<<< HEAD
             st.markdown(f"<div class='breadcrumb'>📖 Chapter {chapter_num}: {chapter_name}</div>", unsafe_allow_html=True)
             
+=======
+            # 面包屑导航
+            st.markdown(f"<div class='breadcrumb'>📖 Chapter {chapter_num}: {chapter_name}</div>", unsafe_allow_html=True)
+            
+            # 返回按钮
+>>>>>>> 071894d (NLP textbbook upload)
             col_back, _ = st.columns([1, 5])
             with col_back:
                 if st.button("← Back to Chapters", key="nlp_back_to_chapters"):
@@ -272,14 +311,23 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                     st.session_state.nlp_selected_section = None
                     st.rerun()
             
+<<<<<<< HEAD
             if st.session_state.nlp_selected_section is None:
                 st.markdown("## Sections")
                 
+=======
+            # 如果没有选中小节，显示所有小节
+            if st.session_state.nlp_selected_section is None:
+                st.markdown("## Sections")
+                
+                # 获取所有小节（键名像 "1.1", "1.2" 等）
+>>>>>>> 071894d (NLP textbbook upload)
                 sections = []
                 for key, value in chapter.items():
                     if key != "name" and isinstance(value, dict) and "name" in value:
                         sections.append((key, value))
                 
+<<<<<<< HEAD
                 sections.sort(key=lambda x: [int(p) for p in x[0].split('.')])
                 
                 if sections:
@@ -304,18 +352,47 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                 else:
                     st.info("No sections found in this chapter.")
             
+=======
+                # 按小节号排序
+                sections.sort(key=lambda x: [int(p) for p in x[0].split('.')])
+                
+                if sections:
+                    # 每行显示 2 个小节
+                    cols = st.columns(2)
+                    for idx, (section_key, section) in enumerate(sections):
+                        section_name = section.get("name", section_key)
+                        with cols[idx % 2]:
+                            if st.button(f"📌 {section_name}\n\n{section_key}", key=f"nlp_section_{section_key}", use_container_width=True):
+                                st.session_state.nlp_selected_section = section_key
+                                st.rerun()
+                else:
+                    st.info("No sections found in this chapter.")
+            
+            # 如果选中了小节，显示内容
+>>>>>>> 071894d (NLP textbbook upload)
             else:
                 section = chapter.get(st.session_state.nlp_selected_section, {})
                 section_name = section.get("name", st.session_state.nlp_selected_section)
                 
+<<<<<<< HEAD
                 st.markdown(f"<div class='breadcrumb' style='font-size: 16px;'>{chapter_name} › {section_name}</div>", unsafe_allow_html=True)
                 
+=======
+                # 小节面包屑
+                st.markdown(f"<div class='breadcrumb' style='font-size: 16px;'>{chapter_name} › {section_name}</div>", unsafe_allow_html=True)
+                
+                # 返回小节列表按钮
+>>>>>>> 071894d (NLP textbbook upload)
                 col_back_section, _ = st.columns([1, 5])
                 with col_back_section:
                     if st.button("← Back to Sections", key="nlp_back_to_sections"):
                         st.session_state.nlp_selected_section = None
                         st.rerun()
                 
+<<<<<<< HEAD
+=======
+                # 显示内容
+>>>>>>> 071894d (NLP textbbook upload)
                 content = section.get("content", "")
                 current_notes = section.get("notes", "")
                 
@@ -325,12 +402,25 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                     st.markdown(f"<div style='background-color: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; line-height: 1.6; font-size: 16px;'>{content}</div>", unsafe_allow_html=True)
                 
                 st.markdown("---")
+<<<<<<< HEAD
                 st.markdown("### 📝 Your Notes")
                 st.markdown("Write your thoughts, summaries, or questions below:")
                 
                 if current_notes:
                     st.info(f"💡 Previous notes:\n\n{current_notes}")
                 
+=======
+                
+                # Notes 区域
+                st.markdown("### 📝 Your Notes")
+                st.markdown("Write your thoughts, summaries, or questions below:")
+                
+                # 显示当前 notes（如果有）
+                if current_notes:
+                    st.info(f"💡 Previous notes:\n\n{current_notes}")
+                
+                # 文本输入区域
+>>>>>>> 071894d (NLP textbbook upload)
                 new_notes = st.text_area(
                     "Add/Edit Notes",
                     value=current_notes,
@@ -339,6 +429,10 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                     placeholder="Write your notes here...\n\n- Key concepts\n- Questions\n- Summary\n- Thoughts"
                 )
                 
+<<<<<<< HEAD
+=======
+                # 保存按钮
+>>>>>>> 071894d (NLP textbbook upload)
                 col_save, col_cancel = st.columns([1, 4])
                 with col_save:
                     if st.button("💾 Save Notes", key="nlp_save_notes", use_container_width=True):
@@ -350,6 +444,10 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                             )
                             if success:
                                 st.success("✅ Notes saved successfully!")
+<<<<<<< HEAD
+=======
+                                # 更新 session state 中的 notes
+>>>>>>> 071894d (NLP textbbook upload)
                                 section["notes"] = new_notes
                                 time.sleep(1)
                                 st.rerun()
@@ -358,15 +456,27 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                         else:
                             st.info("No changes to save.")
                 
+<<<<<<< HEAD
                 st.markdown("---")
                 st.markdown("### 🔗 Recommended Resources")
+=======
+                # 推荐学习资源（可选）
+                st.markdown("---")
+                st.markdown("### 🔗 Recommended Resources")
+                
+                # 简单生成一些资源链接
+>>>>>>> 071894d (NLP textbbook upload)
                 topic = chapter_name
                 st.markdown(f"""
                 - **YouTube**: [Search "{topic}" on YouTube](https://www.youtube.com/results?search_query={topic.replace(' ', '+')}+information+retrieval)
                 - **Google Scholar**: [Search "{topic}" on Google Scholar](https://scholar.google.com/scholar?q={topic.replace(' ', '+')})
                 - **Wikipedia**: [Read about {topic} on Wikipedia](https://en.wikipedia.org/wiki/{topic.replace(' ', '_')})
                 """)
+<<<<<<< HEAD
     
+=======
+        
+>>>>>>> 071894d (NLP textbbook upload)
     else:
         # ========== Chinese/English 模式 - Level 按钮 ==========
         col1, col2, col3 = st.columns(3)

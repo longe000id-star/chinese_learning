@@ -1801,6 +1801,7 @@
 - **Definition**:...
 2026-03-31 20:15:51,430 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 413 Payload Too Large"
 2026-03-31 20:15:51,432 - utils.tts - ERROR - Orpheus TTS error: Error code: 413 - {'error': {'message': 'Request too large for model `canopylabs/orpheus-v1-english` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 1200, Requested 3157, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+<<<<<<< HEAD
 2026-03-31 22:40:35,802 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
 2026-03-31 22:40:35,813 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
 2026-03-31 22:40:35,813 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
@@ -1952,3 +1953,5 @@
 2026-03-31 23:27:37,822 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
 2026-03-31 23:27:37,822 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
 2026-03-31 23:27:37,823 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+=======
+>>>>>>> 071894d (NLP textbbook upload)
