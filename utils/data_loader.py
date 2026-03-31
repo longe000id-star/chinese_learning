@@ -2,6 +2,7 @@
 import json
 import logging
 import streamlit as st
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 
@@ -47,7 +48,7 @@ def load_level_data(language):
     suffix = "_en" if language == "English" else ""
     for i in range(1, 4):
         try:
-            filename = f"data/level{i}{suffix}.json"   # ✅ 添加 data/ 路径
+            filename = f"data/level{i}{suffix}.json"
             with open(filename, "r", encoding="utf-8") as f:
                 levels[f"Level {i}"] = json.load(f)
         except FileNotFoundError:
@@ -58,12 +59,11 @@ def load_level_data(language):
 @st.cache_data
 def load_nemt_cet_data():
     nemt_cet_data = {}
-    files_to_load = ["data/TEM-8.json", "data/NEMT.json", "data/CET-46.json"]   # ✅ 添加 data/ 路径
+    files_to_load = ["data/TEM-8.json", "data/NEMT.json", "data/CET-46.json"]
     
     for filename in files_to_load:
         try:
             with open(filename, "r", encoding="utf-8") as f:
-                # 去掉 data/ 前缀和 .json 后缀作为 key
                 key = filename.replace('data/', '').replace('.json', '')
                 nemt_cet_data[key] = json.load(f)
                 logger.info(f"Successfully loaded {filename}")
@@ -77,3 +77,130 @@ def load_nemt_cet_data():
             nemt_cet_data[key] = {}
     
     return nemt_cet_data
+
+
+# ========== NLP 教材加载函数 ==========
+@st.cache_data
+def load_nlp_textbook_data():
+    """
+    加载 data/nlp/ 目录下的所有 nlpX.json 文件
+    返回格式: {
+        "CHAPTER_1": {...},
+        "CHAPTER_2": {...},
+        ...
+    }
+    """
+    nlp_data = {}
+    nlp_dir = Path("data/nlp")
+    
+    if not nlp_dir.exists():
+        logger.warning(f"NLP directory not found: {nlp_dir}")
+        return {}
+    
+    # 获取所有 nlp*.json 文件并排序
+    nlp_files = sorted(nlp_dir.glob("nlp*.json"), key=lambda x: int(x.stem.replace("nlp", "")))
+    
+    for file_path in nlp_files:
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                chapter_data = json.load(f)
+                # 每个文件应该只有一个 CHAPTER_X 键
+                for chapter_key, chapter_content in chapter_data.items():
+                    nlp_data[chapter_key] = chapter_content
+                    logger.info(f"Loaded {chapter_key} from {file_path.name}")
+        except Exception as e:
+            logger.error(f"Failed to load {file_path}: {e}")
+    
+    return nlp_data
+
+
+def save_nlp_chapter_notes(chapter_key, section_key, notes_content):
+    """
+    保存 notes 到对应的 nlpX.json 文件
+    
+    Args:
+        chapter_key: 例如 "CHAPTER_1"
+        section_key: 例如 "1.1"
+        notes_content: 用户输入的笔记内容
+    """
+    import re
+    
+    # 提取章节号
+    match = re.search(r'CHAPTER_(\d+)', chapter_key)
+    if not match:
+        logger.error(f"Invalid chapter key: {chapter_key}")
+        return False
+    
+    chapter_num = match.group(1)
+    file_path = Path(f"data/nlp/nlp{chapter_num}.json")
+    
+    if not file_path.exists():
+        logger.error(f"File not found: {file_path}")
+        return False
+    
+    try:
+        # 读取现有文件
+        with open(file_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        
+        # 更新 notes
+        if chapter_key in data:
+            if section_key in data[chapter_key]:
+                data[chapter_key][section_key]["notes"] = notes_content
+                logger.info(f"Updated notes for {chapter_key}/{section_key}")
+            else:
+                logger.warning(f"Section {section_key} not found in {chapter_key}")
+                return False
+        else:
+            logger.warning(f"Chapter {chapter_key} not found in file")
+            return False
+        
+        # 写回文件
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=2)
+        
+        logger.info(f"Saved notes to {file_path}")
+        return True
+        
+    except Exception as e:
+        logger.error(f"Failed to save notes: {e}")
+        return False
+
+
+# ========== 学习状态管理函数 ==========
+LEARNING_STATES_FILE = "data/learning_states.json"
+
+def load_learning_states():
+    """加载所有单词的学习状态"""
+    try:
+        if Path(LEARNING_STATES_FILE).exists():
+            with open(LEARNING_STATES_FILE, "r", encoding="utf-8") as f:
+                return json.load(f)
+    except Exception as e:
+        logger.error(f"Failed to load learning states: {e}")
+    return {}
+
+def save_learning_states(states):
+    """保存所有单词的学习状态"""
+    try:
+        with open(LEARNING_STATES_FILE, "w", encoding="utf-8") as f:
+            json.dump(states, f, ensure_ascii=False, indent=2)
+        return True
+    except Exception as e:
+        logger.error(f"Failed to save learning states: {e}")
+        return False
+
+def get_vocab_key(source, level, path, vocab_index):
+    """生成单词的唯一标识符"""
+    # 清理 path 中的特殊字符
+    path_str = '_'.join(str(p) for p in path)
+    # 替换可能影响文件名的字符
+    path_str = path_str.replace('[', '_').replace(']', '_').replace(' ', '_')
+    
+    if source == "textbook":
+        return f"textbook_l{level}_{path_str}_{vocab_index}"
+    elif source == "nemt_cet":
+        return f"nemt_{level}_{path_str}_{vocab_index}"
+    elif source == "nlp":
+        return f"nlp_{level}_{path_str}_{vocab_index}"
+    return f"unknown_{vocab_index}"

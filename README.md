@@ -1,3 +1,5 @@
+这个是为了自己学习更有效率而做的，一切都是为了效率。学习NLP也是为了效率来处理文本。
+
 # Chinese Learning Materials – User Guide
 
 This guide explains how to use the Chinese learning materials website provided in this project.

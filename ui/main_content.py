@@ -2,8 +2,10 @@
 import streamlit as st
 import re
 import requests
+import time
 from utils.search import global_search, local_search
 from utils.helpers import translate_word
+from utils.data_loader import load_nlp_textbook_data, save_nlp_chapter_notes, get_vocab_key, save_learning_states
 
 # ========== Pexels API 函数 ==========
 PEXELS_API_KEY = "d2CD01GRjacnW1194nyOXkkZsAMEO3xWY6I6YYLvMA3ycjSKmaBuFp4Z"
@@ -150,51 +152,275 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
 
     # 根据语言选择器显示不同的主界面
     if st.session_state.language == "NEMT & CET":
+        # ========== NEMT & CET 模式 ==========
         col1, col2, col3 = st.columns(3)
+        
         with col1:
-            if st.button("TEM-8", use_container_width=True):
-                st.session_state.current_mode = "nemt_cet"
-                st.session_state.selected_nemt_cet = "TEM-8"
-                st.session_state.nemt_cet_path = []
-                st.session_state.level = None
-                st.session_state.path = []
-                st.rerun()
+            exam_key = "nemt_TEM-8"
+            current_status = st.session_state.learning_states.get(exam_key, 0)
+            status_bg = {0: "transparent", 1: "rgba(76,175,80,0.2)", 2: "rgba(255,193,7,0.2)", 3: "rgba(244,67,54,0.2)"}
+            status_icons = {0: "●", 1: "●", 2: "●", 3: "●"}
+            
+            col_status, col_btn = st.columns([1, 5])
+            with col_status:
+                if st.button("●", key=f"status_{exam_key}"):
+                    next_status = (current_status + 1) % 4
+                    st.session_state.learning_states[exam_key] = next_status
+                    save_learning_states(st.session_state.learning_states)
+                    st.rerun()
+            with col_btn:
+                if st.button("TEM-8", key="btn_TEM-8", use_container_width=True):
+                    st.session_state.current_mode = "nemt_cet"
+                    st.session_state.selected_nemt_cet = "TEM-8"
+                    st.session_state.nemt_cet_path = []
+                    st.session_state.level = None
+                    st.session_state.path = []
+                    st.rerun()
+        
         with col2:
-            if st.button("NEMT", use_container_width=True):
-                st.session_state.current_mode = "nemt_cet"
-                st.session_state.selected_nemt_cet = "NEMT"
-                st.session_state.nemt_cet_path = []
-                st.session_state.level = None
-                st.session_state.path = []
-                st.rerun()
+            exam_key = "nemt_NEMT"
+            current_status = st.session_state.learning_states.get(exam_key, 0)
+            col_status, col_btn = st.columns([1, 5])
+            with col_status:
+                if st.button("●", key=f"status_{exam_key}"):
+                    next_status = (current_status + 1) % 4
+                    st.session_state.learning_states[exam_key] = next_status
+                    save_learning_states(st.session_state.learning_states)
+                    st.rerun()
+            with col_btn:
+                if st.button("NEMT", key="btn_NEMT", use_container_width=True):
+                    st.session_state.current_mode = "nemt_cet"
+                    st.session_state.selected_nemt_cet = "NEMT"
+                    st.session_state.nemt_cet_path = []
+                    st.session_state.level = None
+                    st.session_state.path = []
+                    st.rerun()
+        
         with col3:
-            if st.button("CET-46", use_container_width=True):
-                st.session_state.current_mode = "nemt_cet"
-                st.session_state.selected_nemt_cet = "CET-46"
-                st.session_state.nemt_cet_path = []
-                st.session_state.level = None
-                st.session_state.path = []
-                st.rerun()
+            exam_key = "nemt_CET-46"
+            current_status = st.session_state.learning_states.get(exam_key, 0)
+            col_status, col_btn = st.columns([1, 5])
+            with col_status:
+                if st.button("●", key=f"status_{exam_key}"):
+                    next_status = (current_status + 1) % 4
+                    st.session_state.learning_states[exam_key] = next_status
+                    save_learning_states(st.session_state.learning_states)
+                    st.rerun()
+            with col_btn:
+                if st.button("CET-46", key="btn_CET-46", use_container_width=True):
+                    st.session_state.current_mode = "nemt_cet"
+                    st.session_state.selected_nemt_cet = "CET-46"
+                    st.session_state.nemt_cet_path = []
+                    st.session_state.level = None
+                    st.session_state.path = []
+                    st.rerun()
+    
+    elif st.session_state.language == "NLP Textbook":
+        # ========== NLP Textbook 模式 ==========
+        nlp_data = load_nlp_textbook_data()
+        
+        if not nlp_data:
+            st.error("NLP textbook data not found. Please check data/nlp/ directory.")
+            return
+        
+        # 如果没有选中章节，显示所有章节
+        if st.session_state.nlp_selected_chapter is None:
+            st.markdown("## 📚 Information Retrieval Textbook")
+            st.markdown("### Introduction to Information Retrieval")
+            st.markdown("A comprehensive textbook covering search engines, indexing, ranking, and more.")
+            
+            st.markdown("---")
+            st.markdown("## Chapters")
+            
+            chapters = sorted(nlp_data.keys(), key=lambda x: int(x.replace("CHAPTER_", "")))
+            cols = st.columns(3)
+            
+            for idx, chapter_key in enumerate(chapters):
+                chapter = nlp_data[chapter_key]
+                chapter_num = chapter_key.replace("CHAPTER_", "")
+                chapter_name = chapter.get("name", f"Chapter {chapter_num}")
+                
+                chap_key = f"nlp_chapter_{chapter_key}"
+                current_status = st.session_state.learning_states.get(chap_key, 0)
+                
+                with cols[idx % 3]:
+                    col_status, col_btn = st.columns([1, 5])
+                    with col_status:
+                        if st.button("●", key=f"status_{chap_key}"):
+                            next_status = (current_status + 1) % 4
+                            st.session_state.learning_states[chap_key] = next_status
+                            save_learning_states(st.session_state.learning_states)
+                            st.rerun()
+                    with col_btn:
+                        if st.button(f"📖 {chapter_name}", key=f"btn_{chapter_key}", use_container_width=True):
+                            st.session_state.nlp_selected_chapter = chapter_key
+                            st.session_state.nlp_selected_section = None
+                            st.rerun()
+        
+        # 如果选中了章节，显示小节
+        else:
+            chapter = nlp_data[st.session_state.nlp_selected_chapter]
+            chapter_num = st.session_state.nlp_selected_chapter.replace("CHAPTER_", "")
+            chapter_name = chapter.get("name", f"Chapter {chapter_num}")
+            
+            st.markdown(f"<div class='breadcrumb'>📖 Chapter {chapter_num}: {chapter_name}</div>", unsafe_allow_html=True)
+            
+            col_back, _ = st.columns([1, 5])
+            with col_back:
+                if st.button("← Back to Chapters", key="nlp_back_to_chapters"):
+                    st.session_state.nlp_selected_chapter = None
+                    st.session_state.nlp_selected_section = None
+                    st.rerun()
+            
+            if st.session_state.nlp_selected_section is None:
+                st.markdown("## Sections")
+                
+                sections = []
+                for key, value in chapter.items():
+                    if key != "name" and isinstance(value, dict) and "name" in value:
+                        sections.append((key, value))
+                
+                sections.sort(key=lambda x: [int(p) for p in x[0].split('.')])
+                
+                if sections:
+                    cols = st.columns(2)
+                    for idx, (section_key, section) in enumerate(sections):
+                        section_name = section.get("name", section_key)
+                        section_unique_key = f"nlp_{st.session_state.nlp_selected_chapter}_{section_key}"
+                        current_status = st.session_state.learning_states.get(section_unique_key, 0)
+                        
+                        with cols[idx % 2]:
+                            col_status, col_btn = st.columns([1, 5])
+                            with col_status:
+                                if st.button("●", key=f"status_{section_unique_key}"):
+                                    next_status = (current_status + 1) % 4
+                                    st.session_state.learning_states[section_unique_key] = next_status
+                                    save_learning_states(st.session_state.learning_states)
+                                    st.rerun()
+                            with col_btn:
+                                if st.button(f"📌 {section_name}", key=f"btn_{section_key}", use_container_width=True):
+                                    st.session_state.nlp_selected_section = section_key
+                                    st.rerun()
+                else:
+                    st.info("No sections found in this chapter.")
+            
+            else:
+                section = chapter.get(st.session_state.nlp_selected_section, {})
+                section_name = section.get("name", st.session_state.nlp_selected_section)
+                
+                st.markdown(f"<div class='breadcrumb' style='font-size: 16px;'>{chapter_name} › {section_name}</div>", unsafe_allow_html=True)
+                
+                col_back_section, _ = st.columns([1, 5])
+                with col_back_section:
+                    if st.button("← Back to Sections", key="nlp_back_to_sections"):
+                        st.session_state.nlp_selected_section = None
+                        st.rerun()
+                
+                content = section.get("content", "")
+                current_notes = section.get("notes", "")
+                
+                if content:
+                    st.markdown("---")
+                    st.markdown("### 📄 Content")
+                    st.markdown(f"<div style='background-color: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; line-height: 1.6; font-size: 16px;'>{content}</div>", unsafe_allow_html=True)
+                
+                st.markdown("---")
+                st.markdown("### 📝 Your Notes")
+                st.markdown("Write your thoughts, summaries, or questions below:")
+                
+                if current_notes:
+                    st.info(f"💡 Previous notes:\n\n{current_notes}")
+                
+                new_notes = st.text_area(
+                    "Add/Edit Notes",
+                    value=current_notes,
+                    height=200,
+                    key=f"nlp_notes_{st.session_state.nlp_selected_chapter}_{st.session_state.nlp_selected_section}",
+                    placeholder="Write your notes here...\n\n- Key concepts\n- Questions\n- Summary\n- Thoughts"
+                )
+                
+                col_save, col_cancel = st.columns([1, 4])
+                with col_save:
+                    if st.button("💾 Save Notes", key="nlp_save_notes", use_container_width=True):
+                        if new_notes != current_notes:
+                            success = save_nlp_chapter_notes(
+                                st.session_state.nlp_selected_chapter,
+                                st.session_state.nlp_selected_section,
+                                new_notes
+                            )
+                            if success:
+                                st.success("✅ Notes saved successfully!")
+                                section["notes"] = new_notes
+                                time.sleep(1)
+                                st.rerun()
+                            else:
+                                st.error("❌ Failed to save notes.")
+                        else:
+                            st.info("No changes to save.")
+                
+                st.markdown("---")
+                st.markdown("### 🔗 Recommended Resources")
+                topic = chapter_name
+                st.markdown(f"""
+                - **YouTube**: [Search "{topic}" on YouTube](https://www.youtube.com/results?search_query={topic.replace(' ', '+')}+information+retrieval)
+                - **Google Scholar**: [Search "{topic}" on Google Scholar](https://scholar.google.com/scholar?q={topic.replace(' ', '+')})
+                - **Wikipedia**: [Read about {topic} on Wikipedia](https://en.wikipedia.org/wiki/{topic.replace(' ', '_')})
+                """)
+    
     else:
+        # ========== Chinese/English 模式 - Level 按钮 ==========
         col1, col2, col3 = st.columns(3)
+        
         with col1:
-            if st.button("Level 1", use_container_width=True):
-                st.session_state.current_mode = "textbook"
-                st.session_state.level = 1
-                st.session_state.path = ["LEVEL_I"]
-                st.rerun()
+            level_key = "level_1"
+            current_status = st.session_state.learning_states.get(level_key, 0)
+            col_status, col_btn = st.columns([1, 5])
+            with col_status:
+                if st.button("●", key=f"status_{level_key}"):
+                    next_status = (current_status + 1) % 4
+                    st.session_state.learning_states[level_key] = next_status
+                    save_learning_states(st.session_state.learning_states)
+                    st.rerun()
+            with col_btn:
+                if st.button("Level 1", key="btn_level1", use_container_width=True):
+                    st.session_state.current_mode = "textbook"
+                    st.session_state.level = 1
+                    st.session_state.path = ["LEVEL_I"]
+                    st.rerun()
+        
         with col2:
-            if st.button("Level 2", use_container_width=True):
-                st.session_state.current_mode = "textbook"
-                st.session_state.level = 2
-                st.session_state.path = ["LEVEL_II"]
-                st.rerun()
+            level_key = "level_2"
+            current_status = st.session_state.learning_states.get(level_key, 0)
+            col_status, col_btn = st.columns([1, 5])
+            with col_status:
+                if st.button("●", key=f"status_{level_key}"):
+                    next_status = (current_status + 1) % 4
+                    st.session_state.learning_states[level_key] = next_status
+                    save_learning_states(st.session_state.learning_states)
+                    st.rerun()
+            with col_btn:
+                if st.button("Level 2", key="btn_level2", use_container_width=True):
+                    st.session_state.current_mode = "textbook"
+                    st.session_state.level = 2
+                    st.session_state.path = ["LEVEL_II"]
+                    st.rerun()
+        
         with col3:
-            if st.button("Level 3", use_container_width=True):
-                st.session_state.current_mode = "textbook"
-                st.session_state.level = 3
-                st.session_state.path = ["LEVEL_III"]
-                st.rerun()
+            level_key = "level_3"
+            current_status = st.session_state.learning_states.get(level_key, 0)
+            col_status, col_btn = st.columns([1, 5])
+            with col_status:
+                if st.button("●", key=f"status_{level_key}"):
+                    next_status = (current_status + 1) % 4
+                    st.session_state.learning_states[level_key] = next_status
+                    save_learning_states(st.session_state.learning_states)
+                    st.rerun()
+            with col_btn:
+                if st.button("Level 3", key="btn_level3", use_container_width=True):
+                    st.session_state.current_mode = "textbook"
+                    st.session_state.level = 3
+                    st.session_state.path = ["LEVEL_III"]
+                    st.rerun()
 
     # 如果当前在 textbook 模式
     if st.session_state.current_mode == "textbook":
@@ -260,7 +486,7 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                                 st.session_state.flip_states[key] = not flipped
                                 st.rerun()
 
-                # ========== Vocabulary 部分（带图片和视频）==========
+                # ========== Vocabulary 部分 ==========
                 if "vocabulary" in node and node["vocabulary"]:
                     st.markdown("### Vocabulary")
                     cols = st.columns(3)
@@ -281,42 +507,57 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                             else:
                                 other_pron = other_parts[1] if len(other_parts) > 1 else ""
 
+                            vocab_key = get_vocab_key("textbook", st.session_state.level, st.session_state.path, idx)
+                            current_status = st.session_state.learning_states.get(vocab_key, 0)
+                            
                             key = f"vocab_{idx}"
                             flipped = st.session_state.get("flip_states", {}).get(key, False)
-
-                            if flipped:
-                                display_content = other_word
-                                if other_pron:
-                                    display_content += f"\n{other_pron}"
-                            else:
-                                display_content = word
-                                if pinyin:
-                                    display_content += f"\n{pinyin}"
-
-                            if st.button(display_content, key=f"btn_{key}", use_container_width=True):
-                                was_flipped = flipped
-                                
-                                if "flip_states" not in st.session_state:
-                                    st.session_state.flip_states = {}
-                                st.session_state.flip_states[key] = not flipped
-                                
-                                if not was_flipped:
-                                    with st.spinner(f"Searching '{word}'..."):
-                                        st.session_state[f"vocab_img_{key}"] = search_pexels_image(word)
-                                        st.session_state[f"vocab_video_{key}"] = search_pexels_video(word)
-                                
-                                st.rerun()
+                            
+                            # 状态圆点 + 卡片内容
+                            col_status, col_card = st.columns([1, 5])
+                            with col_status:
+                                if st.button("●", key=f"status_{vocab_key}"):
+                                    next_status = (current_status + 1) % 4
+                                    st.session_state.learning_states[vocab_key] = next_status
+                                    save_learning_states(st.session_state.learning_states)
+                                    st.rerun()
+                            
+                            with col_card:
+                                if flipped:
+                                    display_word = other_word
+                                    display_pinyin = other_pron
+                                    if st.button(f"{display_word}\n{display_pinyin}", key=f"card_{key}", use_container_width=True):
+                                        was_flipped = flipped
+                                        if "flip_states" not in st.session_state:
+                                            st.session_state.flip_states = {}
+                                        st.session_state.flip_states[key] = not flipped
+                                        if not was_flipped:
+                                            with st.spinner(f"Searching '{word}'..."):
+                                                st.session_state[f"vocab_img_{key}"] = search_pexels_image(word)
+                                                st.session_state[f"vocab_video_{key}"] = search_pexels_video(word)
+                                        st.rerun()
+                                else:
+                                    if st.button(f"{word}\n{pinyin}", key=f"card_{key}", use_container_width=True):
+                                        was_flipped = flipped
+                                        if "flip_states" not in st.session_state:
+                                            st.session_state.flip_states = {}
+                                        st.session_state.flip_states[key] = not flipped
+                                        if not was_flipped:
+                                            with st.spinner(f"Searching '{word}'..."):
+                                                st.session_state[f"vocab_img_{key}"] = search_pexels_image(word)
+                                                st.session_state[f"vocab_video_{key}"] = search_pexels_video(word)
+                                        st.rerun()
                             
                             # 显示图片和视频
                             if flipped:
                                 img_url = st.session_state.get(f"vocab_img_{key}")
                                 if img_url:
                                     st.image(img_url, use_container_width=True)
-                                
                                 video_url = st.session_state.get(f"vocab_video_{key}")
                                 if video_url:
                                     st.video(video_url)
 
+                # 子目录
                 if not any(key in node for key in ["notes", "examples", "vocabulary"]):
                     sub_keys = [k for k in node.keys() if k not in ("name", "notes", "examples", "vocabulary")]
                     if not sub_keys:
@@ -329,10 +570,22 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                                     label = node[key]["name"]
                                 else:
                                     label = key
-                                if st.button(label, key=f"dir_{key}", use_container_width=True):
-                                    st.session_state.path.append(key)
-                                    st.session_state.flip_states = {}
-                                    st.rerun()
+                                
+                                dir_key = f"dir_{st.session_state.level}_{'_'.join(st.session_state.path)}_{key}"
+                                current_status = st.session_state.learning_states.get(dir_key, 0)
+                                
+                                col_status, col_dir = st.columns([1, 5])
+                                with col_status:
+                                    if st.button("●", key=f"status_{dir_key}"):
+                                        next_status = (current_status + 1) % 4
+                                        st.session_state.learning_states[dir_key] = next_status
+                                        save_learning_states(st.session_state.learning_states)
+                                        st.rerun()
+                                with col_dir:
+                                    if st.button(label, key=f"btn_{key}", use_container_width=True):
+                                        st.session_state.path.append(key)
+                                        st.session_state.flip_states = {}
+                                        st.rerun()
 
             display_node(current_node)
             
@@ -342,34 +595,14 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                 with st.container():
                     st.markdown(recommendations, unsafe_allow_html=True)
 
-    # 如果当前在 NEMT & CET 模式
+    # 如果当前在 NEMT & CET 模式且已进入子目录
     elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_nemt_cet:
         data = nemt_cet_data.get(st.session_state.selected_nemt_cet, {})
         
         if len(data) == 1 and st.session_state.selected_nemt_cet in data:
             data = data[st.session_state.selected_nemt_cet]
         
-        if not st.session_state.nemt_cet_path:
-            st.markdown(f"## {st.session_state.selected_nemt_cet}")
-            
-            sub_keys = sorted([k for k in data.keys() if isinstance(data[k], dict) and str(k).isdigit()], key=lambda x: int(x))
-            
-            if sub_keys:
-                st.markdown("### Categories")
-                cols = st.columns(2)
-                for i, key in enumerate(sub_keys):
-                    with cols[i % 2]:
-                        inner_dict = data[key]
-                        if inner_dict and isinstance(inner_dict, dict):
-                            dir_name = list(inner_dict.keys())[0] if inner_dict else f"Section {key}"
-                        else:
-                            dir_name = f"Section {key}"
-                        if st.button(dir_name, key=f"nemt_dir_{key}", use_container_width=True):
-                            st.session_state.nemt_cet_path.append(key)
-                            st.rerun()
-            else:
-                st.info("No content available.")
-        else:
+        if st.session_state.nemt_cet_path:
             current_node = data
             for key in st.session_state.nemt_cet_path:
                 current_node = current_node.get(key, {})
@@ -415,7 +648,7 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                 with st.container(border=True):
                     st.markdown(f"<div style='font-size: 20px; line-height: 1.6; padding: 15px;'>{content_node['notes']}</div>", unsafe_allow_html=True)
             
-            # ========== Words 部分（带图片和视频）==========
+            # ========== Words 部分 ==========
             if "words" in content_node and content_node["words"]:
                 st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px; margin-bottom: 20px;'>Words</h3>", unsafe_allow_html=True)
                 
@@ -437,57 +670,51 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                         continue
                     
                     word = word_item.strip().split(" ", 1)[0]
-                    card_key = f"nemt_word_card_{idx}"
-                    flipped = st.session_state.get("flip_states", {}).get(card_key, False)
+                    
+                    vocab_key = get_vocab_key("nemt_cet", st.session_state.selected_nemt_cet, st.session_state.nemt_cet_path, idx)
+                    current_status = st.session_state.learning_states.get(vocab_key, 0)
+                    flip_key = f"nemt_flip_{vocab_key}"
+                    is_flipped = st.session_state.word_flip.get(flip_key, False)
+                    
+                    cache_key = f"{word}_{target_lang}"
+                    if cache_key in st.session_state.translation_cache_nemt:
+                        translation = st.session_state.translation_cache_nemt[cache_key]
+                    else:
+                        translation = None
                     
                     with cols[idx % 3]:
-                        # 获取翻译
-                        cache_key = f"{word}_{target_lang}"
-                        if cache_key in st.session_state.translation_cache_nemt:
-                            translation = st.session_state.translation_cache_nemt[cache_key]
-                        else:
-                            translation = None
+                        col_status, col_card = st.columns([1, 5])
+                        with col_status:
+                            if st.button("●", key=f"status_{vocab_key}"):
+                                next_status = (current_status + 1) % 4
+                                st.session_state.learning_states[vocab_key] = next_status
+                                save_learning_states(st.session_state.learning_states)
+                                st.rerun()
                         
-                        if flipped:
-                            display_content = translation if translation else word
-                        else:
-                            display_content = word
+                        with col_card:
+                            if is_flipped:
+                                display_word = translation if translation else word
+                                if st.button(display_word, key=f"card_{vocab_key}", use_container_width=True):
+                                    if not translation and cache_key not in st.session_state.translation_cache_nemt:
+                                        with st.spinner(f"Translating {word}..."):
+                                            trans = translate_word(client, word, target_lang)
+                                            st.session_state.translation_cache_nemt[cache_key] = trans
+                                    st.session_state.word_flip[flip_key] = not is_flipped
+                                    st.rerun()
+                            else:
+                                if st.button(word, key=f"card_{vocab_key}", use_container_width=True):
+                                    if not translation and cache_key not in st.session_state.translation_cache_nemt:
+                                        with st.spinner(f"Translating {word}..."):
+                                            trans = translate_word(client, word, target_lang)
+                                            st.session_state.translation_cache_nemt[cache_key] = trans
+                                    st.session_state.word_flip[flip_key] = not is_flipped
+                                    st.rerun()
                         
-                        if not display_content or display_content.strip() == "":
-                            display_content = word if not flipped else f"({word})"
-                        
-                        if st.button(display_content, key=f"btn_{card_key}", use_container_width=True):
-                            was_flipped = flipped
-                            
-                            if "flip_states" not in st.session_state:
-                                st.session_state.flip_states = {}
-                            st.session_state.flip_states[card_key] = not flipped
-                            
-                            if not was_flipped:
-                                # 获取翻译
-                                cache_key = f"{word}_{target_lang}"
-                                if cache_key in st.session_state.translation_cache_nemt:
-                                    trans = st.session_state.translation_cache_nemt[cache_key]
-                                else:
-                                    with st.spinner(f"Translating {word}..."):
-                                        trans = translate_word(client, word, target_lang)
-                                        st.session_state.translation_cache_nemt[cache_key] = trans
-                                
-                                # 搜索图片和视频
-                                with st.spinner(f"Searching '{word}'..."):
-                                    st.session_state[f"word_img_{card_key}"] = search_pexels_image(word)
-                                    st.session_state[f"word_video_{card_key}"] = search_pexels_video(word)
-                                    st.session_state[f"word_trans_{card_key}"] = trans
-                            
-                            st.rerun()
-                        
-                        # 显示图片和视频
-                        if flipped:
-                            img_url = st.session_state.get(f"word_img_{card_key}")
+                        if is_flipped:
+                            img_url = st.session_state.get(f"word_img_{idx}")
                             if img_url:
                                 st.image(img_url, use_container_width=True)
-                            
-                            video_url = st.session_state.get(f"word_video_{card_key}")
+                            video_url = st.session_state.get(f"word_video_{idx}")
                             if video_url:
                                 st.video(video_url)
             
@@ -514,10 +741,21 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                 st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px; margin-bottom: 15px;'>Sections</h3>", unsafe_allow_html=True)
                 cols = st.columns(2)
                 for i, (num_key, dir_name) in enumerate(sub_items):
+                    sub_dir_key = f"nemt_subdir_{st.session_state.selected_nemt_cet}_{'_'.join(st.session_state.nemt_cet_path)}_{num_key}"
+                    current_status = st.session_state.learning_states.get(sub_dir_key, 0)
+                    
                     with cols[i % 2]:
-                        if st.button(dir_name, key=f"nemt_subdir_{num_key}", use_container_width=True):
-                            st.session_state.nemt_cet_path.append(num_key)
-                            st.rerun()
+                        col_status, col_dir = st.columns([1, 5])
+                        with col_status:
+                            if st.button("●", key=f"status_{sub_dir_key}"):
+                                next_status = (current_status + 1) % 4
+                                st.session_state.learning_states[sub_dir_key] = next_status
+                                save_learning_states(st.session_state.learning_states)
+                                st.rerun()
+                        with col_dir:
+                            if st.button(dir_name, key=f"btn_{num_key}", use_container_width=True):
+                                st.session_state.nemt_cet_path.append(num_key)
+                                st.rerun()
             
             recommendations = get_page_recommendations()
             if recommendations:

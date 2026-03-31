@@ -6,14 +6,21 @@ import tempfile
 import zipfile
 import io
 import os
+import logging
 from utils.tts import transcribe_audio, text_to_speech
 from utils.search import global_search, local_search
 from utils.ocr import process_ocr_images, process_ocr_pdf
 from utils.quiz import generate_quiz
 from config import AVAILABLE_MODELS
-from ocr_image_module import format_results_as_text
+from ocr_image_module import format_results_as_text, ocr_images_batch, BAIMIAO_CONFIG as IMAGE_OCR_CONFIG
+from utils.data_loader import load_nlp_textbook_data
+
+logger = logging.getLogger(__name__)
 
 def render_sidebar(levels_data, nemt_cet_data, client, system_prompt, get_current_page_full_content, get_ai_reply):
+    # 加载 NLP 数据
+    nlp_data = load_nlp_textbook_data()
+    
     with st.sidebar:
         # ========== 聊天消息展示区域 ==========
         chat_messages = st.container()
@@ -160,13 +167,15 @@ def render_sidebar(levels_data, nemt_cet_data, client, system_prompt, get_curren
                     st.rerun()
         
         # ========== 设置工具区域 ==========
-        # Mode
-        mode_opts = ["Chinese", "English", "NEMT & CET"]
+        # Mode - 添加 NLP Textbook 选项
+        mode_opts = ["Chinese", "English", "NEMT & CET", "NLP Textbook"]
         cur_idx = 0
         if st.session_state.language == "English":
             cur_idx = 1
         elif st.session_state.language == "NEMT & CET":
             cur_idx = 2
+        elif st.session_state.language == "NLP Textbook":
+            cur_idx = 3
         
         new_lang = st.selectbox("Mode", mode_opts, index=cur_idx, key="mode_select")
         if new_lang != st.session_state.language:
@@ -177,6 +186,16 @@ def render_sidebar(levels_data, nemt_cet_data, client, system_prompt, get_curren
                 st.session_state.path = []
                 st.session_state.selected_nemt_cet = None
                 st.session_state.nemt_cet_path = []
+                st.session_state.nlp_selected_chapter = None
+                st.session_state.nlp_selected_section = None
+            elif new_lang == "NLP Textbook":
+                st.session_state.current_mode = "nlp_textbook"
+                st.session_state.level = None
+                st.session_state.path = []
+                st.session_state.selected_nemt_cet = None
+                st.session_state.nemt_cet_path = []
+                st.session_state.nlp_selected_chapter = None
+                st.session_state.nlp_selected_section = None
             else:
                 st.session_state.current_mode = "textbook"
                 from utils.data_loader import load_level_data
@@ -185,6 +204,8 @@ def render_sidebar(levels_data, nemt_cet_data, client, system_prompt, get_curren
                 st.session_state.path = []
                 st.session_state.selected_nemt_cet = None
                 st.session_state.nemt_cet_path = []
+                st.session_state.nlp_selected_chapter = None
+                st.session_state.nlp_selected_section = None
             st.session_state.messages = [{"role": "system", "content": system_prompt}]
             st.session_state.quiz_active = False
             st.session_state.current_quiz = None
@@ -211,11 +232,11 @@ def render_sidebar(levels_data, nemt_cet_data, client, system_prompt, get_curren
             st.session_state.search_keyword = search_input
             if search_input.strip():
                 if st.session_state.search_scope == "global":
-                    st.session_state.search_results = global_search(search_input, levels_data, nemt_cet_data)
+                    st.session_state.search_results = global_search(search_input, levels_data, nemt_cet_data, nlp_data)
                 else:
                     st.session_state.search_results = local_search(
                         search_input, st.session_state.current_mode, st.session_state.level,
-                        st.session_state.selected_nemt_cet, levels_data, nemt_cet_data
+                        st.session_state.selected_nemt_cet, levels_data, nemt_cet_data, nlp_data
                     )
             else:
                 st.session_state.search_results = []
