@@ -3,9 +3,10 @@ import streamlit as st
 import re
 import requests
 import time
+import datetime
 from utils.search import global_search, local_search
 from utils.helpers import translate_word
-from utils.data_loader import load_nlp_textbook_data, save_nlp_chapter_notes
+from utils.data_loader import load_nlp_textbook_data, save_nlp_chapter_notes, load_learning_states, save_learning_states, get_word_state_key
 
 # ========== Pexels API 函数 ==========
 PEXELS_API_KEY = "d2CD01GRjacnW1194nyOXkkZsAMEO3xWY6I6YYLvMA3ycjSKmaBuFp4Z"
@@ -44,7 +45,59 @@ def search_pexels_video(word):
     return None
 # ========== 结束 ==========
 
+# ========== 学习状态辅助函数 ==========
+STATE_ICONS = {0: "⚪", 1: "🟢", 2: "🔴"}
+STATE_LABELS = {0: "Not Started", 1: "Learned", 2: "Need Review"}
+STATE_NEXT = {0: 1, 1: 2, 2: 0}
+
+def get_state_icon(state):
+    return STATE_ICONS.get(state, "⚪")
+
+def next_state(current):
+    return STATE_NEXT.get(current, 1)
+
+def render_vocab_card(word, pinyin, word_key, flipped=False, other_word=None, other_pron=None):
+    """渲染带状态标记的单词卡片"""
+    # 获取当前状态
+    current_state = st.session_state.learning_states.get(word_key, 0)
+    
+    # 状态按钮和卡片内容放在同一行
+    col_status, col_card = st.columns([1, 5])
+    
+    with col_status:
+        # 状态切换按钮（小圆点）
+        icon = get_state_icon(current_state)
+        if st.button(icon, key=f"state_{word_key}", help=STATE_LABELS[current_state]):
+            st.session_state.learning_states[word_key] = next_state(current_state)
+            save_learning_states(st.session_state.learning_states)
+            st.rerun()
+    
+    with col_card:
+        # 卡片内容（点击翻转）
+        flip_key = f"flip_{word_key}"
+        if flip_key not in st.session_state.word_flip_states:
+            st.session_state.word_flip_states[flip_key] = False
+        
+        if st.session_state.word_flip_states[flip_key]:
+            display_content = other_word if other_word else word
+            if other_pron:
+                display_content += f"\n{other_pron}"
+        else:
+            display_content = word
+            if pinyin:
+                display_content += f"\n{pinyin}"
+        
+        if st.button(display_content, key=f"card_{word_key}", use_container_width=True):
+            st.session_state.word_flip_states[flip_key] = not st.session_state.word_flip_states[flip_key]
+            st.rerun()
+
+# ========== 结束 ==========
+
 def render_main_content(levels_data, nemt_cet_data, client, get_current_page_full_content, get_page_recommendations, get_ai_reply):
+    # 加载学习状态
+    if not st.session_state.learning_states:
+        st.session_state.learning_states = load_learning_states()
+    
     # 显示搜索结果
     if st.session_state.search_keyword and st.session_state.search_results:
         st.markdown(f"### Search Results for '{st.session_state.search_keyword}'")
@@ -275,25 +328,138 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                     st.markdown("---")
                     st.markdown("### 📄 Content")
                     st.markdown(f"<div style='background-color: rgba(255,255,255,0.05); padding: 20px; border-radius: 12px; line-height: 1.6; font-size: 16px;'>{content}</div>", unsafe_allow_html=True)
+                    
+                    # ========== 摘录功能区 ==========
+                    st.markdown("---")
+                    st.markdown("### 📌 Excerpt & Annotate")
+                    st.markdown("Select text from above, or use the options below to add to your notes:")
+                    
+                    # 提取段落用于选择
+                    paragraphs = [p.strip() for p in content.split('\n\n') if p.strip()]
+                    
+                    col_excerpt1, col_excerpt2, col_excerpt3 = st.columns(3)
+                    
+                    # 快速摘录 - 从段落中选择
+                    with col_excerpt1:
+                        if paragraphs:
+                            excerpt_options = []
+                            excerpt_texts = []
+                            for p in paragraphs[:8]:
+                                preview = p[:80] + "..." if len(p) > 80 else p
+                                excerpt_options.append(preview)
+                                excerpt_texts.append(p)
+                            
+                            selected_idx = st.selectbox("Select a paragraph:", 
+                                                       options=list(range(len(excerpt_options))),
+                                                       format_func=lambda i: excerpt_options[i],
+                                                       key="quick_excerpt_select")
+                            if st.button("📋 Add to Notes", key="add_quick_excerpt"):
+                                full_text = excerpt_texts[selected_idx]
+                                timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+                                new_note = f"""---
+### 📌 Excerpt from {section_name} ({timestamp})
+> {full_text}
+
+**My notes:** 
+
+---
+"""
+                                updated_notes = current_notes + "\n\n" + new_note if current_notes else new_note
+                                success = save_nlp_chapter_notes(
+                                    st.session_state.nlp_selected_chapter,
+                                    st.session_state.nlp_selected_section,
+                                    updated_notes
+                                )
+                                if success:
+                                    st.success("✅ Excerpt added to notes!")
+                                    time.sleep(1)
+                                    st.rerun()
+                    
+                    # 自定义摘录
+                    with col_excerpt2:
+                        custom_excerpt = st.text_area("Custom excerpt:", 
+                                                      placeholder="Paste or type the text you want to excerpt...", 
+                                                      height=100, 
+                                                      key="custom_excerpt")
+                        if custom_excerpt and st.button("📝 Add Custom Excerpt", key="add_custom_excerpt"):
+                            timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+                            new_note = f"""---
+### 📌 Custom Excerpt from {section_name} ({timestamp})
+> {custom_excerpt}
+
+**My notes:** 
+
+---
+"""
+                            updated_notes = current_notes + "\n\n" + new_note if current_notes else new_note
+                            success = save_nlp_chapter_notes(
+                                st.session_state.nlp_selected_chapter,
+                                st.session_state.nlp_selected_section,
+                                updated_notes
+                            )
+                            if success:
+                                st.success("✅ Custom excerpt added to notes!")
+                                time.sleep(1)
+                                st.rerun()
+                    
+                    # 使用提示
+                    with col_excerpt3:
+                        st.markdown("**💡 Markdown Tips:**")
+                        st.markdown("""
+                        - `**bold**` for emphasis
+                        - `*italic*` for thoughts  
+                        - `> quote` for citations
+                        - `- bullet` for lists
+                        - `### Heading` for sections
+                        """)
                 
                 st.markdown("---")
                 
-                # Notes 区域
-                st.markdown("### 📝 Your Notes")
-                st.markdown("Write your thoughts, summaries, or questions below:")
+                # Notes 区域（支持 Markdown）
+                st.markdown("### 📝 Your Notes & Annotations")
+                st.markdown("Write your thoughts, summaries, or questions using **Markdown**:")
                 
-                # 显示当前 notes（如果有）
+                # 显示当前 notes（如果有）- Markdown 渲染预览
                 if current_notes:
-                    st.info(f"💡 Previous notes:\n\n{current_notes}")
+                    with st.expander("📖 View Previous Notes", expanded=False):
+                        st.markdown(current_notes)
                 
-                # 文本输入区域
+                # 编辑区域
                 new_notes = st.text_area(
-                    "Add/Edit Notes",
+                    "Edit Notes (Markdown supported)",
                     value=current_notes,
-                    height=200,
+                    height=300,
                     key=f"nlp_notes_{st.session_state.nlp_selected_chapter}_{st.session_state.nlp_selected_section}",
-                    placeholder="Write your notes here...\n\n- Key concepts\n- Questions\n- Summary\n- Thoughts"
+                    placeholder="""# Your Notes
+
+Write your notes here using Markdown:
+
+## Key Concepts
+- **Important term**: definition
+- *Key idea*: explanation
+
+## Questions
+1. What does this mean?
+2. How does this connect to...
+
+## Summary
+> A brief summary of this section
+
+## Personal Thoughts
+*My reflections on this topic...*
+
+---
+"""
                 )
+                
+                # Markdown 预览
+                with st.expander("🔍 Preview (Markdown rendered)", expanded=False):
+                    st.markdown("**Preview of your notes:**")
+                    st.markdown("---")
+                    if new_notes:
+                        st.markdown(new_notes)
+                    else:
+                        st.markdown("*No content to preview*")
                 
                 # 保存按钮
                 col_save, col_cancel = st.columns([1, 4])
@@ -307,7 +473,6 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                             )
                             if success:
                                 st.success("✅ Notes saved successfully!")
-                                # 更新 session state 中的 notes
                                 section["notes"] = new_notes
                                 time.sleep(1)
                                 st.rerun()
@@ -316,11 +481,88 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                         else:
                             st.info("No changes to save.")
                 
-                # 推荐学习资源（可选）
+                # 快速模板按钮
+                st.markdown("---")
+                st.markdown("### 📋 Quick Templates")
+                col_temp1, col_temp2, col_temp3 = st.columns(3)
+                
+                with col_temp1:
+                    if st.button("📖 Summary Template", use_container_width=True):
+                        template = f"""## Summary of {section_name}
+
+**Main Ideas:**
+- 
+- 
+- 
+
+**Key Terms:**
+- 
+- 
+
+**My Understanding:**
+> 
+"""
+                        updated_notes = current_notes + "\n\n" + template if current_notes else template
+                        success = save_nlp_chapter_notes(
+                            st.session_state.nlp_selected_chapter,
+                            st.session_state.nlp_selected_section,
+                            updated_notes
+                        )
+                        if success:
+                            st.success("✅ Summary template added!")
+                            time.sleep(1)
+                            st.rerun()
+                
+                with col_temp2:
+                    if st.button("❓ Questions Template", use_container_width=True):
+                        template = f"""## Questions for {section_name}
+
+1. 
+2. 
+3. 
+
+**Need clarification on:**
+- 
+"""
+                        updated_notes = current_notes + "\n\n" + template if current_notes else template
+                        success = save_nlp_chapter_notes(
+                            st.session_state.nlp_selected_chapter,
+                            st.session_state.nlp_selected_section,
+                            updated_notes
+                        )
+                        if success:
+                            st.success("✅ Questions template added!")
+                            time.sleep(1)
+                            st.rerun()
+                
+                with col_temp3:
+                    if st.button("💭 Reflection Template", use_container_width=True):
+                        template = f"""## Personal Reflection on {section_name}
+
+**What I learned:**
+> 
+
+**How this connects to previous knowledge:**
+> 
+
+**Questions I still have:**
+- 
+"""
+                        updated_notes = current_notes + "\n\n" + template if current_notes else template
+                        success = save_nlp_chapter_notes(
+                            st.session_state.nlp_selected_chapter,
+                            st.session_state.nlp_selected_section,
+                            updated_notes
+                        )
+                        if success:
+                            st.success("✅ Reflection template added!")
+                            time.sleep(1)
+                            st.rerun()
+                
+                # 推荐学习资源
                 st.markdown("---")
                 st.markdown("### 🔗 Recommended Resources")
                 
-                # 简单生成一些资源链接
                 topic = chapter_name
                 st.markdown(f"""
                 - **YouTube**: [Search "{topic}" on YouTube](https://www.youtube.com/results?search_query={topic.replace(' ', '+')}+information+retrieval)
@@ -413,62 +655,53 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                                 st.session_state.flip_states[key] = not flipped
                                 st.rerun()
 
-                # ========== Vocabulary 部分（带图片和视频）==========
+                # ========== Vocabulary 部分（带图片和视频 + 学习状态标记）==========
                 if "vocabulary" in node and node["vocabulary"]:
                     st.markdown("### Vocabulary")
                     cols = st.columns(3)
                     
+                    # 获取筛选条件
+                    filter_status = st.session_state.vocab_filter
+                    
+                    # 准备单词列表和状态
+                    vocab_items = []
                     for idx, item in enumerate(node["vocabulary"]):
+                        parts = item.rsplit(" ", 1)
+                        word = parts[0]
+                        pinyin = parts[1] if len(parts) > 1 else ""
+                        
+                        # 生成唯一键
+                        path_str = "_".join(st.session_state.path)
+                        word_key = get_word_state_key("textbook", st.session_state.level, [path_str], idx)
+                        
+                        state = st.session_state.learning_states.get(word_key, 0)
+                        
+                        # 根据筛选条件过滤
+                        if filter_status == "all":
+                            vocab_items.append((idx, word, pinyin, word_key, state))
+                        elif filter_status == "unlearned" and state == 0:
+                            vocab_items.append((idx, word, pinyin, word_key, state))
+                        elif filter_status == "learned" and state == 1:
+                            vocab_items.append((idx, word, pinyin, word_key, state))
+                        elif filter_status == "review" and state == 2:
+                            vocab_items.append((idx, word, pinyin, word_key, state))
+                    
+                    # 显示过滤后的单词
+                    for idx, (orig_idx, word, pinyin, word_key, state) in enumerate(vocab_items):
                         with cols[idx % 3]:
-                            parts = item.rsplit(" ", 1)
-                            word = parts[0]
-                            pinyin = parts[1] if len(parts) > 1 else ""
-
+                            # 获取翻译
                             other_item = None
-                            if other_node and "vocabulary" in other_node and len(other_node["vocabulary"]) > idx:
-                                other_item = other_node["vocabulary"][idx]
-                            other_parts = other_item.rsplit(" ", 1) if other_item else ["", ""]
-                            other_word = other_parts[0]
-                            if other_item:
+                            other_word = None
+                            other_pron = None
+                            if other_node and "vocabulary" in other_node and len(other_node["vocabulary"]) > orig_idx:
+                                other_item = other_node["vocabulary"][orig_idx]
+                                other_parts = other_item.rsplit(" ", 1) if other_item else ["", ""]
+                                other_word = other_parts[0]
                                 other_pron = other_parts[1] if len(other_parts) > 1 else ""
-                            else:
-                                other_pron = other_parts[1] if len(other_parts) > 1 else ""
-
-                            key = f"vocab_{idx}"
-                            flipped = st.session_state.get("flip_states", {}).get(key, False)
-
-                            if flipped:
-                                display_content = other_word
-                                if other_pron:
-                                    display_content += f"\n{other_pron}"
-                            else:
-                                display_content = word
-                                if pinyin:
-                                    display_content += f"\n{pinyin}"
-
-                            if st.button(display_content, key=f"btn_{key}", use_container_width=True):
-                                was_flipped = flipped
-                                
-                                if "flip_states" not in st.session_state:
-                                    st.session_state.flip_states = {}
-                                st.session_state.flip_states[key] = not flipped
-                                
-                                if not was_flipped:
-                                    with st.spinner(f"Searching '{word}'..."):
-                                        st.session_state[f"vocab_img_{key}"] = search_pexels_image(word)
-                                        st.session_state[f"vocab_video_{key}"] = search_pexels_video(word)
-                                
-                                st.rerun()
                             
-                            # 显示图片和视频
-                            if flipped:
-                                img_url = st.session_state.get(f"vocab_img_{key}")
-                                if img_url:
-                                    st.image(img_url, use_container_width=True)
-                                
-                                video_url = st.session_state.get(f"vocab_video_{key}")
-                                if video_url:
-                                    st.video(video_url)
+                            # 渲染带状态标记的卡片
+                            render_vocab_card(word, pinyin, word_key, 
+                                             other_word=other_word, other_pron=other_pron)
 
                 if not any(key in node for key in ["notes", "examples", "vocabulary"]):
                     sub_keys = [k for k in node.keys() if k not in ("name", "notes", "examples", "vocabulary")]
@@ -568,7 +801,7 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                 with st.container(border=True):
                     st.markdown(f"<div style='font-size: 20px; line-height: 1.6; padding: 15px;'>{content_node['notes']}</div>", unsafe_allow_html=True)
             
-            # ========== Words 部分（带图片和视频）==========
+            # ========== Words 部分（带图片和视频 + 学习状态标记）==========
             if "words" in content_node and content_node["words"]:
                 st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px; margin-bottom: 20px;'>Words</h3>", unsafe_allow_html=True)
                 
@@ -585,14 +818,35 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                 target_lang = "Chinese"
                 cols = st.columns(3)
                 
+                # 获取筛选条件
+                filter_status = st.session_state.vocab_filter
+                
+                # 准备单词列表和状态
+                vocab_items = []
                 for idx, word_item in enumerate(words_list):
                     if not word_item or not word_item.strip():
                         continue
                     
                     word = word_item.strip().split(" ", 1)[0]
-                    card_key = f"nemt_word_card_{idx}"
-                    flipped = st.session_state.get("flip_states", {}).get(card_key, False)
                     
+                    # 生成唯一键
+                    path_str = "_".join([str(p) for p in st.session_state.nemt_cet_path])
+                    word_key = get_word_state_key("nemt_cet", st.session_state.selected_nemt_cet, [path_str], idx)
+                    
+                    state = st.session_state.learning_states.get(word_key, 0)
+                    
+                    # 根据筛选条件过滤
+                    if filter_status == "all":
+                        vocab_items.append((idx, word, word_key, state))
+                    elif filter_status == "unlearned" and state == 0:
+                        vocab_items.append((idx, word, word_key, state))
+                    elif filter_status == "learned" and state == 1:
+                        vocab_items.append((idx, word, word_key, state))
+                    elif filter_status == "review" and state == 2:
+                        vocab_items.append((idx, word, word_key, state))
+                
+                # 显示过滤后的单词
+                for idx, (orig_idx, word, word_key, state) in enumerate(vocab_items):
                     with cols[idx % 3]:
                         # 获取翻译
                         cache_key = f"{word}_{target_lang}"
@@ -601,48 +855,9 @@ def render_main_content(levels_data, nemt_cet_data, client, get_current_page_ful
                         else:
                             translation = None
                         
-                        if flipped:
-                            display_content = translation if translation else word
-                        else:
-                            display_content = word
-                        
-                        if not display_content or display_content.strip() == "":
-                            display_content = word if not flipped else f"({word})"
-                        
-                        if st.button(display_content, key=f"btn_{card_key}", use_container_width=True):
-                            was_flipped = flipped
-                            
-                            if "flip_states" not in st.session_state:
-                                st.session_state.flip_states = {}
-                            st.session_state.flip_states[card_key] = not flipped
-                            
-                            if not was_flipped:
-                                # 获取翻译
-                                cache_key = f"{word}_{target_lang}"
-                                if cache_key in st.session_state.translation_cache_nemt:
-                                    trans = st.session_state.translation_cache_nemt[cache_key]
-                                else:
-                                    with st.spinner(f"Translating {word}..."):
-                                        trans = translate_word(client, word, target_lang)
-                                        st.session_state.translation_cache_nemt[cache_key] = trans
-                                
-                                # 搜索图片和视频
-                                with st.spinner(f"Searching '{word}'..."):
-                                    st.session_state[f"word_img_{card_key}"] = search_pexels_image(word)
-                                    st.session_state[f"word_video_{card_key}"] = search_pexels_video(word)
-                                    st.session_state[f"word_trans_{card_key}"] = trans
-                            
-                            st.rerun()
-                        
-                        # 显示图片和视频
-                        if flipped:
-                            img_url = st.session_state.get(f"word_img_{card_key}")
-                            if img_url:
-                                st.image(img_url, use_container_width=True)
-                            
-                            video_url = st.session_state.get(f"word_video_{card_key}")
-                            if video_url:
-                                st.video(video_url)
+                        # 渲染带状态标记的卡片
+                        render_vocab_card(word, "", word_key, 
+                                         other_word=translation if translation else None)
             
             if "examples" in content_node and content_node["examples"]:
                 st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px; margin-bottom: 15px;'>Example Sentences</h3>", unsafe_allow_html=True)
