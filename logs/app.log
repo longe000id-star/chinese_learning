@@ -1801,3 +1801,1237 @@
 - **Definition**:...
 2026-03-31 20:15:51,430 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 413 Payload Too Large"
 2026-03-31 20:15:51,432 - utils.tts - ERROR - Orpheus TTS error: Error code: 413 - {'error': {'message': 'Request too large for model `canopylabs/orpheus-v1-english` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 1200, Requested 3157, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 12:58:11,506 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 12:58:11,507 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 12:58:11,508 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 12:58:11,601 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 12:58:11,602 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 12:58:11,602 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 12:58:11,603 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 12:58:11,603 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 12:58:11,603 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 12:58:11,604 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 12:58:11,604 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 12:58:11,605 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 12:58:11,605 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 12:58:11,606 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 12:58:11,606 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 12:58:11,606 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 12:58:11,607 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 12:58:11,607 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 12:58:11,608 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 12:58:11,608 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 12:58:11,608 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 12:58:11,608 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 12:58:11,609 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 12:58:11,609 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 12:58:17,274 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 12:58:17,438 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 12:58:17,438 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 36.000000 seconds
+2026-04-01 12:58:18,631 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 12:58:18,642 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 35.000000 seconds
+2026-04-01 12:58:25,452 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 12:58:54,816 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 12:58:54,818 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 1.000000 seconds
+2026-04-01 12:58:55,403 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 12:58:55,406 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 1.000000 seconds
+2026-04-01 12:58:56,604 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 12:58:56,805 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:05:21,749 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 13:05:21,750 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 13:05:21,750 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 13:05:21,839 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 13:05:21,840 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 13:05:21,840 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 13:05:21,840 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 13:05:21,841 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 13:05:21,841 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 13:05:21,841 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 13:05:21,842 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 13:05:21,842 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 13:05:21,842 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 13:05:21,843 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 13:05:21,843 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 13:05:21,843 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 13:05:21,844 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 13:05:21,844 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 13:05:21,844 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 13:05:21,845 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 13:05:21,845 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 13:05:21,846 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 13:05:21,846 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 13:05:21,846 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 13:05:25,598 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 13:05:26,760 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:05:26,762 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 25.000000 seconds
+2026-04-01 13:05:30,267 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 13:05:33,118 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 13:05:53,094 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 13:07:55,978 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 13:08:08,337 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 13:08:10,349 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 13:17:22,055 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.388412 seconds
+2026-04-01 13:17:22,454 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.988249 seconds
+2026-04-01 13:20:21,067 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.423711 seconds
+2026-04-01 13:20:21,497 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.759662 seconds
+2026-04-01 13:20:26,482 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.382274 seconds
+2026-04-01 13:20:26,872 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.895757 seconds
+2026-04-01 13:20:27,955 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.448703 seconds
+2026-04-01 13:20:28,411 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.779806 seconds
+2026-04-01 13:20:29,060 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.382736 seconds
+2026-04-01 13:20:29,451 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.880112 seconds
+2026-04-01 13:20:30,021 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.489543 seconds
+2026-04-01 13:20:30,521 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.943079 seconds
+2026-04-01 13:20:32,647 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.415560 seconds
+2026-04-01 13:20:33,070 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.769821 seconds
+2026-04-01 13:20:33,601 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.491366 seconds
+2026-04-01 13:20:34,100 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.859089 seconds
+2026-04-01 13:20:34,807 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.465968 seconds
+2026-04-01 13:20:35,278 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.977530 seconds
+2026-04-01 13:25:18,195 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 13:25:18,196 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 13:25:18,197 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 13:25:18,294 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 13:25:18,295 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 13:25:18,295 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 13:25:18,296 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 13:25:18,296 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 13:25:18,296 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 13:25:18,297 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 13:25:18,297 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 13:25:18,298 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 13:25:18,298 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 13:25:18,299 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 13:25:18,299 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 13:25:18,299 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 13:25:18,300 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 13:25:18,300 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 13:25:18,300 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 13:25:18,301 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 13:25:18,301 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 13:25:18,301 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 13:25:18,302 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 13:25:18,302 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 13:25:35,925 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:25:39,335 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:25:42,035 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:25:46,055 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:25:48,778 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:25:50,759 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:25:51,318 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:25:52,866 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:25:54,225 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:25:58,489 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:06,572 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:09,969 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:15,431 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:16,848 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:20,175 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:30,363 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:31,067 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:32,150 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:32,975 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:36,377 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:38,240 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:41,096 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:44,467 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:49,059 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:51,293 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:51,541 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:55,684 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:26:59,037 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:32:28,545 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 13:32:28,546 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 13:32:28,547 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 13:32:28,629 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 13:32:28,630 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 13:32:28,630 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 13:32:28,631 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 13:32:28,631 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 13:32:28,632 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 13:32:28,632 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 13:32:28,632 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 13:32:28,633 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 13:32:28,633 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 13:32:28,634 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 13:32:28,634 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 13:32:28,634 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 13:32:28,635 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 13:32:28,635 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 13:32:28,635 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 13:32:28,636 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 13:32:28,637 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 13:32:28,639 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 13:32:28,639 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 13:32:28,641 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 13:32:33,514 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:32:34,494 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:32:36,639 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:32:37,779 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:32:40,992 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:32:44,353 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:33:27,456 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:33:30,799 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:33:31,935 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:33:34,743 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:33:38,065 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:33:42,923 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:33:46,327 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:36:44,136 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:36:46,160 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:36:46,829 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:36:46,934 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:36:50,059 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:36:53,419 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:36:58,957 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:02,713 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:06,024 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:09,428 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:14,117 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:15,438 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:18,875 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:19,968 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:23,342 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:27,640 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:31,869 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:35,288 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:36,510 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:38,289 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:38,381 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:40,721 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:41,752 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:46,426 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:46,684 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:48,978 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:54,815 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:55,656 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:57,468 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:37:59,269 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:01,572 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:04,897 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:10,060 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:11,185 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:12,031 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:12,969 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:13,777 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:14,937 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:15,930 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:16,853 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:17,213 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:18,108 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:18,716 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:21,220 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:21,884 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:23,036 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:23,143 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:24,754 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:25,805 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:27,307 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:29,301 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:29,627 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:31,034 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:33,809 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:34,054 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:34,084 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:35,160 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:35,894 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:37,436 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:38,449 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:41,269 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:41,451 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:45,304 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:38:48,720 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:39:05,013 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.475421 seconds
+2026-04-01 13:39:07,691 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.416305 seconds
+2026-04-01 13:39:10,495 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.938693 seconds
+2026-04-01 13:39:11,077 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:39:11,711 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.451463 seconds
+2026-04-01 13:39:12,654 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:39:13,117 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.871876 seconds
+2026-04-01 13:39:14,487 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:39:17,168 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.835736 seconds
+2026-04-01 13:39:19,598 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:39:24,827 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:39:28,231 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:39:36,655 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:39:40,052 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:39:47,587 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:39:51,372 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:40:41,036 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:40:44,446 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:40:55,188 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:40:58,595 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:41:07,810 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:41:11,203 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:41:15,243 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:41:18,655 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:41:24,168 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:41:27,571 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:42:04,392 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:42:07,811 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:43:53,380 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 13:43:53,381 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 13:43:53,381 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 13:43:53,471 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 13:43:53,471 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 13:43:53,472 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 13:43:53,472 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 13:43:53,473 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 13:43:53,473 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 13:43:53,473 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 13:43:53,473 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 13:43:53,474 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 13:43:53,474 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 13:43:53,475 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 13:43:53,475 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 13:43:53,475 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 13:43:53,476 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 13:43:53,476 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 13:43:53,477 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 13:43:53,477 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 13:43:53,477 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 13:43:53,478 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 13:43:53,478 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 13:43:53,478 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 13:43:56,921 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:43:59,687 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:44:03,118 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:44:06,125 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:44:09,095 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:44:11,209 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:45:35,078 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 13:45:35,079 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 13:45:35,080 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 13:45:35,176 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 13:45:35,176 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 13:45:35,176 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 13:45:35,177 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 13:45:35,177 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 13:45:35,178 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 13:45:35,179 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 13:45:35,179 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 13:45:35,180 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 13:45:35,181 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 13:45:35,181 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 13:45:35,181 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 13:45:35,181 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 13:45:35,182 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 13:45:35,182 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 13:45:35,183 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 13:45:35,183 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 13:45:35,183 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 13:45:35,183 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 13:45:35,184 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 13:45:35,184 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 13:45:37,864 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:45:39,001 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:45:40,234 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:45:41,905 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:45:45,300 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:46:13,944 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:46:17,354 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:46:28,385 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:46:31,803 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:46:44,038 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:46:45,038 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:46:46,423 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:46:47,633 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:46:51,034 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:47:02,830 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:47:06,239 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:48:09,533 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:48:12,952 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:48:33,209 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:48:41,712 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:48:45,540 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:48:51,899 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:48:55,296 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:48:57,992 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:48:59,393 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:00,378 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:01,498 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:02,451 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:03,333 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:05,061 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:05,653 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:07,812 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:08,730 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:10,383 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:10,636 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:11,892 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:14,979 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:15,855 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:17,338 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:18,117 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:18,921 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:19,938 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:21,299 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:22,051 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:24,267 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:25,739 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:27,800 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:28,689 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:29,151 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:31,680 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:32,041 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:32,915 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:34,788 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:36,229 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:38,027 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:40,026 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:41,743 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:43,297 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:44,204 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:45,403 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:46,810 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:47,513 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:48,297 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:48,694 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:55,877 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:49:58,077 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:02,532 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:06,299 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:08,193 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:08,314 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:09,848 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:13,320 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:14,202 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:15,746 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:22,152 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:25,471 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:27,583 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:28,412 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:30,220 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:30,919 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:32,442 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:34,218 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:35,509 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:36,814 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:38,582 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:39,522 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:40,144 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:41,085 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:41,399 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:42,618 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:44,444 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:45,342 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:46,156 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:47,607 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:48,183 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:49,097 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:50,546 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:50,907 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:52,322 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:52,852 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:53,375 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:54,297 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:55,144 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:55,711 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:56,184 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:57,060 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:57,862 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:58,679 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:50:59,305 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:00,727 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:02,093 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:07,074 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:11,351 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:14,183 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:16,515 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:16,534 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:18,075 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:18,364 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:19,157 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:20,159 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:22,125 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:22,373 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:27,566 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:31,921 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:35,331 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:40,442 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:46,016 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:49,859 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:51:54,115 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:52:02,329 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:52:08,024 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:52:11,792 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:52:16,381 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:52:45,552 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:52:48,960 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:53:56,623 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:54:00,024 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:54:07,016 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:54:08,040 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:54:10,418 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:54:10,583 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:54:13,984 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:54:56,063 - __main__ - INFO - User input: waht's content...
+2026-04-01 13:54:57,552 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:54:57,553 - __main__ - ERROR - AI reply error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 97683, Requested 8822. Please try again in 1h33m40.32s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 13:54:58,727 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 200 OK"
+2026-04-01 13:55:22,559 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:55:25,969 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:55:32,889 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 13:55:36,632 - __main__ - INFO - User input: what;'s content...
+2026-04-01 13:55:38,205 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 13:55:38,207 - __main__ - ERROR - AI reply error: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-120b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 9018, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 13:55:38,771 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 200 OK"
+2026-04-01 13:56:38,724 - __main__ - INFO - User input: hi...
+2026-04-01 13:56:40,835 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 13:56:40,879 - __main__ - INFO - AI reply: Hi! You're currently in Level I, Pragmatic Competence, learning how to greet and introduce yourself ...
+2026-04-01 13:56:41,412 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 200 OK"
+2026-04-01 13:56:56,054 - __main__ - INFO - User input: hi...
+2026-04-01 13:56:57,969 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:56:57,970 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 34.000000 seconds
+2026-04-01 13:57:10,072 - __main__ - INFO - User input: teach me about cobas...
+2026-04-01 13:57:12,843 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 13:57:12,850 - __main__ - INFO - AI reply: Let’s look at “介绍” (jièshào).  
+Think of it as the key that opens a door between two people who don’...
+2026-04-01 13:57:13,397 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 200 OK"
+2026-04-01 13:57:29,691 - __main__ - INFO - User input: teach me all vocbas...
+2026-04-01 13:57:31,519 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:57:31,521 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 11.000000 seconds
+2026-04-01 13:57:33,132 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:57:33,133 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 7.000000 seconds
+2026-04-01 13:57:41,660 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 13:57:41,663 - __main__ - INFO - AI reply: Let’s try a short conversation.  
+Imagine you meet someone for the first time. You want to say:
+
+1. ...
+2026-04-01 13:57:47,803 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 13:57:47,807 - __main__ - INFO - AI reply: Let’s open each “word-box” one by one.  I’ll give you the shape, the feel, and a tiny hook to hang i...
+2026-04-01 13:57:48,199 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 429 Too Many Requests"
+2026-04-01 13:57:48,201 - utils.tts - ERROR - Orpheus TTS error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `canopylabs/orpheus-v1-english` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per day (TPD): Limit 3600, Used 3330, Requested 3374. Please try again in 20h41m36s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 14:19:56,153 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 14:19:56,154 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 14:19:56,155 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 14:19:56,273 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 14:19:56,274 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 14:19:56,275 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 14:19:56,275 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 14:19:56,276 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 14:19:56,277 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 14:19:56,277 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 14:19:56,278 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 14:19:56,278 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 14:19:56,279 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 14:19:56,279 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 14:19:56,280 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 14:19:56,280 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 14:19:56,282 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 14:19:56,282 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 14:19:56,283 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 14:19:56,283 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 14:19:56,284 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 14:19:56,285 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 14:19:56,285 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 14:19:56,285 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 14:19:58,323 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:20:32,804 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:20:33,969 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:20:35,371 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:20:36,879 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:20:40,225 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:22:35,532 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 14:22:46,187 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:22:46,189 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 35.000000 seconds
+2026-04-01 14:22:46,412 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 14:22:47,766 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:22:47,767 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 34.000000 seconds
+2026-04-01 14:22:48,607 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:22:48,609 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 33.000000 seconds
+2026-04-01 14:22:54,028 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:22:54,030 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 27.000000 seconds
+2026-04-01 14:23:21,127 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 14:23:22,391 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:23:22,392 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 4.000000 seconds
+2026-04-01 14:23:22,570 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:23:22,571 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 4.000000 seconds
+2026-04-01 14:23:22,821 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 14:23:22,885 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:23:22,886 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 3.000000 seconds
+2026-04-01 14:23:23,672 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:23:23,674 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 2.000000 seconds
+2026-04-01 14:23:26,292 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:23:26,294 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 3.000000 seconds
+2026-04-01 14:23:26,786 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:23:26,907 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:23:27,540 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 14:23:30,901 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 14:23:35,917 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 14:24:16,396 - __main__ - INFO - User input: content...
+2026-04-01 14:24:17,978 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:24:17,980 - __main__ - ERROR - AI reply error: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-120b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 8630, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 14:24:18,296 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 429 Too Many Requests"
+2026-04-01 14:24:18,298 - utils.tts - ERROR - Orpheus TTS error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `canopylabs/orpheus-v1-english` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per day (TPD): Limit 3600, Used 3264, Requested 417. Please try again in 32m24s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 14:31:53,614 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 14:31:53,615 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 14:31:53,615 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 14:31:53,724 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 14:31:53,725 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 14:31:53,725 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 14:31:53,726 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 14:31:53,726 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 14:31:53,727 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 14:31:53,727 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 14:31:53,727 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 14:31:53,728 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 14:31:53,728 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 14:31:53,729 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 14:31:53,729 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 14:31:53,729 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 14:31:53,730 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 14:31:53,730 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 14:31:53,731 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 14:31:53,731 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 14:31:53,731 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 14:31:53,732 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 14:31:53,732 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 14:31:53,732 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 14:32:02,235 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:32:04,220 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:32:05,178 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:32:06,455 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:38:57,618 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:03,377 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:04,785 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:09,035 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:10,984 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:10,985 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:12,123 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:15,335 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:23,862 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:28,221 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:35,624 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:36,807 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:38,006 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:39,608 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:41,336 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:46,386 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:50,299 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:57,087 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:57,785 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:39:58,845 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:40:00,426 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:40:01,365 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:40:04,708 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:40:10,606 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:40:11,612 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:40:12,815 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:40:15,678 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:40:17,418 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:41:54,351 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:41:55,531 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:42:05,423 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:50:49,472 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 14:50:49,473 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 14:50:49,474 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 14:50:49,590 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 14:50:49,591 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 14:50:49,591 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 14:50:49,592 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 14:50:49,592 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 14:50:49,593 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 14:50:49,594 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 14:50:49,594 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 14:50:49,595 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 14:50:49,595 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 14:50:49,596 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 14:50:49,596 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 14:50:49,596 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 14:50:49,597 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 14:50:49,597 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 14:50:49,598 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 14:50:49,598 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 14:50:49,598 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 14:50:49,599 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 14:50:49,599 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 14:50:49,599 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 14:50:57,219 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:50:58,669 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 14:54:13,295 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 14:54:13,296 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 14:54:13,297 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 14:54:13,399 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 14:54:13,399 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 14:54:13,400 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 14:54:13,401 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 14:54:13,402 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 14:54:13,402 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 14:54:13,403 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 14:54:13,403 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 14:54:13,404 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 14:54:13,405 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 14:54:13,405 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 14:54:13,405 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 14:54:13,406 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 14:54:13,406 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 14:54:13,407 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 14:54:13,407 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 14:54:13,408 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 14:54:13,408 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 14:54:13,408 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 14:54:13,409 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 14:54:13,409 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 14:54:25,465 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:00:49,945 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 15:00:49,946 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 15:00:49,946 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 15:00:50,064 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 15:00:50,065 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 15:00:50,065 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 15:00:50,066 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 15:00:50,066 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 15:00:50,066 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 15:00:50,067 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 15:00:50,067 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 15:00:50,068 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 15:00:50,068 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 15:00:50,069 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 15:00:50,069 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 15:00:50,069 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 15:00:50,070 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 15:00:50,070 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 15:00:50,071 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 15:00:50,071 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 15:00:50,071 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 15:00:50,071 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 15:00:50,072 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 15:00:50,072 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 15:01:18,159 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.437181 seconds
+2026-04-01 15:01:23,612 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.999947 seconds
+2026-04-01 15:01:26,049 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.477403 seconds
+2026-04-01 15:01:27,391 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.834700 seconds
+2026-04-01 15:01:29,543 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.437511 seconds
+2026-04-01 15:01:30,092 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.994962 seconds
+2026-04-01 15:01:34,565 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.430679 seconds
+2026-04-01 15:01:35,101 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.873250 seconds
+2026-04-01 15:03:07,422 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.432689 seconds
+2026-04-01 15:03:07,961 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.791295 seconds
+2026-04-01 15:03:08,456 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.386306 seconds
+2026-04-01 15:03:08,946 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.793767 seconds
+2026-04-01 15:03:10,226 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.412614 seconds
+2026-04-01 15:03:10,750 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.875697 seconds
+2026-04-01 15:03:11,818 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.420872 seconds
+2026-04-01 15:03:12,348 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.996541 seconds
+2026-04-01 15:03:30,440 - __main__ - INFO - User input: hi...
+2026-04-01 15:03:30,546 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.472316 seconds
+2026-04-01 15:03:31,126 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.911481 seconds
+2026-04-01 15:03:32,149 - __main__ - ERROR - AI reply error: Connection error.
+2026-04-01 15:03:32,258 - groq._base_client - INFO - Retrying request to /openai/v1/audio/speech in 0.396831 seconds
+2026-04-01 15:03:32,764 - groq._base_client - INFO - Retrying request to /openai/v1/audio/speech in 0.956190 seconds
+2026-04-01 15:03:33,833 - utils.tts - ERROR - Orpheus TTS error: Connection error.
+2026-04-01 15:03:34,056 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.491915 seconds
+2026-04-01 15:03:34,656 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.842465 seconds
+2026-04-01 15:04:20,415 - __main__ - INFO - User input: hi...
+2026-04-01 15:04:21,454 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:04:21,457 - __main__ - ERROR - AI reply error: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-20b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 65972, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 15:04:22,033 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 200 OK"
+2026-04-01 15:04:58,897 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:05:02,167 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:05:03,974 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:05:04,710 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:11:45,202 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 15:11:45,203 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 15:11:45,204 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 15:11:45,319 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 15:11:45,319 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 15:11:45,320 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 15:11:45,320 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 15:11:45,321 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 15:11:45,321 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 15:11:45,322 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 15:11:45,322 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 15:11:45,323 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 15:11:45,323 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 15:11:45,324 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 15:11:45,324 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 15:11:45,324 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 15:11:45,325 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 15:11:45,326 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 15:11:45,327 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 15:11:45,327 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 15:11:45,328 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 15:11:45,328 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 15:11:45,329 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 15:11:45,330 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 15:11:51,753 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:11:51,983 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:11:58,887 - __main__ - INFO - User input: hi...
+2026-04-01 15:11:58,888 - __main__ - INFO - Current messages count: 1
+2026-04-01 15:11:59,872 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:11:59,873 - __main__ - ERROR - AI reply error: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-20b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 66006, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 15:12:00,203 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 429 Too Many Requests"
+2026-04-01 15:12:00,204 - utils.tts - ERROR - Orpheus TTS error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `canopylabs/orpheus-v1-english` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per day (TPD): Limit 3600, Used 3562, Requested 417. Please try again in 2h31m36s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 15:20:15,913 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 15:20:15,915 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 15:20:15,917 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 15:20:16,057 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 15:20:16,058 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 15:20:16,058 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 15:20:16,058 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 15:20:16,059 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 15:20:16,060 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 15:20:16,060 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 15:20:16,060 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 15:20:16,061 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 15:20:16,062 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 15:20:16,062 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 15:20:16,062 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 15:20:16,063 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 15:20:16,063 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 15:20:16,064 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 15:20:16,064 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 15:20:16,065 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 15:20:16,065 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 15:20:16,066 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 15:20:16,066 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 15:20:16,066 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 15:20:20,807 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:20:22,489 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:20:23,747 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:20:24,140 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:20:28,302 - __main__ - INFO - User input: hi...
+2026-04-01 15:20:28,303 - __main__ - INFO - Current messages count: 1
+2026-04-01 15:20:29,998 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:20:30,009 - __main__ - ERROR - AI reply error: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-20b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 66178, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 15:20:30,349 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 429 Too Many Requests"
+2026-04-01 15:20:30,350 - utils.tts - ERROR - Orpheus TTS error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `canopylabs/orpheus-v1-english` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per day (TPD): Limit 3600, Used 3541, Requested 417. Please try again in 2h23m12s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 15:24:51,933 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 15:24:51,934 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 15:24:51,934 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 15:24:52,025 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 15:24:52,027 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 15:24:52,028 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 15:24:52,028 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 15:24:52,029 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 15:24:52,029 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 15:24:52,030 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 15:24:52,030 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 15:24:52,031 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 15:24:52,031 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 15:24:52,032 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 15:24:52,032 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 15:24:52,032 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 15:24:52,033 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 15:24:52,033 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 15:24:52,034 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 15:24:52,034 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 15:24:52,034 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 15:24:52,035 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 15:24:52,035 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 15:24:52,035 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 15:24:53,854 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.440618 seconds
+2026-04-01 15:24:54,399 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.837757 seconds
+2026-04-01 15:24:55,920 - __main__ - INFO - User input: hi...
+2026-04-01 15:24:55,920 - __main__ - INFO - Current messages count: 1
+2026-04-01 15:24:56,025 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.469374 seconds
+2026-04-01 15:24:56,600 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.809319 seconds
+2026-04-01 15:24:57,519 - __main__ - ERROR - AI reply error: Connection error.
+2026-04-01 15:24:57,630 - groq._base_client - INFO - Retrying request to /openai/v1/audio/speech in 0.409293 seconds
+2026-04-01 15:24:58,147 - groq._base_client - INFO - Retrying request to /openai/v1/audio/speech in 0.840077 seconds
+2026-04-01 15:24:59,099 - utils.tts - ERROR - Orpheus TTS error: Connection error.
+2026-04-01 15:24:59,369 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.389095 seconds
+2026-04-01 15:24:59,863 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.917464 seconds
+2026-04-01 15:29:30,477 - __main__ - INFO - User input: hi...
+2026-04-01 15:29:30,477 - __main__ - INFO - Current messages count: 3
+2026-04-01 15:29:31,488 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:29:31,489 - __main__ - ERROR - AI reply error: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-20b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 66013, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 15:29:31,869 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 429 Too Many Requests"
+2026-04-01 15:29:31,870 - utils.tts - ERROR - Orpheus TTS error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `canopylabs/orpheus-v1-english` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per day (TPD): Limit 3600, Used 3519, Requested 417. Please try again in 2h14m24s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 15:29:33,009 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:29:35,846 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:33:33,726 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 15:33:33,727 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 15:33:33,727 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 15:33:33,818 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 15:33:33,819 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 15:33:33,819 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 15:33:33,820 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 15:33:33,820 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 15:33:33,821 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 15:33:33,821 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 15:33:33,822 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 15:33:33,822 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 15:33:33,823 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 15:33:33,823 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 15:33:33,823 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 15:33:33,824 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 15:33:33,824 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 15:33:33,825 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 15:33:33,825 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 15:33:33,825 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 15:33:33,826 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 15:33:33,826 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 15:33:33,826 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 15:33:33,826 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 15:33:37,090 - __main__ - INFO - User input: hi...
+2026-04-01 15:33:37,091 - __main__ - INFO - Current messages count: 1
+2026-04-01 15:33:38,064 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:33:38,065 - __main__ - ERROR - AI reply error: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-20b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 65972, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 15:33:38,366 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 429 Too Many Requests"
+2026-04-01 15:33:38,367 - utils.tts - ERROR - Orpheus TTS error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `canopylabs/orpheus-v1-english` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per day (TPD): Limit 3600, Used 3508, Requested 417. Please try again in 2h10m0s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 15:33:39,995 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:33:41,133 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:33:42,511 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:41:05,408 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 15:41:05,409 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 15:41:05,409 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 15:41:05,516 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 15:41:05,516 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 15:41:05,517 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 15:41:05,517 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 15:41:05,518 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 15:41:05,519 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 15:41:05,519 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 15:41:05,519 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 15:41:05,520 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 15:41:05,520 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 15:41:05,521 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 15:41:05,521 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 15:41:05,521 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 15:41:05,522 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 15:41:05,522 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 15:41:05,522 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 15:41:05,523 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 15:41:05,524 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 15:41:05,524 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 15:41:05,524 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 15:41:05,525 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 15:41:08,194 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:41:08,783 - __main__ - INFO - User input: hi...
+2026-04-01 15:41:08,783 - __main__ - INFO - Current messages count: 1
+2026-04-01 15:41:10,892 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:41:10,893 - __main__ - ERROR - AI reply error: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-20b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 65996, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 15:41:11,300 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 429 Too Many Requests"
+2026-04-01 15:41:11,301 - utils.tts - ERROR - Orpheus TTS error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `canopylabs/orpheus-v1-english` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per day (TPD): Limit 3600, Used 3489, Requested 417. Please try again in 2h2m24s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 15:41:16,263 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:57:59,986 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 15:57:59,987 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 15:57:59,989 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 15:58:00,128 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 15:58:00,129 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 15:58:00,129 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 15:58:00,130 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 15:58:00,130 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 15:58:00,131 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 15:58:00,131 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 15:58:00,131 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 15:58:00,132 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 15:58:00,133 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 15:58:00,133 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 15:58:00,133 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 15:58:00,134 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 15:58:00,134 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 15:58:00,135 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 15:58:00,135 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 15:58:00,136 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 15:58:00,136 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 15:58:00,137 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 15:58:00,138 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 15:58:00,139 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 15:58:12,343 - __main__ - INFO - User input: hi...
+2026-04-01 15:58:12,343 - __main__ - INFO - Current messages count: 1
+2026-04-01 15:58:13,745 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:58:13,746 - __main__ - ERROR - AI reply error: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-20b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 65972, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 15:58:14,164 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:58:15,532 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:58:17,466 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:58:20,990 - __main__ - INFO - User input: hi...
+2026-04-01 15:58:20,991 - __main__ - INFO - Current messages count: 2
+2026-04-01 15:58:21,930 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 15:58:21,932 - __main__ - ERROR - AI reply error: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-20b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 66017, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 15:58:22,253 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 429 Too Many Requests"
+2026-04-01 15:58:22,254 - utils.tts - ERROR - Orpheus TTS error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `canopylabs/orpheus-v1-english` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per day (TPD): Limit 3600, Used 3446, Requested 417. Please try again in 1h45m12s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 16:03:06,791 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 16:03:06,792 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 16:03:06,793 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 16:03:06,929 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 16:03:06,929 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 16:03:06,930 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 16:03:06,930 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 16:03:06,931 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 16:03:06,931 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 16:03:06,932 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 16:03:06,932 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 16:03:06,933 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 16:03:06,933 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 16:03:06,934 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 16:03:06,934 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 16:03:06,935 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 16:03:06,935 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 16:03:06,936 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 16:03:06,936 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 16:03:06,937 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 16:03:06,937 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 16:03:06,937 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 16:03:06,937 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 16:03:06,938 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 16:03:09,197 - __main__ - INFO - User input: hi...
+2026-04-01 16:03:09,197 - __main__ - INFO - Current messages count: 1
+2026-04-01 16:03:10,566 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 16:03:10,570 - __main__ - ERROR - AI reply error: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-20b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 65972, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 16:03:11,566 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 16:03:12,720 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 16:03:13,929 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 16:03:14,781 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 16:03:16,430 - __main__ - INFO - User input: hi...
+2026-04-01 16:03:16,430 - __main__ - INFO - Current messages count: 2
+2026-04-01 16:03:17,679 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 16:03:17,682 - __main__ - ERROR - AI reply error: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-20b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 66019, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 16:03:18,076 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 429 Too Many Requests"
+2026-04-01 16:03:18,078 - utils.tts - ERROR - Orpheus TTS error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `canopylabs/orpheus-v1-english` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per day (TPD): Limit 3600, Used 3434, Requested 417. Please try again in 1h40m24s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 19:25:39,541 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 19:25:39,543 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 19:25:39,544 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 19:25:39,681 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 19:25:39,682 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 19:25:39,682 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 19:25:39,683 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 19:25:39,684 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 19:25:39,684 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 19:25:39,685 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 19:25:39,685 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 19:25:39,686 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 19:25:39,686 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 19:25:39,687 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 19:25:39,687 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 19:25:39,688 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 19:25:39,688 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 19:25:39,689 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 19:25:39,689 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 19:25:39,690 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 19:25:39,690 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 19:25:39,691 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 19:25:39,691 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 19:25:39,691 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 19:25:41,301 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.414619 seconds
+2026-04-01 19:25:41,822 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.880841 seconds
+2026-04-01 19:36:42,450 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 19:36:45,859 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 19:36:47,911 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 19:39:09,584 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:39:09,589 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:39:27,312 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:39:27,313 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:39:29,461 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:39:29,462 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:39:50,728 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:39:50,729 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:39:53,375 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:39:53,376 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:40:06,761 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:40:06,761 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:40:09,043 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:40:09,044 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:40:10,751 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:40:10,752 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:40:14,628 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:40:14,629 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:40:16,765 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:40:16,766 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:40:44,008 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:40:44,009 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:40:46,593 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:40:46,593 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:40:48,740 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:40:48,740 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:40:50,807 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:40:50,808 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:40:52,587 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:40:52,588 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:41:06,953 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:41:06,954 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 19:41:38,503 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 19:41:38,503 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 21:34:26,040 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 21:34:26,042 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 21:34:26,044 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 21:34:26,142 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 21:34:26,143 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 21:34:26,143 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 21:34:26,144 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 21:34:26,144 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 21:34:26,145 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 21:34:26,146 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 21:34:26,147 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 21:34:26,147 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 21:34:26,148 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 21:34:26,149 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 21:34:26,149 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 21:34:26,150 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 21:34:26,150 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 21:34:26,151 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 21:34:26,151 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 21:34:26,152 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 21:34:26,152 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 21:34:26,153 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 21:34:26,153 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 21:34:26,154 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 21:38:33,757 - utils.data_loader - INFO - Successfully loaded data/TEM-8.json
+2026-04-01 21:38:33,757 - utils.data_loader - INFO - Successfully loaded data/NEMT.json
+2026-04-01 21:38:33,758 - utils.data_loader - INFO - Successfully loaded data/CET-46.json
+2026-04-01 21:38:33,830 - utils.data_loader - INFO - Loaded CHAPTER_1 from nlp1.json
+2026-04-01 21:38:33,831 - utils.data_loader - INFO - Loaded CHAPTER_2 from nlp2.json
+2026-04-01 21:38:33,831 - utils.data_loader - INFO - Loaded CHAPTER_3 from nlp3.json
+2026-04-01 21:38:33,831 - utils.data_loader - INFO - Loaded CHAPTER_4 from nlp4.json
+2026-04-01 21:38:33,832 - utils.data_loader - INFO - Loaded CHAPTER_5 from nlp5.json
+2026-04-01 21:38:33,832 - utils.data_loader - INFO - Loaded CHAPTER_6 from nlp6.json
+2026-04-01 21:38:33,832 - utils.data_loader - INFO - Loaded CHAPTER_7 from nlp7.json
+2026-04-01 21:38:33,833 - utils.data_loader - INFO - Loaded CHAPTER_8 from nlp8.json
+2026-04-01 21:38:33,833 - utils.data_loader - INFO - Loaded CHAPTER_9 from nlp9.json
+2026-04-01 21:38:33,834 - utils.data_loader - ERROR - Failed to load data/nlp/nlp10.json: Expecting ',' delimiter: line 4 column 2111 (char 2151)
+2026-04-01 21:38:33,834 - utils.data_loader - INFO - Loaded CHAPTER_11 from nlp11.json
+2026-04-01 21:38:33,834 - utils.data_loader - INFO - Loaded CHAPTER_12 from nlp12.json
+2026-04-01 21:38:33,835 - utils.data_loader - INFO - Loaded CHAPTER_13 from nlp13.json
+2026-04-01 21:38:33,836 - utils.data_loader - INFO - Loaded CHAPTER_14 from nlp14.json
+2026-04-01 21:38:33,837 - utils.data_loader - INFO - Loaded CHAPTER_15 from nlp15.json
+2026-04-01 21:38:33,838 - utils.data_loader - ERROR - Failed to load data/nlp/nlp16.json: Expecting ',' delimiter: line 33 column 3119 (char 24778)
+2026-04-01 21:38:33,839 - utils.data_loader - INFO - Loaded CHAPTER_17 from nlp17.json
+2026-04-01 21:38:33,839 - utils.data_loader - INFO - Loaded CHAPTER_18 from nlp18.json
+2026-04-01 21:38:33,839 - utils.data_loader - INFO - Loaded CHAPTER_19 from nlp19.json
+2026-04-01 21:38:33,840 - utils.data_loader - INFO - Loaded CHAPTER_20 from nlp20.json
+2026-04-01 21:38:33,842 - utils.data_loader - INFO - Loaded CHAPTER_21 from nlp21.json
+2026-04-01 21:38:40,191 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.416534 seconds
+2026-04-01 21:38:41,315 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.376942 seconds
+2026-04-01 21:38:42,199 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.951445 seconds
+2026-04-01 21:38:45,273 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.990853 seconds
+2026-04-01 21:38:46,378 - __main__ - ERROR - [AUTO] Greeting error: Connection error.
+2026-04-01 21:38:46,389 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:38:46,516 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.472301 seconds
+2026-04-01 21:38:47,101 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.808230 seconds
+2026-04-01 21:38:49,351 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.464674 seconds
+2026-04-01 21:38:49,927 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.984586 seconds
+2026-04-01 21:38:51,016 - __main__ - ERROR - [AUTO] Greeting error: Connection error.
+2026-04-01 21:38:51,021 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:38:51,149 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.465729 seconds
+2026-04-01 21:38:51,721 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.870095 seconds
+2026-04-01 21:38:52,595 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.469087 seconds
+2026-04-01 21:38:53,169 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.989921 seconds
+2026-04-01 21:38:54,264 - __main__ - ERROR - [AUTO] Greeting error: Connection error.
+2026-04-01 21:38:54,269 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:38:54,416 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.439806 seconds
+2026-04-01 21:38:54,960 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.855301 seconds
+2026-04-01 21:39:09,701 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:39:09,814 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.393752 seconds
+2026-04-01 21:39:10,315 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.957035 seconds
+2026-04-01 21:39:32,756 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.394893 seconds
+2026-04-01 21:39:33,257 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.981667 seconds
+2026-04-01 21:39:34,348 - __main__ - ERROR - [AUTO] Greeting error: Connection error.
+2026-04-01 21:39:34,355 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:39:34,481 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.488177 seconds
+2026-04-01 21:39:35,078 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.933490 seconds
+2026-04-01 21:39:36,122 - ui.main_content - ERROR - [AUTO] Batch translate error: Connection error.
+2026-04-01 21:39:36,233 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.474758 seconds
+2026-04-01 21:39:36,817 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.894505 seconds
+2026-04-01 21:39:39,231 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.460747 seconds
+2026-04-01 21:39:39,801 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.766695 seconds
+2026-04-01 21:39:54,099 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.423332 seconds
+2026-04-01 21:39:54,633 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.803504 seconds
+2026-04-01 21:39:59,950 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.380586 seconds
+2026-04-01 21:40:00,436 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.836989 seconds
+2026-04-01 21:40:02,046 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.446089 seconds
+2026-04-01 21:40:02,600 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.770265 seconds
+2026-04-01 21:40:06,936 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.420687 seconds
+2026-04-01 21:40:07,468 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.948004 seconds
+2026-04-01 21:40:11,704 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.431942 seconds
+2026-04-01 21:40:12,240 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.944265 seconds
+2026-04-01 21:40:13,289 - __main__ - ERROR - [AUTO] Greeting error: Connection error.
+2026-04-01 21:40:13,293 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:40:13,480 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.498155 seconds
+2026-04-01 21:40:14,088 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.803703 seconds
+2026-04-01 21:40:15,369 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.418299 seconds
+2026-04-01 21:40:15,898 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.972332 seconds
+2026-04-01 21:40:24,792 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.420857 seconds
+2026-04-01 21:40:25,328 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.891184 seconds
+2026-04-01 21:40:25,779 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:40:25,894 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.453581 seconds
+2026-04-01 21:40:26,480 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.900739 seconds
+2026-04-01 21:40:27,184 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:40:27,297 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.499264 seconds
+2026-04-01 21:40:27,908 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.954825 seconds
+2026-04-01 21:40:28,353 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:40:28,482 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.412141 seconds
+2026-04-01 21:40:29,041 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.884544 seconds
+2026-04-01 21:40:30,084 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.375782 seconds
+2026-04-01 21:40:30,570 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.829297 seconds
+2026-04-01 21:41:00,371 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.382040 seconds
+2026-04-01 21:41:00,868 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.833522 seconds
+2026-04-01 21:41:03,803 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.421530 seconds
+2026-04-01 21:41:04,334 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.904153 seconds
+2026-04-01 21:41:05,826 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.468013 seconds
+2026-04-01 21:41:06,404 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.994811 seconds
+2026-04-01 21:41:07,846 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.388955 seconds
+2026-04-01 21:41:08,343 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.885353 seconds
+2026-04-01 21:41:10,470 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.395167 seconds
+2026-04-01 21:41:10,971 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.828846 seconds
+2026-04-01 21:41:18,909 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.437723 seconds
+2026-04-01 21:41:19,458 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.916268 seconds
+2026-04-01 21:41:20,869 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.381899 seconds
+2026-04-01 21:41:21,364 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.932400 seconds
+2026-04-01 21:41:22,408 - utils.quiz - ERROR - Quiz generation error: Connection error.
+2026-04-01 21:41:22,564 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.452261 seconds
+2026-04-01 21:41:23,125 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.861851 seconds
+2026-04-01 21:41:26,526 - __main__ - INFO - User input: hi...
+2026-04-01 21:41:26,527 - __main__ - INFO - Current messages count: 1
+2026-04-01 21:41:26,632 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.420361 seconds
+2026-04-01 21:41:27,158 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.976622 seconds
+2026-04-01 21:41:29,276 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 21:41:29,279 - __main__ - ERROR - AI reply error: Error code: 413 - {'error': {'message': 'Request too large for model `openai/gpt-oss-120b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Requested 66211, please reduce your message size and try again. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 21:41:31,162 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 200 OK"
+2026-04-01 21:41:51,881 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 21:43:10,256 - __main__ - INFO - User input: hi...
+2026-04-01 21:43:10,257 - __main__ - INFO - Current messages count: 1
+2026-04-01 21:43:13,233 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 21:43:13,283 - __main__ - INFO - AI reply: Hello! What area of natural‑language processing would you like to work on today? For example, you co...
+2026-04-01 21:43:13,697 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 429 Too Many Requests"
+2026-04-01 21:43:13,699 - utils.tts - ERROR - Orpheus TTS error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `canopylabs/orpheus-v1-english` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per day (TPD): Limit 3600, Used 3449, Requested 232. Please try again in 32m24s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 21:43:22,281 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 21:43:22,286 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.378284 seconds
+2026-04-01 21:43:26,650 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 21:43:26,651 - groq._base_client - INFO - Retrying request to /openai/v1/chat/completions in 0.915024 seconds
+2026-04-01 21:43:31,631 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 429 Too Many Requests"
+2026-04-01 21:43:31,637 - utils.quiz - ERROR - Quiz generation error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per minute (TPM): Limit 8000, Used 1286, Requested 7140. Please try again in 3.195s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'compound', 'code': 'rate_limit_exceeded'}}
+2026-04-01 21:44:16,744 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 21:44:18,399 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 21:44:18,767 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 400 Bad Request"
+2026-04-01 21:44:18,768 - utils.tts - ERROR - Orpheus TTS error: Error code: 400 - {'error': {'message': 'input is required', 'type': 'invalid_request_error'}}
+2026-04-01 21:44:18,768 - __main__ - INFO - [AUTO] Page greeting sent for textbook_1_LEVEL_I_PRAGMATIC_COMPETENCE
+2026-04-01 21:44:18,773 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:44:19,173 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 21:44:20,871 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 21:44:21,228 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 400 Bad Request"
+2026-04-01 21:44:21,229 - utils.tts - ERROR - Orpheus TTS error: Error code: 400 - {'error': {'message': 'input is required', 'type': 'invalid_request_error'}}
+2026-04-01 21:44:21,229 - __main__ - INFO - [AUTO] Page greeting sent for textbook_1_LEVEL_I_PRAGMATIC_COMPETENCE_1_interact_socially_and_professionally
+2026-04-01 21:44:21,235 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:44:21,613 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 21:44:24,353 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 21:44:25,173 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 400 Bad Request"
+2026-04-01 21:44:25,178 - utils.tts - ERROR - Orpheus TTS error: Error code: 400 - {'error': {'message': 'input is required', 'type': 'invalid_request_error'}}
+2026-04-01 21:44:25,180 - __main__ - INFO - [AUTO] Page greeting sent for textbook_1_LEVEL_I_PRAGMATIC_COMPETENCE_1_interact_socially_and_professionally_1.1
+2026-04-01 21:44:25,181 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:44:25,549 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 21:44:57,918 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 21:44:58,266 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 400 Bad Request"
+2026-04-01 21:44:58,267 - utils.tts - ERROR - Orpheus TTS error: Error code: 400 - {'error': {'message': 'input is required', 'type': 'invalid_request_error'}}
+2026-04-01 21:44:58,268 - __main__ - INFO - [AUTO] Page greeting sent for nemt_cet_TEM-8_0
+2026-04-01 21:44:58,275 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:44:59,154 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 21:44:59,498 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 413 Payload Too Large"
+2026-04-01 21:45:30,000 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 21:45:31,014 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/audio/speech "HTTP/1.1 429 Too Many Requests"
+2026-04-01 21:45:31,015 - utils.tts - ERROR - Orpheus TTS error: Error code: 429 - {'error': {'message': 'Rate limit reached for model `canopylabs/orpheus-v1-english` in organization `org_01khths5fcfstsn4zpp5gt931z` service tier `on_demand` on tokens per day (TPD): Limit 3600, Used 3443, Requested 265. Please try again in 43m12s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}
+2026-04-01 21:45:31,016 - __main__ - INFO - [AUTO] Page greeting sent for nemt_cet_TEM-8_10
+2026-04-01 21:45:31,023 - __main__ - ERROR - [AUTO] Quiz pre-gen error: st.session_state has no attribute "language". Did you forget to initialize it? More info: https://docs.streamlit.io/develop/concepts/architecture/session-state#initialization
+2026-04-01 21:45:32,759 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 21:45:35,347 - httpx - INFO - HTTP Request: POST https://api.groq.com/openai/v1/chat/completions "HTTP/1.1 200 OK"
+2026-04-01 21:55:29,951 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 21:55:29,952 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 21:56:02,266 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 21:56:02,267 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 21:56:14,079 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 21:56:14,081 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 21:56:18,177 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 21:56:18,177 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json
+2026-04-01 21:56:33,558 - utils.data_loader - INFO - Updated notes for CHAPTER_1/1.1
+2026-04-01 21:56:33,559 - utils.data_loader - INFO - Saved notes to data/nlp/nlp1.json

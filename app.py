@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 # 导入模块
 from config import AVAILABLE_MODELS, DEFAULT_MODEL
 from state.session import init_session_state
-from utils.data_loader import load_level_data, load_nemt_cet_data, load_teaching_principles
+from utils.data_loader import load_level_data, load_nemt_cet_data, load_teaching_principles, get_word_state_key, save_learning_states
 from utils.tts import load_kokoro, has_chinese, text_to_speech, transcribe_audio
 from utils.quiz import generate_quiz, auto_generate_reference
 from utils.search import global_search, local_search
@@ -50,6 +50,7 @@ from ui.main_content import render_main_content
 from ocr_image_module import ocr_images_batch, BAIMIAO_CONFIG as IMAGE_OCR_CONFIG, format_results_as_text
 from ocr_pdf_module import ocr_pdf, BAIMIAO_CONFIG as PDF_OCR_CONFIG
 from utils.helpers import get_base64_of_image, translate_word
+
 # 初始化 Session State
 init_session_state()
 
@@ -157,7 +158,9 @@ def get_current_page_full_content():
             else:
                 words_list = content_node["words"]
             parts.append("Words:\n" + "\n".join(f"  - {w}" for w in words_list[:20]))
-        return "\n".join(parts)
+        result = "\n".join(parts)
+        # 已去掉长度限制，返回完整内容
+        return result
     else:
         if not st.session_state.level or not st.session_state.path:
             return None
@@ -178,12 +181,20 @@ def get_current_page_full_content():
             parts.append("Example sentences:\n" + "\n".join(f"  - {e}" for e in node["examples"]))
         if "vocabulary" in node and node["vocabulary"]:
             parts.append("Vocabulary:\n" + "\n".join(f"  - {v}" for v in node["vocabulary"]))
-        return "\n".join(parts)
+        result = "\n".join(parts)
+        # 已去掉长度限制，返回完整内容
+        return result
 
 def get_page_recommendations():
     page_key = get_current_page_key()
+    
+    # 如果页面没变且已有推荐，直接返回缓存的推荐
+    if st.session_state.current_page_key == page_key and page_key in st.session_state.page_recommendations:
+        return st.session_state.page_recommendations[page_key]
+    
     if st.session_state.current_page_key != page_key:
         st.session_state.current_page_key = page_key
+    
     if page_key not in st.session_state.page_recommendations:
         full_page_content = get_current_page_full_content()
         if full_page_content:
@@ -216,6 +227,175 @@ def get_page_recommendations():
                 st.session_state.page_recommendations[page_key] = ref_msg
     return st.session_state.page_recommendations.get(page_key)
 
+
+# ========== 自动化系统函数 ==========
+
+def auto_update_word_states_from_quiz(evaluation_text):
+    """
+    Quiz评分后自动更新词汇学习状态：
+    - 答对 >= 80% → 未学习的词自动标为"已掌握"(🟢)
+    - 答对 < 50%  → 相关词自动标为"需复习"(🔴)
+    - 50-79%      → 不自动更改
+    """
+    correct = 0
+    total = 0
+    for line in evaluation_text.split('\n'):
+        m = re.match(r'^\d+:\s*(✅|❌)', line.strip())
+        if m:
+            total += 1
+            if m.group(1) == '✅':
+                correct += 1
+    
+    if total == 0:
+        return
+    
+    score_ratio = correct / total
+    score_msg = ""
+    
+    if score_ratio >= 0.8:
+        new_state = 1  # 已掌握
+        score_msg = f"Auto-marked words as Learned ({correct}/{total} correct)"
+    elif score_ratio < 0.5:
+        new_state = 2  # 需复习
+        score_msg = f"Auto-marked words for Review ({correct}/{total} correct)"
+    else:
+        return  # 50~79%: 不自动更改
+    
+    updated = False
+    
+    if st.session_state.current_mode == "textbook" and st.session_state.level and st.session_state.path:
+        data = levels_data.get(f"Level {st.session_state.level}", {})
+        node = data
+        for key in st.session_state.path:
+            node = node.get(key, {})
+        if "vocabulary" in node and node["vocabulary"]:
+            path_str = "_".join(st.session_state.path)
+            for idx in range(len(node["vocabulary"])):
+                word_key = get_word_state_key("textbook", st.session_state.level, [path_str], idx)
+                current = st.session_state.learning_states.get(word_key, 0)
+                if new_state == 1 and current == 0:
+                    st.session_state.learning_states[word_key] = 1
+                    updated = True
+                elif new_state == 2:
+                    if current != 1:  # 已掌握的不降级
+                        st.session_state.learning_states[word_key] = 2
+                        updated = True
+    
+    elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_nemt_cet and st.session_state.nemt_cet_path:
+        data = nemt_cet_data.get(st.session_state.selected_nemt_cet, {})
+        if len(data) == 1 and st.session_state.selected_nemt_cet in data:
+            data = data[st.session_state.selected_nemt_cet]
+        node = data
+        for key in st.session_state.nemt_cet_path:
+            node = node.get(key, {})
+        if "words" in node and node["words"]:
+            words_list = node["words"].split(" / ") if isinstance(node["words"], str) else node["words"]
+            path_str = "_".join([str(p) for p in st.session_state.nemt_cet_path])
+            for idx in range(len(words_list)):
+                word_key = get_word_state_key("nemt_cet", st.session_state.selected_nemt_cet, [path_str], idx)
+                current = st.session_state.learning_states.get(word_key, 0)
+                if new_state == 1 and current == 0:
+                    st.session_state.learning_states[word_key] = 1
+                    updated = True
+                elif new_state == 2:
+                    if current != 1:
+                        st.session_state.learning_states[word_key] = 2
+                        updated = True
+    
+    if updated:
+        save_learning_states(st.session_state.learning_states)
+        logger.info(f"[AUTO] {score_msg}")
+
+
+def send_auto_page_greeting():
+    """
+    进入新内容页面时自动发一条苏格拉底式问候。
+    每个页面只触发一次，不重复打扰。
+    """
+    full_page = get_current_page_full_content()
+    if not full_page:
+        return
+    
+    page_key = get_current_page_key()
+    if page_key in st.session_state.page_greeted:
+        return
+    
+    st.session_state.page_greeted.add(page_key)
+    
+    greeting_prompt = f"""The user just opened a new content page. Give a BRIEF intro (2-3 sentences max):
+1. State what this section covers (use the content's target language for language content)
+2. End with ONE concise thought-provoking question to activate prior knowledge
+
+Content summary:
+{full_page[:600]}
+
+RULES: No emojis. Under 60 words total. Be direct."""
+    
+    try:
+        response = client.chat.completions.create(
+            model=st.session_state.model_name,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": greeting_prompt}
+            ],
+            temperature=0.7,
+            max_tokens=120,
+        )
+        greeting = response.choices[0].message.content.strip()
+        st.session_state.messages.append({"role": "assistant", "content": greeting})
+        st.session_state.conv_history.append({"role": "assistant", "content": greeting})
+        try:
+            audio_bytes, fmt = text_to_speech(client, greeting)
+            if audio_bytes:
+                st.session_state.pending_tts = (audio_bytes, fmt)
+        except Exception as e:
+            logger.error(f"TTS greeting error: {e}")
+        logger.info(f"[AUTO] Page greeting sent for {page_key}")
+    except Exception as e:
+        logger.error(f"[AUTO] Greeting error: {e}")
+
+
+def pregenerate_quiz_for_page(page_key):
+    """
+    后台预生成当前页面的 Quiz，缓存到 session_state。
+    侧边栏点击 Quiz 时直接从缓存取，无需等待 API。
+    """
+    if page_key in st.session_state.auto_quiz_cache:
+        return  # 已缓存
+    
+    full_page = get_current_page_full_content()
+    if not full_page:
+        return
+    
+    topic = "general"
+    sec_match = re.search(r"Section: (.+)", full_page)
+    if sec_match:
+        topic = sec_match.group(1)
+    
+    def _do_generate():
+        try:
+            quiz_text = generate_quiz(client, topic, full_page)
+            if quiz_text:
+                questions = []
+                for line in quiz_text.split('\n'):
+                    line = line.strip()
+                    if re.match(r'^\d+[\.\s]', line):
+                        questions.append(line)
+                st.session_state.auto_quiz_cache[page_key] = {
+                    "quiz_text": quiz_text,
+                    "topic": topic,
+                    "questions": questions
+                }
+                logger.info(f"[AUTO] Quiz pre-generated for {page_key}")
+        except Exception as e:
+            logger.error(f"[AUTO] Quiz pre-gen error: {e}")
+    
+    # 用线程执行，不阻塞主流程
+    executor = ThreadPoolExecutor(max_workers=1)
+    executor.submit(_do_generate)
+    executor.shutdown(wait=False)
+
+# ========== 结束：自动化系统函数 ==========
 
 # ========== 生成并保存对话总结 ==========
 def generate_and_save_summary():
@@ -276,6 +456,7 @@ Summary:"""
 # ========== AI 回复函数 ==========
 def get_ai_reply(user_input):
     logger.info(f"User input: {user_input[:100]}...")
+    logger.info(f"Current messages count: {len(st.session_state.messages)}")
     
     # 如果 Quiz 处于活跃状态，处理 Quiz 答案
     if st.session_state.quiz_active and st.session_state.current_quiz:
@@ -371,6 +552,10 @@ Total: X/5"""
                     max_tokens=st.session_state.model_max_tokens,
                 )
                 evaluation = eval_response.choices[0].message.content.strip()
+                
+                # ===== 自动更新词汇状态 =====
+                auto_update_word_states_from_quiz(evaluation)
+                # ===========================
                 
                 timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 entry = f"""
@@ -477,6 +662,26 @@ Total: X/5"""
             base += 1
         context_msgs.insert(base, summary_msg)
 
+    # ========== 将原始 context_msgs 写入文件（调试用，无任何截断）==========
+    with open("/tmp/context_msgs_original.txt", "w", encoding="utf-8") as f:
+        f.write("="*80 + "\n")
+        f.write("ORIGINAL CONTEXT_MSGS (before any truncation):\n")
+        f.write("="*80 + "\n")
+        for i, msg in enumerate(context_msgs):
+            f.write(f"\n--- Message {i+1} ---\n")
+            f.write(f"Role: {msg['role']}\n")
+            content = msg.get('content', '')
+            if isinstance(content, str):
+                f.write(f"Content length: {len(content)} chars\n")
+                f.write("Content:\n")
+                f.write(content + "\n")
+            else:
+                f.write(f"Content: {content}\n")
+        f.write("="*80 + "\n")
+    # ========== 结束写入 ==========
+
+    # 注意：已移除所有内容截断和历史长度限制，完全保留原始 context_msgs
+
     try:
         response = client.chat.completions.create(
             model=st.session_state.model_name,
@@ -560,6 +765,25 @@ def get_ai_reply_with_image(user_input, image_bytes):
             st.session_state.pending_tts = (audio_bytes, fmt)
     except Exception as e:
         logger.error(f"TTS error in get_ai_reply_with_image: {e}")
+
+# ========== 自动化：检测页面切换 ==========
+# 当用户导航到新内容页面时，自动发问候 + 预生成 Quiz
+_has_content_page = (
+    (st.session_state.current_mode == "textbook" and st.session_state.level and len(st.session_state.path) > 1)
+    or (st.session_state.current_mode == "nemt_cet" and st.session_state.selected_nemt_cet and st.session_state.nemt_cet_path)
+)
+if _has_content_page:
+    try:
+        _current_nav_key = get_current_page_key()
+        if _current_nav_key != st.session_state.last_nav_page_key:
+            st.session_state.last_nav_page_key = _current_nav_key
+            # 自动问候（苏格拉底式）
+            send_auto_page_greeting()
+            # 预生成 Quiz 缓存（后台线程，不阻塞）
+            pregenerate_quiz_for_page(_current_nav_key)
+    except Exception as _e:
+        logger.error(f"[AUTO] Page-change hook error: {_e}")
+# ==========================================
 
 # 渲染侧边栏
 render_sidebar(levels_data, nemt_cet_data, client, system_prompt, get_current_page_full_content, get_ai_reply)

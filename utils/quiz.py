@@ -119,6 +119,25 @@ Generate the quiz:"""
         return None
 
 def auto_generate_reference(client, level, full_page_content, path_string, mode="textbook"):
+    # ========== 打印传入的内容 ==========
+    print("\n" + "="*80)
+    print("AUTO_GENERATE_REFERENCE CALLED")
+    print("="*80)
+    print(f"mode: {mode}")
+    print(f"level: {level}")
+    print(f"path_string: {path_string}")
+    print("-"*80)
+    print("FULL_PAGE_CONTENT:")
+    print("-"*80)
+    if full_page_content:
+        print(full_page_content)
+        print("-"*80)
+        print(f"Total characters: {len(full_page_content)}")
+    else:
+        print("None")
+    print("="*80 + "\n")
+    # ========== 打印结束 ==========
+    
     topic = ""
     
     if mode == "nemt_cet":
@@ -210,6 +229,15 @@ Example format:
 
 Now generate for: {topic}
 """
+    # ========== 将构造的完整 prompt 写入文件 ==========
+    with open("/tmp/auto_ref_prompt.txt", "w", encoding="utf-8") as f:
+        f.write("="*80 + "\n")
+        f.write("FULL PROMPT SENT TO AI IN auto_generate_reference:\n")
+        f.write("="*80 + "\n")
+        f.write(prompt)
+        f.write("\n" + "="*80 + "\n")
+    # ========== 结束写入 ==========
+    
     max_retries = 2
     retry_delay = 3
     for attempt in range(max_retries):

@@ -76,3 +76,33 @@ def init_session_state():
         st.session_state.page_recommendations = {}
     if "current_page_key" not in st.session_state:
         st.session_state.current_page_key = None
+    
+    # 学习状态相关
+    if "learning_states" not in st.session_state:
+        st.session_state.learning_states = {}
+    if "vocab_filter" not in st.session_state:
+        st.session_state.vocab_filter = "all"
+    if "word_flip_states" not in st.session_state:
+        st.session_state.word_flip_states = {}
+
+    # ========== 自动化系统新增状态 ==========
+    # 记录已发过问候的页面，避免重复
+    if "page_greeted" not in st.session_state:
+        st.session_state.page_greeted = set()
+    
+    # Quiz 预缓存：page_key → {"quiz_text": ..., "topic": ..., "questions": [...]}
+    if "auto_quiz_cache" not in st.session_state:
+        st.session_state.auto_quiz_cache = {}
+    
+    # 上一次的页面键（检测导航切换）
+    if "last_nav_page_key" not in st.session_state:
+        st.session_state.last_nav_page_key = None
+    
+    # NEMT 词汇翻译缓存：word → translation
+    if "nemt_translation_cache" not in st.session_state:
+        st.session_state.nemt_translation_cache = {}
+    
+    # 已完成自动批量翻译的页面键
+    if "nemt_page_translated" not in st.session_state:
+        st.session_state.nemt_page_translated = set()
+    # ========== 结束 ==========

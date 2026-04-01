@@ -13,7 +13,7 @@ from utils.ocr import process_ocr_images, process_ocr_pdf
 from utils.quiz import generate_quiz
 from config import AVAILABLE_MODELS
 from ocr_image_module import format_results_as_text, ocr_images_batch, BAIMIAO_CONFIG as IMAGE_OCR_CONFIG
-from utils.data_loader import load_nlp_textbook_data
+from utils.data_loader import load_nlp_textbook_data, load_learning_states, get_word_state_key
 
 logger = logging.getLogger(__name__)
 
@@ -86,21 +86,47 @@ def render_sidebar(levels_data, nemt_cet_data, client, system_prompt, get_curren
         # 第三行：Generate Quiz + Run OCR
         col_c, col_d = st.columns(2)
         with col_c:
-            if st.button("Generate Quiz", key="quiz_btn_small", use_container_width=True):
+            # ===== 智能 Quiz 按钮：优先从缓存取（瞬发），否则现场生成 =====
+            _page_key_for_quiz = None
+            try:
+                if (st.session_state.current_mode == "textbook" and st.session_state.level):
+                    _page_key_for_quiz = f"textbook_{st.session_state.level}_{'_'.join(st.session_state.path)}"
+                elif (st.session_state.current_mode == "nemt_cet" and st.session_state.selected_nemt_cet):
+                    _page_key_for_quiz = f"nemt_cet_{st.session_state.selected_nemt_cet}_{'_'.join(st.session_state.nemt_cet_path)}"
+            except Exception:
+                pass
+            
+            _quiz_cached = _page_key_for_quiz and _page_key_for_quiz in st.session_state.auto_quiz_cache
+            _quiz_btn_label = "Quiz (Ready)" if _quiz_cached else "Generate Quiz"
+            
+            if st.button(_quiz_btn_label, key="quiz_btn_small", use_container_width=True):
                 full_page = get_current_page_full_content()
                 topic = "general"
                 if full_page:
                     sec_match = re.search(r"Section: (.+)", full_page)
                     if sec_match:
                         topic = sec_match.group(1)
-                quiz_text = generate_quiz(client, topic, full_page)
+                
+                # 优先从缓存取
+                cached = st.session_state.auto_quiz_cache.get(_page_key_for_quiz) if _page_key_for_quiz else None
+                if cached:
+                    quiz_text = cached["quiz_text"]
+                    topic = cached.get("topic", topic)
+                    questions = cached.get("questions", [])
+                    # 用后删除，下次重新生成
+                    del st.session_state.auto_quiz_cache[_page_key_for_quiz]
+                    logger.info(f"[QUIZ] Served from cache for {_page_key_for_quiz}")
+                else:
+                    quiz_text = generate_quiz(client, topic, full_page)
+                    questions = []
+                    if quiz_text:
+                        for line in quiz_text.split('\n'):
+                            line = line.strip()
+                            if re.match(r'^\d+[\.\s]', line):
+                                questions.append(line)
+                
                 if quiz_text:
                     st.session_state.quiz_active = True
-                    questions = []
-                    for line in quiz_text.split('\n'):
-                        line = line.strip()
-                        if re.match(r'^\d+[\.\s]', line):
-                            questions.append(line)
                     st.session_state.current_quiz = {
                         "questions": questions,
                         "quiz_text": quiz_text,
@@ -118,6 +144,7 @@ def render_sidebar(levels_data, nemt_cet_data, client, system_prompt, get_curren
                     except Exception as e:
                         logger.error(f"TTS error: {e}")
                     st.rerun()
+            # ===== 结束 Quiz 按钮 =====
         with col_d:
             if st.button("Run OCR", key="ocr_run_small", use_container_width=True):
                 img_files = st.session_state.get("ocr_imgs", [])
@@ -164,6 +191,106 @@ def render_sidebar(levels_data, nemt_cet_data, client, system_prompt, get_curren
                 if st.button("Send to AI", key="ocr_send_small"):
                     get_ai_reply(f"Please analyze these OCR results:\n\n{st.session_state.ocr_result_text}")
                     st.session_state.ocr_result_text = None
+                    st.rerun()
+        
+        # ========== 全局复习提醒 ==========
+        if st.session_state.learning_states:
+            _total_review = sum(1 for k, v in st.session_state.learning_states.items()
+                                if not k.startswith("note_") and v == 2)
+            _total_learned = sum(1 for k, v in st.session_state.learning_states.items()
+                                 if not k.startswith("note_") and v == 1)
+            if _total_review > 0:
+                st.markdown(f"**{_total_review} words need review** | {_total_learned} learned")
+        # ==========================================
+
+        # ========== 学习进度统计 ==========
+        if st.session_state.learning_states:
+            # 统计当前显示区域的单词状态
+            total = 0
+            learned = 0
+            review = 0
+            unlearned = 0
+            
+            # 根据当前模式统计
+            if st.session_state.current_mode == "textbook" and st.session_state.level and st.session_state.path:
+                # 获取当前显示的词汇
+                data = levels_data[f"Level {st.session_state.level}"]
+                current_node = data
+                for key in st.session_state.path:
+                    current_node = current_node.get(key, {})
+                    if not current_node:
+                        break
+                if "vocabulary" in current_node and current_node["vocabulary"]:
+                    path_str = "_".join(st.session_state.path)
+                    for idx, item in enumerate(current_node["vocabulary"]):
+                        total += 1
+                        word_key = get_word_state_key("textbook", st.session_state.level, [path_str], idx)
+                        state = st.session_state.learning_states.get(word_key, 0)
+                        if state == 0:
+                            unlearned += 1
+                        elif state == 1:
+                            learned += 1
+                        elif state == 2:
+                            review += 1
+            
+            elif st.session_state.current_mode == "nemt_cet" and st.session_state.selected_nemt_cet and st.session_state.nemt_cet_path:
+                data = nemt_cet_data.get(st.session_state.selected_nemt_cet, {})
+                current_node = data
+                for key in st.session_state.nemt_cet_path:
+                    current_node = current_node.get(key, {})
+                    if not current_node:
+                        break
+                if "words" in current_node and current_node["words"]:
+                    if isinstance(current_node["words"], str):
+                        words_list = current_node["words"].split(" / ")
+                    else:
+                        words_list = current_node["words"]
+                    path_str = "_".join([str(p) for p in st.session_state.nemt_cet_path])
+                    for idx, word_item in enumerate(words_list):
+                        if word_item and word_item.strip():
+                            total += 1
+                            word_key = get_word_state_key("nemt_cet", st.session_state.selected_nemt_cet, [path_str], idx)
+                            state = st.session_state.learning_states.get(word_key, 0)
+                            if state == 0:
+                                unlearned += 1
+                            elif state == 1:
+                                learned += 1
+                            elif state == 2:
+                                review += 1
+            
+            elif st.session_state.current_mode == "nlp_textbook" and st.session_state.nlp_selected_section:
+                # NLP 教材的词汇统计（如果后续添加词汇功能）
+                pass
+            
+            if total > 0:
+                st.markdown("---")
+                st.markdown("### Learning Progress")
+                st.markdown(f"**Not Started:** {unlearned}")
+                st.markdown(f"**Learned:** {learned}")
+                st.markdown(f"**Need Review:** {review}")
+                st.markdown(f"**Total:** {total}")
+                st.progress((learned + review) / total if total > 0 else 0)
+                
+                # 筛选控件
+                filter_opts = {
+                    "all": "All Words",
+                    "unlearned": "Not Started",
+                    "learned": "Learned",
+                    "review": "Need Review"
+                }
+                current_filter = st.session_state.vocab_filter
+                filter_labels = [filter_opts["all"], filter_opts["unlearned"], filter_opts["learned"], filter_opts["review"]]
+                filter_values = ["all", "unlearned", "learned", "review"]
+                
+                new_filter = st.selectbox(
+                    "Show",
+                    options=filter_values,
+                    format_func=lambda x: filter_opts[x],
+                    index=filter_values.index(current_filter),
+                    key="vocab_filter_select"
+                )
+                if new_filter != current_filter:
+                    st.session_state.vocab_filter = new_filter
                     st.rerun()
         
         # ========== 设置工具区域 ==========
