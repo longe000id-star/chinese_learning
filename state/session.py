@@ -132,3 +132,8 @@ def init_session_state():
     if "notes_browser_edit_content" not in st.session_state:
         st.session_state.notes_browser_edit_content = ""     # 当前编辑的笔记内容
     # ========== 结束 ==========
+
+    # ========== 图片生成历史状态 ==========
+    if "generated_images" not in st.session_state:
+        st.session_state.generated_images = []   # 存储生成的图片信息，每个元素为 {"topic": str, "data": base64, "timestamp": datetime}
+    # ========== 结束 ==========

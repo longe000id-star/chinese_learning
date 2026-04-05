@@ -10,8 +10,10 @@ from utils.data_loader import (
     load_nlp_textbook_data, save_nlp_chapter_notes,
     load_learning_states, save_learning_states, get_word_state_key,
     get_page_state_key, get_page_state_icon, next_page_state,
-    save_note, load_note  # 新增：文件系统笔记函数
+    save_note, load_note
 )
+# 导入图片生成函数
+from utils.image_gen import generate_image_for_page, generate_image_for_words
 
 # ========== Pexels API 函数 ==========
 PEXELS_API_KEY = "d2CD01GRjacnW1194nyOXkkZsAMEO3xWY6I6YYLvMA3ycjSKmaBuFp4Z"
@@ -459,7 +461,6 @@ Write your notes here using Markdown:
                         success = save_note("nlp", note_identifier, edited_content)
                         if success:
                             st.success("Notes saved successfully!")
-                            # 可选：更新当前显示的内容
                             time.sleep(0.5)
                             st.rerun()
                         else:
@@ -467,6 +468,40 @@ Write your notes here using Markdown:
                     else:
                         st.info("No changes to save.")
                 # ========== 结束笔记区域 ==========
+                
+                # ========== 图片生成区域（新增） ==========
+                st.markdown("---")
+                st.markdown("### Generate Infographic")
+                col_gen, _ = st.columns([1, 3])
+                with col_gen:
+                    if st.button("Generate Visual Explanation for this Section", key="gen_infographic_btn"):
+                        with st.spinner("Generating infographic..."):
+                            topic = f"{chapter_name}: {section_name}"
+                            # 使用当前小节的 content 作为内容
+                            img_base64 = generate_image_for_page(content, topic, language="English")
+                            if img_base64:
+                                # 显示图片
+                                st.image(f"data:image/png;base64,{img_base64}", caption=f"Generated: {topic}")
+                                # 提供下载按钮
+                                import base64 as b64
+                                st.download_button(
+                                    label="Download Image",
+                                    data=b64.b64decode(img_base64),
+                                    file_name=f"{topic.replace(' ', '_')}.png",
+                                    mime="image/png",
+                                    key="download_infographic"
+                                )
+                                # 可选：保存到 session_state 历史
+                                if "generated_images" not in st.session_state:
+                                    st.session_state.generated_images = []
+                                st.session_state.generated_images.append({
+                                    "topic": topic,
+                                    "data": img_base64,
+                                    "timestamp": datetime.datetime.now()
+                                })
+                            else:
+                                st.error("Image generation failed. Please check your API key and network.")
+                # ========== 结束图片生成区域 ==========
                 
                 # 推荐学习资源
                 st.markdown("---")
@@ -604,6 +639,38 @@ Write your notes here using Markdown:
                             
                             render_vocab_card(word, pinyin, word_key, 
                                              other_word=other_word, other_pron=other_pron)
+
+                    # ========== 添加生成所有单词视觉图的按钮 ==========
+                    st.markdown("---")
+                    col_gen_words, _ = st.columns([1, 3])
+                    with col_gen_words:
+                        if st.button("Generate Visual for All Words", key="gen_vocab_image_btn"):
+                            with st.spinner("Generating visual for all words..."):
+                                words_list = [item.split()[0] for item in node["vocabulary"] if item.strip()]
+                                if words_list:
+                                    img_base64 = generate_image_for_words(words_list, language="English")
+                                    if img_base64:
+                                        st.image(f"data:image/png;base64,{img_base64}", caption="Visual Vocabulary")
+                                        import base64 as b64
+                                        st.download_button(
+                                            label="Download Image",
+                                            data=b64.b64decode(img_base64),
+                                            file_name="vocabulary_visual.png",
+                                            mime="image/png",
+                                            key="download_vocab_image"
+                                        )
+                                        if "generated_images" not in st.session_state:
+                                            st.session_state.generated_images = []
+                                        st.session_state.generated_images.append({
+                                            "topic": "Vocabulary Visual",
+                                            "data": img_base64,
+                                            "timestamp": datetime.datetime.now()
+                                        })
+                                    else:
+                                        st.error("Image generation failed.")
+                                else:
+                                    st.warning("No words to visualize.")
+                    # ========== 结束 ==========
 
                 if not any(key in node for key in ["notes", "examples", "vocabulary"]):
                     sub_keys = [k for k in node.keys() if k not in ("name", "notes", "examples", "vocabulary")]
@@ -803,6 +870,39 @@ Words: {", ".join(_untranslated[:40])}"""
                         translation = st.session_state.nemt_translation_cache.get(word)
                         render_vocab_card(word, "", word_key,
                                          other_word=translation if translation else None)
+
+                # ========== 添加生成所有单词视觉图的按钮 ==========
+                st.markdown("---")
+                col_gen_words, _ = st.columns([1, 3])
+                with col_gen_words:
+                    if st.button("Generate Visual for All Words", key="gen_nemt_words_image_btn"):
+                        with st.spinner("Generating visual for all words..."):
+                            # 提取原始单词（去掉可能的词性标注，只取第一个单词）
+                            clean_words = [w.strip().split(" ", 1)[0] for w in words_list if w.strip()]
+                            if clean_words:
+                                img_base64 = generate_image_for_words(clean_words, language="English")
+                                if img_base64:
+                                    st.image(f"data:image/png;base64,{img_base64}", caption="Visual Vocabulary")
+                                    import base64 as b64
+                                    st.download_button(
+                                        label="Download Image",
+                                        data=b64.b64decode(img_base64),
+                                        file_name="vocabulary_visual.png",
+                                        mime="image/png",
+                                        key="download_nemt_vocab_image"
+                                    )
+                                    if "generated_images" not in st.session_state:
+                                        st.session_state.generated_images = []
+                                    st.session_state.generated_images.append({
+                                        "topic": "Vocabulary Visual",
+                                        "data": img_base64,
+                                        "timestamp": datetime.datetime.now()
+                                    })
+                                else:
+                                    st.error("Image generation failed.")
+                            else:
+                                st.warning("No words to visualize.")
+                # ========== 结束 ==========
             
             if "examples" in content_node and content_node["examples"]:
                 st.markdown("<h3 style='font-size: 36px; font-weight: 600; margin-top: 30px; margin-bottom: 15px;'>Example Sentences</h3>", unsafe_allow_html=True)
@@ -837,3 +937,66 @@ Words: {", ".join(_untranslated[:40])}"""
                 st.markdown("---")
                 with st.container():
                     st.markdown(recommendations, unsafe_allow_html=True)
+
+
+# ========== 新增：图片画廊函数 ==========
+def render_image_gallery():
+    """显示 images 文件夹下的所有图片，每行3张，带书签标记和笔记输入框"""
+    from pathlib import Path
+    st.title("Image Gallery")
+    
+    # 确保学习状态已加载
+    if not st.session_state.learning_states:
+        st.session_state.learning_states = load_learning_states()
+    
+    images_dir = Path("images")
+    if not images_dir.exists():
+        st.error("Images directory not found. Please create an 'images' folder in the app root.")
+        return
+    
+    # 支持的图片格式
+    image_extensions = {'.jpg', '.jpeg', '.png', '.gif', '.bmp', '.webp', '.tiff'}
+    image_files = [f for f in images_dir.iterdir() if f.is_file() and f.suffix.lower() in image_extensions]
+    image_files.sort()
+    
+    if not image_files:
+        st.info("No images found in the 'images' folder.")
+        return
+    
+    # 每行显示3张图片
+    cols = st.columns(3)
+    for idx, img_path in enumerate(image_files):
+        filename = img_path.name
+        # 生成唯一键
+        state_key = f"image_gallery_{filename}"
+        note_key = f"note_image_gallery_{filename}"
+        
+        # 获取当前状态和笔记
+        current_state = st.session_state.learning_states.get(state_key, 0)
+        current_note = st.session_state.learning_states.get(note_key, "")
+        
+        with cols[idx % 3]:
+            # 显示图片
+            st.image(str(img_path), caption=filename, use_container_width=True)
+            
+            # 书签按钮（三态切换）
+            icon = get_state_icon(current_state)
+            if st.button(icon, key=f"state_{state_key}", help=STATE_LABELS[current_state]):
+                new_state = next_state(current_state)
+                st.session_state.learning_states[state_key] = new_state
+                save_learning_states(st.session_state.learning_states)
+                st.rerun()
+            
+            # 笔记输入框
+            note_input = st.text_area(
+                "Note",
+                value=current_note,
+                height=68,
+                key=f"note_{state_key}",
+                placeholder="Write your notes here...",
+                label_visibility="collapsed"
+            )
+            if note_input != current_note:
+                st.session_state.learning_states[note_key] = note_input
+                save_learning_states(st.session_state.learning_states)
+# ========== 结束 ==========

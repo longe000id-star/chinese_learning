@@ -294,8 +294,8 @@ def render_sidebar(levels_data, nemt_cet_data, client, system_prompt, get_curren
                     st.rerun()
         
         # ========== 设置工具区域 ==========
-        # Mode - 添加 Notes Browser 选项
-        mode_opts = ["Chinese", "English", "NEMT & CET", "NLP Textbook", "Info. Search", "Hugging Face Course", "Notes Browser"]
+        # Mode - 添加 Notes Browser 和 Image Gallery 选项
+        mode_opts = ["Chinese", "English", "NEMT & CET", "NLP Textbook", "Info. Search", "Hugging Face Course", "Notes Browser", "Image Gallery"]
         cur_idx = 0
         if st.session_state.language == "English":
             cur_idx = 1
@@ -309,6 +309,8 @@ def render_sidebar(levels_data, nemt_cet_data, client, system_prompt, get_curren
             cur_idx = 5
         elif st.session_state.language == "Notes Browser":
             cur_idx = 6
+        elif st.session_state.language == "Image Gallery":
+            cur_idx = 7
         
         new_lang = st.selectbox("Mode", mode_opts, index=cur_idx, key="mode_select")
         if new_lang != st.session_state.language:
@@ -374,6 +376,18 @@ def render_sidebar(levels_data, nemt_cet_data, client, system_prompt, get_curren
                 # 初始化笔记浏览器当前路径为空
                 if "notes_browser_current_path" not in st.session_state:
                     st.session_state.notes_browser_current_path = None
+            elif new_lang == "Image Gallery":
+                st.session_state.current_mode = "image_gallery"
+                # 重置其他模式的状态变量
+                st.session_state.level = None
+                st.session_state.path = []
+                st.session_state.selected_nemt_cet = None
+                st.session_state.nemt_cet_path = []
+                st.session_state.nlp_selected_chapter = None
+                st.session_state.nlp_selected_section = None
+                st.session_state.hf_course_current_chapter = None
+                st.session_state.hf_course_current_section = None
+                st.session_state.notes_browser_current_path = None
             else:
                 st.session_state.current_mode = "textbook"
                 from utils.data_loader import load_level_data

@@ -18,7 +18,11 @@ import groq
 import google.generativeai as genai
 
 from info_search import show_info_search
-from ui.notes_browser import show_notes_browser   # 新增导入
+from ui.notes_browser import show_notes_browser
+# 导入图片生成函数
+from utils.image_gen import generate_image_for_page
+# 导入图片画廊渲染函数
+from ui.main_content import render_image_gallery
 
 st.set_page_config(
     layout="wide",
@@ -840,9 +844,45 @@ Write your notes here using Markdown:
                     else:
                         st.info("No changes to save.")
                 # ========== 结束笔记区域 ==========
+                
+                # ========== 图片生成区域（新增） ==========
+                st.markdown("---")
+                st.markdown("### Generate Infographic")
+                col_gen, _ = st.columns([1, 3])
+                with col_gen:
+                    if st.button("Generate Visual Explanation for this Section", key="hf_gen_infographic_btn"):
+                        with st.spinner("Generating infographic..."):
+                            topic = f"{chapter}: {section}"
+                            # 使用当前小节的 content 作为内容
+                            img_base64 = generate_image_for_page(content, topic, language="English")
+                            if img_base64:
+                                # 显示图片
+                                st.image(f"data:image/png;base64,{img_base64}", caption=f"Generated: {topic}")
+                                # 提供下载按钮
+                                import base64 as b64
+                                st.download_button(
+                                    label="Download Image",
+                                    data=b64.b64decode(img_base64),
+                                    file_name=f"{topic.replace(' ', '_')}.png",
+                                    mime="image/png",
+                                    key="hf_download_infographic"
+                                )
+                                # 可选：保存到 session_state 历史
+                                if "generated_images" not in st.session_state:
+                                    st.session_state.generated_images = []
+                                st.session_state.generated_images.append({
+                                    "topic": topic,
+                                    "data": img_base64,
+                                    "timestamp": datetime.datetime.now()
+                                })
+                            else:
+                                st.error("Image generation failed. Please check your API key and network.")
+                # ========== 结束图片生成区域 ==========
             else:
                 st.info("Select a section from the table of contents.")
 elif st.session_state.current_mode == "notes_browser":
     show_notes_browser()
+elif st.session_state.current_mode == "image_gallery":
+    render_image_gallery()
 else:
     render_main_content(levels_data, nemt_cet_data, client, get_current_page_full_content, get_page_recommendations, get_ai_reply)
