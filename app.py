@@ -17,7 +17,7 @@ from PIL import Image
 import groq
 import google.generativeai as genai
 
-from info_search import show_info_search
+from utils.info_search import show_info_search
 from ui.notes_browser import show_notes_browser
 # 导入图片生成函数
 from utils.image_gen import generate_image_for_page
@@ -54,8 +54,6 @@ from utils.ocr import process_ocr_images, process_ocr_pdf
 from utils.github import save_to_github, upload_file_to_github
 from ui.sidebar import render_sidebar
 from ui.main_content import render_main_content
-from ocr_image_module import ocr_images_batch, BAIMIAO_CONFIG as IMAGE_OCR_CONFIG, format_results_as_text
-from ocr_pdf_module import ocr_pdf, BAIMIAO_CONFIG as PDF_OCR_CONFIG
 from utils.helpers import get_base64_of_image, translate_word
 
 init_session_state()
